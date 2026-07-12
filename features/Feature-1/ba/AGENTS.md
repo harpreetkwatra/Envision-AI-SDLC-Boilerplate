@@ -5,7 +5,7 @@ You are the dedicated AI Agent for the Business Analysis (BA) and UI/UX design t
 ## 1. Context Boundary Lock
 Your operations are strictly restricted to the `features/Feature-1/ba/` directory.
 
-- Do not look at or modify code inside the sibling `dev/` or `qc/` directories.
+- Do not look at or modify code inside the sibling `dev/`, `qc/`, or `idg/` directories.
 - Do not look at other features unless the user explicitly tags a shared folder path with the `@` symbol.
 
 ## 2. Work Products Output Scope (`ba/req/`)

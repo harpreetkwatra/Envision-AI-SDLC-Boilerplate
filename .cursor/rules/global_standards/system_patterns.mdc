@@ -30,10 +30,14 @@ My-enterprise-app/
 │   │   │   ├── AGENTS.md
 │   │   │   ├── src_context.md      # Living log of code prompt steps
 │   │   │   └── src/                # Production source code
-│   │   └── qc/                     # Quality Control workspace
+│   │   ├── qc/                     # Quality Control workspace
+│   │   │   ├── AGENTS.md
+│   │   │   ├── test_context.md     # Living log of test prompt steps
+│   │   │   └── test/               # Test cases, data, automation scripts
+│   │   └── idg/                    # Information Development Group workspace
 │   │       ├── AGENTS.md
-│   │       ├── test_context.md     # Living log of test prompt steps
-│   │       └── test/               # Test cases, data, automation scripts
+│   │       ├── docs_context.md     # Living log of documentation prompt steps
+│   │       └── docs/               # Release notes, online help, manuals
 │   ├── Feature-2/
 │   └── Feature-N/
 ```
@@ -41,9 +45,9 @@ My-enterprise-app/
 ## Multi-Disciplinary Protocol
 
 1. **Context boundary lock**: Each discipline writes exclusively to its own directory
-2. **Upstream read access**: Dev reads `ba/`; QC reads both `ba/` and `dev/`
+2. **Upstream read access**: Dev reads `ba/`; QC reads both `ba/` and `dev/`; IDG reads both `ba/` and `dev/`
 3. **Living Context Loop**: Every agent reads `*_context.md` before work and updates it after every change
-4. **Reproducibility goal**: `req/`, `src/`, and `test/` folders must be 100% recreatable from context ledgers
+4. **Reproducibility goal**: `req/`, `src/`, `test/`, and `docs/` folders must be 100% recreatable from context ledgers
 
 ## Naming Conventions
 
@@ -55,13 +59,17 @@ My-enterprise-app/
 | Page component | `FeatureNPage.tsx` | `Feature1Page.tsx` |
 | Sub-component | `FeatureNWidget.tsx` | `Feature1Widget.tsx` |
 | Logic/API/helpers | `FeatureNUtils.ts` | `Feature1Utils.ts` |
+| Release notes | `FeatureNReleaseNotes.md` | `Feature1ReleaseNotes.md` |
+| Online help | `FeatureNOnlineHelp.md` | `Feature1OnlineHelp.md` |
+| User manual | `FeatureNManual.md` | `Feature1Manual.md` |
 
 ## Parallel Sprint Rules
 
 1. BA commits to `features/Feature-N/ba/*`
 2. Dev pulls BA changes, commits to `features/Feature-N/dev/*`
 3. QC pulls both, commits to `features/Feature-N/qc/*`
-4. Cross-feature dependencies require explicit `@` path tagging
+4. IDG pulls BA and Dev changes, commits to `features/Feature-N/idg/*`
+5. Cross-feature dependencies require explicit `@` path tagging
 
 ## Agent Configuration Files
 

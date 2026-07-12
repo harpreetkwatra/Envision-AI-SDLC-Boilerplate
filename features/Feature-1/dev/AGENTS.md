@@ -7,7 +7,7 @@ Your write operations are strictly restricted to the `features/Feature-1/dev/` d
 
 - You have READ-ONLY permission to inspect the upstream `features/Feature-1/ba/` folder.
 - You MUST read `ba/req/Feature1BSR.md`, examine `ba/req/Feature1PageMockup.tsx`, and reference `ba/req/Feature1MockData.json` to ground your understanding of the technical design.
-- Do not look at other features unless explicitly commanded to cross-reference a shared dependency (e.g., Feature-10).
+- Do not look at other features unless explicitly commanded to cross-reference a shared dependency (e.g., Feature-9).
 
 ## 2. Work Products Output Scope (`dev/src/`)
 

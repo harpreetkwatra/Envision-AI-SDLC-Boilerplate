@@ -12,7 +12,8 @@ Multi-disciplinary spec-driven development protocol for enterprise applications.
 │   └── Feature-1/
 │       ├── ba/                   # Business Analysis (requirements, mockups, BSR)
 │       ├── dev/                  # Development (production source code)
-│       └── qc/                   # Quality Control (test cases, automation)
+│       ├── qc/                   # Quality Control (test cases, automation)
+│       └── idg/                  # Information Development (release notes, help, manuals)
 ```
 
 ## How It Works
@@ -20,6 +21,7 @@ Multi-disciplinary spec-driven development protocol for enterprise applications.
 1. **BA Team** works in `features/Feature-N/ba/` — produces BSR docs, React mockups, and mock JSON data
 2. **Dev Team** works in `features/Feature-N/dev/` — reads BA outputs, writes production code
 3. **QC Team** works in `features/Feature-N/qc/` — reads BA + Dev, writes test suites
+4. **IDG Team** works in `features/Feature-N/idg/` — reads BA + Dev, writes release notes, online help, and manuals
 
 Each discipline writes exclusively to its own folder. Upstream folders are read-only. Living Context Ledgers (`*_context.md`) ensure every output folder is 100% reproducible.
 

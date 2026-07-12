@@ -12,6 +12,7 @@ alwaysApply: true
 | Language | TypeScript | All source, mockup, and test files |
 | UI Framework | React | BA mockups (`*.tsx` in `ba/req/`) and Dev components (`dev/src/`) |
 | Test Automation | Playwright or Cypress | QC automation scripts in `qc/test/` |
+| Documentation | Markdown | IDG deliverables in `idg/docs/` |
 | Data Format | JSON | Static mock data in `ba/req/`; test payloads in `qc/test/` |
 
 ## Runtime Environments
@@ -35,8 +36,10 @@ npm test
 - **BA outputs**: `features/Feature-N/ba/req/` — static mockups, JSON data, BSR markdown
 - **Dev outputs**: `features/Feature-N/dev/src/` — production React components, utils, API handlers
 - **QC outputs**: `features/Feature-N/qc/test/` — test cases, test data, automation scripts
+- **IDG outputs**: `features/Feature-N/idg/docs/` — release notes, online help, user manuals
 
 ## Constraints
 - BA mock data must never connect to live APIs or database clients
 - Dev code must ground against `ba/req/FeatureNBSR.md`, mockups, and mock data before implementation
 - QC tests must read both `ba/` requirements and `dev/` source code
+- IDG documentation must read both `ba/` requirements and `dev/` source code before authoring

@@ -57,7 +57,7 @@ Save test case matrices as `FeatureNTestCases.md` in `qc/test/`:
 
 | TC-ID | Systems Involved | Test Description | Steps | Expected Result | Priority |
 |-------|------------------|------------------|-------|-----------------|----------|
-| TC-301 | Feature-1 + Feature-10 | [Description] | [Steps] | [Outcome] | P1 |
+| TC-301 | Feature-1 + Feature-9 | [Description] | [Steps] | [Outcome] | P1 |
 ```
 
 ## Test Data Format

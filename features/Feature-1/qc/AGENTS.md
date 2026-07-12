@@ -7,7 +7,7 @@ Your write operations are strictly restricted to the `features/Feature-1/qc/` di
 
 - You have READ-ONLY permission to inspect the entire `features/Feature-1/` module directory.
 - You MUST read the requirements in `ba/` and the code components inside `dev/` to isolate edge cases.
-- If a cross-reference is active (e.g., Feature-10), you have permission to read the `ba/` and `dev/` directories of that shared module to execute integration testing.
+- If a cross-reference is active (e.g., Feature-9), you have permission to read the `ba/` and `dev/` directories of that shared module to execute integration testing.
 
 ## 2. Work Products Output Scope (`qc/test/`)
 
