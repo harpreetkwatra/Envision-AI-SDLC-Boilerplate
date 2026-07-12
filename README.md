@@ -1,4 +1,4 @@
-# AI-SDLC Boilerplate
+# Envision AI-SDLC Boilerplate
 
 Multi-disciplinary spec-driven development protocol for enterprise applications.
 
