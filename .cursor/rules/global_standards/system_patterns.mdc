@@ -1,0 +1,71 @@
+---
+description: System architecture, folder structure, naming conventions, and constraints
+alwaysApply: true
+---
+
+# System Patterns
+
+## Repository Architecture
+
+```
+My-enterprise-app/
+├── .cursor/
+│   ├── rules/
+│   │   └── global_standards/       # Common standards everyone follows
+│   │       ├── product_context.mdc
+│   │       ├── tech_context.mdc
+│   │       ├── system_patterns.mdc
+│   │       └── design_system.mdc
+│   └── skills/                     # Agent skill definitions
+│       ├── write-bsr/SKILL.md
+│       └── write-test-cases/SKILL.md
+│
+├── features/
+│   ├── Feature-1/
+│   │   ├── ba/                     # Business Analysis workspace
+│   │   │   ├── AGENTS.md
+│   │   │   ├── req_context.md      # Living log of requirements prompt steps
+│   │   │   └── req/                # BSR, mockups, mock data
+│   │   ├── dev/                    # Development workspace
+│   │   │   ├── AGENTS.md
+│   │   │   ├── src_context.md      # Living log of code prompt steps
+│   │   │   └── src/                # Production source code
+│   │   └── qc/                     # Quality Control workspace
+│   │       ├── AGENTS.md
+│   │       ├── test_context.md     # Living log of test prompt steps
+│   │       └── test/               # Test cases, data, automation scripts
+│   ├── Feature-2/
+│   └── Feature-N/
+```
+
+## Multi-Disciplinary Protocol
+
+1. **Context boundary lock**: Each discipline writes exclusively to its own directory
+2. **Upstream read access**: Dev reads `ba/`; QC reads both `ba/` and `dev/`
+3. **Living Context Loop**: Every agent reads `*_context.md` before work and updates it after every change
+4. **Reproducibility goal**: `req/`, `src/`, and `test/` folders must be 100% recreatable from context ledgers
+
+## Naming Conventions
+
+| Artifact | Pattern | Example |
+|----------|---------|---------|
+| BSR document | `FeatureNBSR.md` | `Feature1BSR.md` |
+| Page mockup | `FeatureNPageMockup.tsx` | `Feature1PageMockup.tsx` |
+| Mock data | `FeatureNMockData.json` | `Feature1MockData.json` |
+| Page component | `FeatureNPage.tsx` | `Feature1Page.tsx` |
+| Sub-component | `FeatureNWidget.tsx` | `Feature1Widget.tsx` |
+| Logic/API/helpers | `FeatureNUtils.ts` | `Feature1Utils.ts` |
+
+## Parallel Sprint Rules
+
+1. BA commits to `features/Feature-N/ba/*`
+2. Dev pulls BA changes, commits to `features/Feature-N/dev/*`
+3. QC pulls both, commits to `features/Feature-N/qc/*`
+4. Cross-feature dependencies require explicit `@` path tagging
+
+## Agent Configuration Files
+
+Each discipline folder contains an uppercase `AGENTS.md` that defines:
+- Context boundary (read/write scope)
+- Work product output locations
+- Mandatory Living Context Loop requirements

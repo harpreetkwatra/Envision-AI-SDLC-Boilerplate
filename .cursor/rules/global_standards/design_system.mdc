@@ -1,0 +1,71 @@
+---
+description: Color palette, typography, spacing, and component tokens from Figma
+alwaysApply: true
+---
+
+# Design System
+
+Design tokens translated from Figma to ensure uniform styling across BA mockups (`ba/req/`) and Dev components (`dev/src/`).
+
+## Color Palette
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--color-primary` | `#2563EB` | Primary actions, links, active states |
+| `--color-primary-hover` | `#1D4ED8` | Primary button hover |
+| `--color-secondary` | `#64748B` | Secondary text, icons |
+| `--color-background` | `#FFFFFF` | Page background |
+| `--color-surface` | `#F8FAFC` | Cards, panels, elevated surfaces |
+| `--color-border` | `#E2E8F0` | Dividers, input borders |
+| `--color-text-primary` | `#0F172A` | Headings, body text |
+| `--color-text-secondary` | `#64748B` | Captions, helper text |
+| `--color-success` | `#16A34A` | Success states, confirmations |
+| `--color-warning` | `#D97706` | Warnings, caution alerts |
+| `--color-error` | `#DC2626` | Errors, destructive actions |
+
+## Typography
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--font-family` | `'Inter', system-ui, sans-serif` | All text |
+| `--font-size-xs` | `0.75rem` | Captions, badges |
+| `--font-size-sm` | `0.875rem` | Body small, labels |
+| `--font-size-base` | `1rem` | Body text |
+| `--font-size-lg` | `1.125rem` | Subheadings |
+| `--font-size-xl` | `1.25rem` | Section headings |
+| `--font-size-2xl` | `1.5rem` | Page titles |
+| `--font-weight-normal` | `400` | Body text |
+| `--font-weight-medium` | `500` | Labels, buttons |
+| `--font-weight-semibold` | `600` | Headings |
+| `--font-weight-bold` | `700` | Emphasis |
+
+## Spacing
+
+| Token | Value |
+|-------|-------|
+| `--spacing-xs` | `0.25rem` |
+| `--spacing-sm` | `0.5rem` |
+| `--spacing-md` | `1rem` |
+| `--spacing-lg` | `1.5rem` |
+| `--spacing-xl` | `2rem` |
+| `--spacing-2xl` | `3rem` |
+
+## Border Radius
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--radius-sm` | `0.25rem` | Badges, tags |
+| `--radius-md` | `0.375rem` | Buttons, inputs |
+| `--radius-lg` | `0.5rem` | Cards |
+| `--radius-xl` | `0.75rem` | Modals, panels |
+
+## Component Guidelines
+
+- **Buttons**: Use `--color-primary` background with `--radius-md`; minimum height 40px
+- **Inputs**: 1px `--color-border` border, `--radius-md`, `--spacing-sm` internal padding
+- **Cards**: `--color-surface` background, `--color-border` border, `--radius-lg`, `--spacing-lg` padding
+- **Tables**: Alternating row backgrounds using `--color-background` and `--color-surface`
+
+## Usage in Mockups and Components
+
+BA mockups in `ba/req/*.tsx` and Dev components in `dev/src/*.tsx` MUST reference these tokens. Prefer CSS custom properties or a shared token import once the project is scaffolded.
