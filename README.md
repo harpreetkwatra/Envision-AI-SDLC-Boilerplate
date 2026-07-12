@@ -1,8 +1,8 @@
 # Envision AI-SDLC Boilerplate
 
-Multi-disciplinary spec-driven development protocol for enterprise applications.
+Multi-disciplinary, multi-team spec-driven AI software development lifecycle (SDLC) protocol for enterprise applications.
 
-## Structure
+## Repository/Directory Structure
 
 ```
 ├── .cursor/
@@ -15,6 +15,8 @@ Multi-disciplinary spec-driven development protocol for enterprise applications.
 │       ├── qc/                   # Quality Control (test cases, automation)
 │       └── idg/                  # Information Development (release notes, help, manuals)
 ```
+
+
 
 ## How It Works
 
@@ -31,18 +33,27 @@ Each discipline writes exclusively to its own folder. Upstream folders are read-
 2. Open the appropriate `AGENTS.md` in Cursor Agent mode for your discipline
 3. Follow the Living Context Loop: read context ledger → do work → update context ledger
 
+
+
 ## Global Rules
 
-| Rule | Purpose |
-|------|---------|
-| `product_context.mdc` | Business vision and user personas |
-| `tech_context.mdc` | Tech stack and environment setup |
+
+| Rule                  | Purpose                                    |
+| --------------------- | ------------------------------------------ |
+| `product_context.mdc` | Business vision and user personas          |
+| `tech_context.mdc`    | Tech stack and environment setup           |
 | `system_patterns.mdc` | Folder architecture and naming conventions |
-| `design_system.mdc` | Figma-derived design tokens |
+| `design_system.mdc`   | Figma-derived design tokens                |
+
+
+
 
 ## Global Skills
 
-| Skill | Purpose |
-|-------|---------|
-| `write-bsr` | Standardized Business & System Requirements documents |
-| `write-test-cases` | Standardized test case matrices and automation |
+
+| Skill              | Purpose                                               |
+| ------------------ | ----------------------------------------------------- |
+| `write-bsr`        | Standardized Business & System Requirements documents |
+| `write-test-cases` | Standardized test case matrices and automation        |
+
+
