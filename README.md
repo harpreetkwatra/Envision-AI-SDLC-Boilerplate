@@ -1,6 +1,6 @@
 # Envision AI-SDLC Boilerplate
 
-Multi-disciplinary, multi-team spec-driven AI software development lifecycle (SDLC) protocol for enterprise applications.
+Multi-disciplinary, multi-team, spec-driven AI software development lifecycle (SDLC) framework for enterprise applications.
 
 ## Repository/Directory Structure
 
@@ -11,12 +11,18 @@ Multi-disciplinary, multi-team spec-driven AI software development lifecycle (SD
 ├── features/
 │   └── Feature-1/
 │       ├── ba/                   # Business Analysis (requirements, mockups, BSR)
+│       │   ├── AGENTS.md         # BA Cursor Rules & agent reading scope
+│       │   ├── req_context.md    # Living log of requirements prompt steps
+│       │   └── req/              # Outputs: Mock data in JSON, UI mockups in ReactJS, descriptive docs
 │       ├── dev/                  # Development (production source code)
 │       ├── qc/                   # Quality Control (test cases, automation)
 │       └── idg/                  # Information Development (release notes, help, manuals)
+│   └── Feature-2/
+.
+.
+.
+│   └── Feature-9/
 ```
-
-
 
 ## How It Works
 
@@ -33,8 +39,6 @@ Each discipline writes exclusively to its own folder. Upstream folders are read-
 2. Open the appropriate `AGENTS.md` in Cursor Agent mode for your discipline
 3. Follow the Living Context Loop: read context ledger → do work → update context ledger
 
-
-
 ## Global Rules
 
 
@@ -44,8 +48,6 @@ Each discipline writes exclusively to its own folder. Upstream folders are read-
 | `tech_context.mdc`    | Tech stack and environment setup           |
 | `system_patterns.mdc` | Folder architecture and naming conventions |
 | `design_system.mdc`   | Figma-derived design tokens                |
-
-
 
 
 ## Global Skills
