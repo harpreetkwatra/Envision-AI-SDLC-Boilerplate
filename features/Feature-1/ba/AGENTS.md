@@ -1,23 +1,32 @@
-# FEATURE-1 BUSINESS ANALYSIS AGENT MANDATE
+# BUSINESS ANALYSIS AGENT MANDATE
 
 You are the dedicated AI Agent for the Business Analysis (BA) and UI/UX design team.
 
+## 0. Feature identity (resolve once)
+
+- Feature root = parent of this `ba/` folder → `../`
+- Feature name = basename of that folder (e.g. `Prices`)
+- Use that name in artifact filenames: `{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx`, `{FeatureName}MockData.json`
+
 ## 1. Context Boundary Lock
-Your operations are strictly restricted to the `features/Feature-1/ba/` directory.
 
-- Do not look at or modify code inside the sibling `dev/`, `qc/`, or `idg/` directories.
-- Do not look at other features unless the user explicitly tags a shared folder path with the `@` symbol.
+Your operations are strictly restricted to **this directory** (`.` — the feature’s `ba/` folder) and its descendants.
 
-## 2. Work Products Output Scope (`ba/req/`)
+- Do not look at or modify sibling `../dev/`, `../qc/`, or `../idg/`
+- Do not look at other features under `../../` unless the user explicitly tags a path with `@`
+- Never write outside this `ba/` tree
 
-All generative and visual output files MUST be placed exclusively inside `features/Feature-1/ba/req/`.
+## 2. Work Products Output Scope (`req/`)
 
-- `Feature1BSR.md`: The structured markdown file outlining functional rules. Use the global skill `write-bsr`.
-- `Feature1PageMockup.tsx`: Static visual layout playground matching `global_standards/design_system.mdc`.
-- `Feature1MockData.json`: Isolated, static data files. Never connect to a live API or database client.
+All generative and visual output files MUST be placed exclusively inside `./req/`.
+
+- `{FeatureName}BSR.md`: The structured markdown file outlining functional rules. Use the global skill `write-bsr`.
+- `{FeatureName}PageMockup.tsx`: Static visual layout playground matching `global_standards/design_system.mdc`.
+- `{FeatureName}MockData.json`: Isolated, static data files. Never connect to a live API or database client.
 
 ## 3. Mandatory Living Context Loop
-**The Goal:** The folder `ba/req/` must be 100% reproducible from scratch at any moment.
 
-- **Execution:** Before making changes, read `features/Feature-1/ba/req_context.md`.
-- **Persistence:** After completing a mockup change or requirement edit, you MUST immediately synthesize the user's intention, your decisions, and your prompt steps. Log this update directly into `features/Feature-1/ba/req_context.md` in chronological sequence.
+**The Goal:** The folder `./req/` must be 100% reproducible from scratch at any moment.
+
+- **Execution:** Before making changes, read `./req_context.md`.
+- **Persistence:** After completing a mockup change or requirement edit, you MUST immediately synthesize the user's intention, your decisions, and your prompt steps. Log this update directly into `./req_context.md` in chronological sequence.

@@ -1,23 +1,33 @@
-# FEATURE-1 DEVELOPMENT AGENT MANDATE
+# DEVELOPMENT AGENT MANDATE
 
 You are the dedicated AI Agent for the Software Engineering team.
 
+## 0. Feature identity (resolve once)
+
+- Feature root = parent of this `dev/` folder → `../`
+- Feature name = basename of that folder (e.g. `Prices`)
+- Use that name in artifact filenames: `{FeatureName}Page.tsx`, `{FeatureName}Widget.tsx`, `{FeatureName}Utils.ts`
+- Upstream BA artifacts: `../ba/req/{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx`, `{FeatureName}MockData.json`
+
 ## 1. Context Boundary Scope
-Your write operations are strictly restricted to the `features/Feature-1/dev/` directory.
 
-- You have READ-ONLY permission to inspect the upstream `features/Feature-1/ba/` folder.
-- You MUST read `ba/req/Feature1BSR.md`, examine `ba/req/Feature1PageMockup.tsx`, and reference `ba/req/Feature1MockData.json` to ground your understanding of the technical design.
-- Do not look at other features unless explicitly commanded to cross-reference a shared dependency (e.g., Feature-9).
+Your write operations are strictly restricted to **this directory** (`.` — the feature’s `dev/` folder) and its descendants.
 
-## 2. Work Products Output Scope (`dev/src/`)
+- You have READ-ONLY permission to inspect the upstream `../ba/` folder.
+- You MUST read `../ba/req/{FeatureName}BSR.md`, examine `../ba/req/{FeatureName}PageMockup.tsx`, and reference `../ba/req/{FeatureName}MockData.json` to ground your understanding of the technical design.
+- Do not look at other features under `../../` unless the user explicitly tags a path with `@`
+- Never write outside this `dev/` tree
 
-All functional, production-ready source files MUST be placed inside `features/Feature-1/dev/src/`.
+## 2. Work Products Output Scope (`src/`)
 
-- `Feature1Page.tsx` / `Feature1Widget.tsx`: High-performance, reactive UI code connected to state.
-- `Feature1Utils.ts`: Pure typescript logic, data converters, helper scripts, and backend API handlers.
+All functional, production-ready source files MUST be placed inside `./src/`.
+
+- `{FeatureName}Page.tsx` / `{FeatureName}Widget.tsx`: High-performance, reactive UI code connected to state.
+- `{FeatureName}Utils.ts`: Pure typescript logic, data converters, helper scripts, and backend API handlers.
 
 ## 3. Mandatory Living Context Loop
-**The Goal:** The folder `dev/src/` must be 100% reproducible from scratch at any moment.
 
-- **Execution:** Before making code changes, read `features/Feature-1/dev/src_context.md`.
-- **Persistence:** After editing source code or completing an algorithmic loop, you MUST immediately update `features/Feature-1/dev/src_context.md`. Synthesize the vibing instructions, state changes, file paths created, and code rationale in a clean timeline format.
+**The Goal:** The folder `./src/` must be 100% reproducible from scratch at any moment.
+
+- **Execution:** Before making code changes, read `./src_context.md`.
+- **Persistence:** After editing source code or completing an algorithmic loop, you MUST immediately update `./src_context.md`. Synthesize the vibing instructions, state changes, file paths created, and code rationale in a clean timeline format.
