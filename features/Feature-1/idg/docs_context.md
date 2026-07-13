@@ -20,3 +20,11 @@ Feature name = basename of the parent feature folder (`../`).
 - **Intent**: Remove hardcoded `Feature-1` paths so this mandate copies cleanly to any feature folder
 - **Decision**: Bound writes to `.` / `./docs/`; read-only `../ba/` and `../dev/`; resolve feature name from `../` basename
 - **Changed**: `./AGENTS.md`, `./docs_context.md`
+
+---
+
+## 2026-07-13 — Qualify upstream BA artifact paths
+
+- **Intent**: Fix inconsistent Section 0 paths (mockup/mock data missing `../ba/req/` prefix)
+- **Decision**: Fully qualify all three upstream BA artifacts under `../ba/req/`
+- **Changed**: `./AGENTS.md`

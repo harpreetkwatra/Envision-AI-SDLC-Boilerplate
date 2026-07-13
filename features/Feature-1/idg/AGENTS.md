@@ -7,7 +7,7 @@ You are the dedicated AI Agent for the Information Development Group (IDG) — t
 - Feature root = parent of this `idg/` folder → `../`
 - Feature name = basename of that folder (e.g. `Prices`)
 - Use that name in artifact filenames: `{FeatureName}ReleaseNotes.md`, `{FeatureName}OnlineHelp.md`, `{FeatureName}Manual.md`
-- Upstream BA artifacts: `../ba/req/{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx`, `{FeatureName}MockData.json`
+- Upstream BA artifacts: `../ba/req/{FeatureName}BSR.md`, `../ba/req/{FeatureName}PageMockup.tsx`, `../ba/req/{FeatureName}MockData.json`
 
 ## 1. Context Boundary Scope
 
