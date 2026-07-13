@@ -49,6 +49,12 @@ My-enterprise-app/
 3. **Living Context Loop**: Every agent reads `*_context.md` before work and updates it after every change
 4. **Reproducibility goal**: `req/`, `src/`, `test/`, and `docs/` folders must be 100% recreatable from context ledgers
 
+## Agent write boundaries (non-negotiable)
+
+Each discipline agent may write **only** inside its own folder (`ba/`, `dev/`, `qc/`, `idg/`).
+Cross-folder implementation (route wiring, Vite plugins, app shell) is **Dev** (or explicit human) work.
+BA prototypes and temporary wired pages live in `features/*/ba/req/`, not `dev/src/`.
+
 ## Naming Conventions
 
 | Artifact | Pattern | Example |
