@@ -24,10 +24,25 @@ All functional, production-ready source files MUST be placed inside `./src/`.
 
 - `{FeatureName}Page.tsx` / `{FeatureName}Widget.tsx`: High-performance, reactive UI code connected to state.
 - `{FeatureName}Utils.ts`: Pure typescript logic, data converters, helper scripts, and backend API handlers.
+- Any other needed files.
 
 ## 3. Mandatory Living Context Loop
 
-**The Goal:** The folder `./src/` must be 100% reproducible from scratch at any moment.
+**The Goal:** The folder `./src/` must be 100% reproducible from scratch at any moment using only `./src_context.md` (plus upstream `../ba/req/` artifacts and global standards it names).
 
-- **Execution:** Before making code changes, read `./src_context.md`.
-- **Persistence:** After editing source code or completing an algorithmic loop, you MUST immediately update `./src_context.md`. Synthesize the vibing instructions, state changes, file paths created, and code rationale in a clean timeline format.
+`./src_context.md` has two parts, in this order:
+
+1. `## Consolidated Context` (required, always current)
+  - Rewrite this section on **every** change — do not append to it.
+  - It must contain **everything** needed to recreate `./src/` from an empty folder: feature identity, artifact inventory, technical design grounded in BA specs, component/API surface, open questions, constraints, and an ordered rebuild recipe.
+  - Prefer this section over the chronological log when regenerating artifacts.
+2. `## Chronological Log` (append-only history)
+  - After each change, append a dated (date and time both) entry with user intent, decisions, and what changed.
+  - Never edit or delete prior log entries (except trivial typo fixes).
+
+**Execution:** Before making code changes, read `./src_context.md` — start with **Consolidated Context**.
+
+**Persistence:** After every source change:
+
+1. Update **Consolidated Context** so it fully describes the current `./src/`.
+2. Append one entry under **Chronological Log**.

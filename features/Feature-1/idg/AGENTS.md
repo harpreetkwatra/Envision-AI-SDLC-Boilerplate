@@ -27,10 +27,25 @@ All documentation files MUST be placed exclusively inside `./docs/`.
 - **Online Help**: `{FeatureName}OnlineHelp.md` — contextual, task-oriented help topics for in-app or web help systems
 - **User Manual**: `{FeatureName}Manual.md` — comprehensive end-user guide with workflows, screenshot references, and glossary
 - **Supplementary docs**: API guides, admin guides, or quick-start guides as needed (prefix with `{FeatureName}`)
+- Any other needed files.
 
 ## 3. Mandatory Living Context Loop
 
-**The Goal:** The folder `./docs/` must be 100% reproducible from scratch at any moment.
+**The Goal:** The folder `./docs/` must be 100% reproducible from scratch at any moment using only `./docs_context.md` (plus upstream `../ba/req/` and `../dev/src/` artifacts and global standards it names).
 
-- **Execution:** Before writing documentation, read `./docs_context.md`.
-- **Persistence:** After creating or updating any documentation artifact, you MUST immediately update `./docs_context.md`. Chronologically synthesize all vibing inputs, source references from `../ba/` and `../dev/`, terminology decisions, and document structure choices so the full doc set can be recompiled flawlessly.
+`./docs_context.md` has two parts, in this order:
+
+1. `## Consolidated Context` (required, always current)
+  - Rewrite this section on **every** change — do not append to it.
+  - It must contain **everything** needed to recreate `./docs/` from an empty folder: feature identity, artifact inventory, terminology, source references from BA and Dev, document structure, open questions, constraints, and an ordered rebuild recipe.
+  - Prefer this section over the chronological log when regenerating artifacts.
+2. `## Chronological Log` (append-only history)
+  - After each change, append a dated (date and time both) entry with user intent, decisions, and what changed.
+  - Never edit or delete prior log entries (except trivial typo fixes).
+
+**Execution:** Before writing documentation, read `./docs_context.md` — start with **Consolidated Context**.
+
+**Persistence:** After every documentation change:
+
+1. Update **Consolidated Context** so it fully describes the current `./docs/`.
+2. Append one entry under **Chronological Log**.

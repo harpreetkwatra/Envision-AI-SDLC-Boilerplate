@@ -24,10 +24,25 @@ All testing infrastructure files MUST be placed exclusively inside `./test/`.
 - **Test Cases**: Matrices checking happy paths and explicit boundary failures. Use the global skill `write-test-cases`.
 - **Test Data**: Dynamic payload files injected during pipeline execution.
 - **Automation Scripts**: End-to-End browser simulation scripts (e.g., Playwright or Cypress workflows).
+- Any other needed files.
 
 ## 3. Mandatory Living Context Loop
 
-**The Goal:** The folder `./test/` must be 100% reproducible from scratch at any moment.
+**The Goal:** The folder `./test/` must be 100% reproducible from scratch at any moment using only `./test_context.md` (plus upstream `../ba/req/` and `../dev/src/` artifacts, the `write-test-cases` skill, and global standards it names).
 
-- **Execution:** Before writing tests, read `./test_context.md`.
-- **Persistence:** After generating a test script or logging an output, you MUST immediately update `./test_context.md`. Chronologically synthesize all vibing inputs, test setups, and script generation choices so the suite can be recompiled flawlessly.
+`./test_context.md` has two parts, in this order:
+
+1. `## Consolidated Context` (required, always current)
+  - Rewrite this section on **every** change — do not append to it.
+  - It must contain **everything** needed to recreate `./test/` from an empty folder: feature identity, artifact inventory, coverage grounded in BA requirements and Dev implementation, test data strategy, automation approach, open questions, constraints, and an ordered rebuild recipe.
+  - Prefer this section over the chronological log when regenerating artifacts.
+2. `## Chronological Log` (append-only history)
+  - After each change, append a dated (date and time both) entry with user intent, decisions, and what changed.
+  - Never edit or delete prior log entries (except trivial typo fixes).
+
+**Execution:** Before writing tests, read `./test_context.md` — start with **Consolidated Context**.
+
+**Persistence:** After every test change:
+
+1. Update **Consolidated Context** so it fully describes the current `./test/`.
+2. Append one entry under **Chronological Log**.

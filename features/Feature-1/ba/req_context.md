@@ -1,21 +1,50 @@
 # BA Living Context Ledger
 
-Chronological log of all BA prompt steps, decisions, and requirement changes.
-This file enables full reproduction of `./req/` from scratch at any time.
-Feature name = basename of the parent feature folder (`../`).
+Two-part ledger for full reproduction of `./req/` from scratch (plus global skills/standards named here or in `AGENTS.md`).
+
+1. **Consolidated Context** — self-contained, always-current snapshot of everything needed to recreate `./req/`. Rewrite on every change; do not append. Prefer this section when regenerating artifacts.
+2. **Chronological Log** — append-only history of intents, decisions, and what changed. Use for audit/debug; do not treat it as the rebuild source.
 
 ---
 
-## Initialization — 2026-07-11
+## Consolidated Context
+
+> **Source of truth for reproduction.** Rewrite on every change. Prefer this over the Chronological Log when regenerating `./req/`.
+
+### Feature identity
+
+_(Feature folder basename is `Feature-1`; product feature name TBD on first requirements session.)_
+
+### Artifact inventory
+
+_(none — `./req/` empty)_
+
+### UX / behavioral rules
+
+_(none yet)_
+
+### Data model summary
+
+_(none yet)_
+
+### Open questions
+
+_(none yet)_
+
+### Constraints
+
+_(none yet — follow `AGENTS.md` boundary lock; mock data must not connect to live APIs)_
+
+### Ordered rebuild recipe
+
+1. _(no artifacts yet — awaiting first requirements session)_
+
+---
+
+## Chronological Log
+
+### 2026-07-14 — Initialization
 
 - **Action**: BA workspace scaffolded per AI-SDLC protocol
 - **State**: Empty `./req/` — awaiting first requirements session
-- **Next**: Create `{FeatureName}BSR.md` using the `write-bsr` skill
 
----
-
-## 2026-07-13 — Generic path AGENTS.md
-
-- **Intent**: Remove hardcoded `Feature-1` paths so this mandate copies cleanly to any feature folder
-- **Decision**: Bound writes to `.` / `./req/`; resolve feature name from `../` basename; use `{FeatureName}*` artifact names
-- **Changed**: `./AGENTS.md`, `./req_context.md` (and sibling discipline AGENTS/context files under this feature)
