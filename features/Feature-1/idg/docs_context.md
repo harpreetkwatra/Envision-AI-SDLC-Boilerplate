@@ -75,8 +75,3 @@ _(none yet)_
 - **State**: Empty `./docs/` — awaiting BA requirements and Dev implementation
 - **Upstream dependencies**: `../ba/req/` and `../dev/src/` not yet populated
 
-### 2026-07-14 20:17 PDT — Context-sensitive help skill
-
-- **Intent**: Add global skill for IDG CSH markdown (`FeatureN-csh.md`)
-- **Decisions**: Output path `idg/docs/{FeatureName}-csh.md`; distinct from Online Help; wire via `write-context-sensitive-help`
-- **Changed**: Expected inventory and rebuild recipe include `*-csh.md`; `AGENTS.md` lists CSH work product

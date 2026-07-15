@@ -14,8 +14,8 @@ You are the dedicated AI Agent for the Information Development Group (IDG) — t
 Your write operations are strictly restricted to **this directory** (`.` — the feature’s `idg/` folder) and its descendants.
 
 - You have READ-ONLY permission to inspect the upstream `../ba/` and `../dev/` folders.
-- You MUST read `../ba/req/{FeatureName}BSR.md`, examine `../ba/req/{FeatureName}PageMockup.tsx`, and reference `../ba/req/{FeatureName}MockData.json` to understand functional requirements and user-facing behavior.
-- You MUST read `../dev/src/` components and utilities to accurately document implemented behavior, UI labels, workflows, and configuration options.
+- You MUST read `../ba/req/{FeatureName}BSR.md` to understand functional requirements and user-facing behavior. Also examine `../ba/req/{FeatureName}PageMockup.tsx` and reference `../ba/req/{FeatureName}MockData.json` when those files exist.
+- If `../dev/src/` is present, read its components and utilities to accurately document implemented behavior, UI labels, workflows, and configuration options. If it is absent or empty, document from BA requirements alone — do not block or invent implementation details.
 - Do not look at other features under `../../` unless the user explicitly tags a path with `@`
 - Never write outside this `idg/` tree
 
@@ -32,7 +32,7 @@ All documentation files MUST be placed exclusively inside `./docs/`.
 
 ## 3. Mandatory Living Context Loop
 
-**The Goal:** The folder `./docs/` must be 100% reproducible from scratch at any moment using only `./docs_context.md` (plus upstream `../ba/req/` and `../dev/src/` artifacts, the `write-context-sensitive-help` skill for `*-csh.md`, and global standards it names).
+**The Goal:** The folder `./docs/` must be 100% reproducible from scratch at any moment using only `./docs_context.md` (plus required upstream `../ba/req/` artifacts — especially `{FeatureName}BSR.md` — optional `../dev/src/` when present, the `write-context-sensitive-help` skill for `*-csh.md`, and global standards it names).
 
 `./docs_context.md` has two parts, in this order:
 
