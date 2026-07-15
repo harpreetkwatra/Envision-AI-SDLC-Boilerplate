@@ -23,11 +23,32 @@ Your write operations are strictly restricted to **this directory** (`.` — the
 All testing infrastructure files MUST be placed exclusively inside `./test/`.
 
 - **Test Cases**: Matrices checking happy paths and explicit boundary failures. Use the global skill `write-test-cases`.
-- **Test Data**: Dynamic payload files injected during pipeline execution.
-- **Automation Scripts**: End-to-End browser simulation scripts (e.g., Playwright or Cypress workflows).
+- **Test Data**: Dynamic payload files (e.g. `{FeatureName}TestData.json`) injected by automation or used as fixtures.
+- **Automation Scripts**: Playwright E2E specs named `*.spec.ts` (e.g. `{FeatureName}.spec.ts`) under `./test/`.
 - Any other needed files.
 
-## 3. Mandatory Living Context Loop
+## 3. Running Playwright tests
+
+When the user asks to **run the tests**, **run e2e**, **run Playwright**, or equivalent:
+
+1. Prefer specs in **this feature’s** `./test/**/*.spec.ts` only (unless the user explicitly asks for the whole repo).
+2. Execute Playwright Test — do **not** use the Playwright MCP browser tools for suite runs. MCP is only for interactive explore/debug when the user asks for that.
+3. From the **repo root**, run (replace `Feature-1` with this feature folder basename from §0 if different):
+   ```bash
+   npm run test:e2e -- features/Feature-1/qc/test
+   ```
+   Or from **this** `qc/` directory:
+   ```bash
+   npx playwright test test/
+   ```
+4. Shared config lives at the repo root (`playwright.config.ts`); browsers install via root `postinstall` / `npm run playwright:install`.
+5. Artifacts land under **this** `qc/` tree when you run from here (or pass a `features/*/qc` path from root): `./test-results/` (traces/screenshots) and `./playwright-report/` (HTML). Prefer running from this `qc/` folder so results stay in the QC write boundary.
+6. Report pass/fail counts and summarize any failures (file, test title, error). Do not invent green results if the command failed or no specs were found.
+7. Optional: `npm run test:e2e:ui` only when the user asks for Playwright UI mode.
+
+Markdown matrices (`*TestCases.md`) are not executable; only `*.spec.ts` runs.
+
+## 4. Mandatory Living Context Loop
 
 **The Goal:** The folder `./test/` must be 100% reproducible from scratch at any moment using only `./test_context.md` (plus required upstream `../ba/req/` artifacts, optional `../dev/src/` when present, the `write-test-cases` skill, and global standards it names).
 

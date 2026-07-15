@@ -9,30 +9,50 @@ alwaysApply: true
 
 | Layer | Choice | Notes |
 |-------|--------|-------|
-| Language | TypeScript | All source, mockup, and test files |
-| UI Framework | React | BA mockups (`*.tsx` in `ba/req/`) and Dev components (`dev/src/`) |
-| Test Automation | Playwright or Cypress | QC automation scripts in `qc/test/` |
-| Documentation | Markdown | IDG deliverables in `idg/docs/` |
+| Language | TypeScript (~6) | All source, mockup, and test files |
+| UI Framework | React 19 + React DOM | BA mockups (`*.tsx` in `ba/req/`) and Dev components (`dev/src/`) |
+| Build Tool | Vite 8 (`@vitejs/plugin-react`) | Dev server, production builds, env/proxy wiring |
+| Component Library | Ant Design 6 (`antd`) + `@ant-design/icons` | Shared UI primitives across mockups and app surfaces |
+| Lint | Oxlint (Vite React-TS template) | Project-wide lint (`npm run lint`) |
+| Test Automation | Playwright | QC automation / E2E scripts in `features/*/qc/test/` |
+| Documentation | Markdown | IDG deliverables in `idg/docs/`; requirements under feature folders |
 | Data Format | JSON | Static mock data in `ba/req/`; test payloads in `qc/test/` |
+
+## Backend / Integrations
+
+| Integration | Role | Notes |
+|-------------|------|-------|
+| Strapi | Headless CMS over REST | Auth (JWT), entity CRUD; Vite may proxy `/strapi` in local dev |
+| envdlt analytics API | Ledger / analytics backend | Proxied as `/envdlt` in local dev (`API_ENVDLT_*` / `VITE_ENVDLT_*`) |
+| MCP SDK (`@modelcontextprotocol/sdk`) | AI assistant tooling | Used with Vite AI-assistant plugin / agent integrations |
 
 ## Runtime Environments
 - **OS**: Windows 10+ (primary dev environment)
-- **Node.js**: LTS (required once project dependencies are installed)
+- **Node.js**: LTS (required for Vite, npm scripts, and Playwright)
 - **IDE**: Cursor with Agent mode for spec-driven workflows
 
 ## Local Setup
 ```bash
-# Install dependencies (once package.json is added)
+# Install dependencies (includes @playwright/test; postinstall downloads Chromium)
 npm install
 
-# Run dev server (once configured)
+# Run Vite dev server
 npm run dev
 
-# Run tests (once configured)
-npm test
+# Production build
+npm run build
+
+# Lint
+npm run lint
+
+# E2E (Playwright) — specs under features/*/qc/test/**/*.spec.ts
+npm run test:e2e
 ```
 
+Playwright Test is configured at the repo root (`playwright.config.ts`). Chromium binaries are installed automatically via the `postinstall` hook (`playwright install chromium`). Re-run manually with `npm run playwright:install` if needed (e.g. after clearing the Playwright browser cache). When run from a feature `qc/` folder (or with a `features/*/qc` path filter), artifacts go to that feature’s `qc/test-results/` and `qc/playwright-report/`.
+
 ## File Conventions
+- **App shell**: `base/dev/src/` — Vite React entry and shared/legacy application code (no root `src/`)
 - **BA outputs**: `features/Feature-N/ba/req/` — static mockups, JSON data, BSR markdown
 - **Dev outputs**: `features/Feature-N/dev/src/` — production React components, utils, API handlers
 - **QC outputs**: `features/Feature-N/qc/test/` — test cases, test data, automation scripts
