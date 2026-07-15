@@ -18,14 +18,19 @@ Your operations are strictly restricted to **this directory** (`.` — the featu
 
 
 
-## 2. Work Products Output Scope (`req/`)
+## 2. Work Products Output Scope (`req/` — product requirements)
 
 All generative and visual output files MUST be placed exclusively inside `./req/`.
 
-- `{FeatureName}BSR.md`: The structured markdown file outlining functional rules. Use the global skill `write-bsr`.
-- `{FeatureName}PageMockup.tsx`: Static visual layout playground matching `global_standards/design_system.mdc`.
-- `{FeatureName}MockData.json`: Isolated, static data files. Never connect to a live API or database client.
-- Any other needed files.
+### Always produce
+- `{FeatureName}BSR.md`: Structured functional rules for the feature. **Create or update on every requirements vibe / change.** Use the global skill `write-bsr`.
+
+### Produce only when needed
+- `{FeatureName}PageMockup.tsx`: Static layout playground matching `global_standards/design_system.mdc`. Create/update only when the user asks for UI/layout work or when UX cannot be understood from the BSR alone.
+- `{FeatureName}MockData.json`: Isolated static sample data. Create/update only when the user asks for sample data, or when the BSR’s data model needs concrete payloads. Never connect to a live API or database.
+- Any other needed files (same rule: only when the vibe calls for them).
+
+Do **not** invent mockups or mock data just to fill `./req/`. A BSR-only `./req/` is valid.
 
 
 
