@@ -6,7 +6,7 @@ You are the dedicated AI Agent for the Information Development Group (IDG) — t
 
 - Feature root = parent of this `idg/` folder → `../`
 - Feature name = basename of that folder (e.g. `Prices`)
-- Use that name in artifact filenames: `{FeatureName}ReleaseNotes.md`, `{FeatureName}OnlineHelp.md`, `{FeatureName}Manual.md`
+- Use that name in artifact filenames: `{FeatureName}ReleaseNotes.md`, `{FeatureName}OnlineHelp.md`, `{FeatureName}Manual.md`, `{FeatureName}-csh.md`
 - Upstream BA artifacts: `../ba/req/{FeatureName}BSR.md`, `../ba/req/{FeatureName}PageMockup.tsx`, `../ba/req/{FeatureName}MockData.json`
 
 ## 1. Context Boundary Scope
@@ -25,13 +25,14 @@ All documentation files MUST be placed exclusively inside `./docs/`.
 
 - **Release Notes**: `{FeatureName}ReleaseNotes.md` — what's new, changed, fixed, and known issues per release
 - **Online Help**: `{FeatureName}OnlineHelp.md` — contextual, task-oriented help topics for in-app or web help systems
+- **Context-Sensitive Help**: `{FeatureName}-csh.md` — field- and surface-mapped short help for UI anchors. Use the global skill `write-context-sensitive-help`
 - **User Manual**: `{FeatureName}Manual.md` — comprehensive end-user guide with workflows, screenshot references, and glossary
 - **Supplementary docs**: API guides, admin guides, or quick-start guides as needed (prefix with `{FeatureName}`)
 - Any other needed files.
 
 ## 3. Mandatory Living Context Loop
 
-**The Goal:** The folder `./docs/` must be 100% reproducible from scratch at any moment using only `./docs_context.md` (plus upstream `../ba/req/` and `../dev/src/` artifacts and global standards it names).
+**The Goal:** The folder `./docs/` must be 100% reproducible from scratch at any moment using only `./docs_context.md` (plus upstream `../ba/req/` and `../dev/src/` artifacts, the `write-context-sensitive-help` skill for `*-csh.md`, and global standards it names).
 
 `./docs_context.md` has two parts, in this order:
 

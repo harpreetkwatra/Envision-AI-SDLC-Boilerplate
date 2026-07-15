@@ -7,7 +7,7 @@ Multi-disciplinary, multi-team, spec-driven AI software development lifecycle (S
 ```
 ├── .cursor/
 │   ├── rules/global_standards/   # Global Cursor rules (product, tech, patterns, design)
-│   └── skills/                   # Agent skills (write-bsr, write-test-cases)
+│   └── skills/                   # Agent skills (write-bsr, write-test-cases, write-context-sensitive-help)
 ├── features/
 │   └── Feature-1/
 │       ├── ba/                   # Business Analysis (requirements, mockups, BSR)
@@ -29,7 +29,7 @@ Multi-disciplinary, multi-team, spec-driven AI software development lifecycle (S
 1. **BA Team** works in `features/Feature-N/ba/` — produces BSR docs, React mockups, and mock JSON data
 2. **Dev Team** works in `features/Feature-N/dev/` — reads BA outputs, writes production code
 3. **QC Team** works in `features/Feature-N/qc/` — reads BA + Dev, writes test suites
-4. **IDG Team** works in `features/Feature-N/idg/` — reads BA + Dev, writes release notes, online help, and manuals
+4. **IDG Team** works in `features/Feature-N/idg/` — reads BA + Dev, writes release notes, online help, context-sensitive help, and manuals
 
 Each discipline writes exclusively to its own folder. Upstream folders are read-only. Living Context Ledgers (`*_context.md`) ensure every output folder is 100% reproducible.
 
@@ -53,9 +53,10 @@ Each discipline writes exclusively to its own folder. Upstream folders are read-
 ## Global Skills
 
 
-| Skill              | Purpose                                               |
-| ------------------ | ----------------------------------------------------- |
-| `write-bsr`        | Standardized Business & System Requirements documents |
-| `write-test-cases` | Standardized test case matrices and automation        |
+| Skill                           | Purpose                                                      |
+| ------------------------------- | ------------------------------------------------------------ |
+| `write-bsr`                     | Standardized Business & System Requirements documents        |
+| `write-test-cases`              | Standardized test case matrices and automation               |
+| `write-context-sensitive-help`  | Field- and surface-mapped CSH markdown (`FeatureN-csh.md`)   |
 
 
