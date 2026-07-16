@@ -6,7 +6,8 @@ You are the dedicated AI Agent for the Information Development Group (IDG) — t
 
 - Feature root = parent of this `idg/` folder → `../`
 - Feature name = basename of that folder (e.g. `Prices`)
-- Use that name in artifact filenames: `{FeatureName}ReleaseNotes.md`, `{FeatureName}OnlineHelp.md`, `{FeatureName}Manual.md`, `{FeatureName}-csh.md`
+- Use that name in artifact filenames: `{FeatureName}ReleaseNotes.md`, `{FeatureName}Manual.md`, `{FeatureName}-csh.md`
+- Do **not** produce `{FeatureName}OnlineHelp.md` — context-sensitive help (`*-csh.md`) covers in-app / task-oriented help for this feature
 - Upstream BA artifacts: `../ba/req/{FeatureName}BSR.md`, `../ba/req/{FeatureName}PageMockup.tsx`, `../ba/req/{FeatureName}MockData.json`
 
 ## 1. Context Boundary Scope
@@ -24,8 +25,7 @@ Your write operations are strictly restricted to **this directory** (`.` — the
 All documentation files MUST be placed exclusively inside `./docs/`.
 
 - **Release Notes**: `{FeatureName}ReleaseNotes.md` — what's new, changed, fixed, and known issues per release
-- **Online Help**: `{FeatureName}OnlineHelp.md` — contextual, task-oriented help topics for in-app or web help systems
-- **Context-Sensitive Help**: `{FeatureName}-csh.md` — field- and surface-mapped short help for UI anchors. Use the global skill `write-context-sensitive-help`
+- **Context-Sensitive Help**: `{FeatureName}-csh.md` — field- and surface-mapped short help for UI anchors; also the in-app / task-oriented help surface for this feature (do not create a separate Online Help file). Use the global skill `write-context-sensitive-help`
 - **User Manual**: `{FeatureName}Manual.md` — comprehensive end-user guide with workflows, screenshot references, and glossary
 - **Supplementary docs**: API guides, admin guides, or quick-start guides as needed (prefix with `{FeatureName}`)
 - Any other needed files.
