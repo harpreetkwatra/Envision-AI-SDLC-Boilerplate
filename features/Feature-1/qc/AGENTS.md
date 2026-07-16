@@ -29,24 +29,49 @@ All testing infrastructure files MUST be placed exclusively inside `./test/`.
 
 ## 3. Running Playwright tests
 
-When the user asks to **run the tests**, **run e2e**, **run Playwright**, or equivalent:
+When the user asks to **run the tests**, **play the tests**, **run e2e**, **run Playwright**, **play e2e**, or similar (watch / show browser / popup / slow-mo included):
 
 1. Prefer specs in **this feature’s** `./test/**/*.spec.ts` only (unless the user explicitly asks for the whole repo).
 2. Execute Playwright Test — do **not** use the Playwright MCP browser tools for suite runs. MCP is only for interactive explore/debug when the user asks for that.
-3. From the **repo root**, run (replace `Feature-1` with this feature folder basename from §0 if different):
+3. **Default local command** (from **this** `qc/` directory) — headed, single worker:
    ```bash
-   npm run test:e2e -- features/Feature-1/qc/test
+   npx playwright test test/ --workers=1 --headed
    ```
-   Or from **this** `qc/` directory:
-   ```bash
-   npx playwright test test/
-   ```
-4. Shared config lives at the repo root (`playwright.config.ts`); browsers install via root `postinstall` / `npm run playwright:install`.
-5. Artifacts land under **this** `qc/` tree when you run from here (or pass a `features/*/qc` path from root): `./test-results/` (traces/screenshots) and `./playwright-report/` (HTML). Prefer running from this `qc/` folder so results stay in the QC write boundary.
-6. Report pass/fail counts and summarize any failures (file, test title, error). Do not invent green results if the command failed or no specs were found.
-7. Optional: `npm run test:e2e:ui` only when the user asks for Playwright UI mode.
+   Treat phrases like **play the tests**, **play tests**, **show me the tests**, **run headed**, or **watch the tests** the same: use that default unless the user explicitly asks for **headless** / CI-style / no browser.
+4. Do **not** rely on a repo-root `npm run test:e2e` — E2E is per-feature. Always `cd` to this `qc/` folder (or pass `--config` to this folder’s `playwright.config.ts`).
+5. Config is **local**: `./playwright.config.ts` (self-contained). Other features use the same pattern under `features/<Feature>/qc/playwright.config.ts`. Chromium installs via root `postinstall` / `npm run playwright:install`.
+6. Artifacts land under **this** `qc/` tree: `./test-results/` (traces/screenshots) and `./playwright-report/` (HTML).
+7. Report pass/fail counts and summarize any failures (file, test title, error). Do not invent green results if the command failed or no specs were found.
+8. After every suite run (pass or fail), update `./test/{FeatureName}TestCases.md`: set Test Summary Pass/Fail/Blocked/Not Run counts and each TC **Status** from the run. Do not leave the matrix at all Not Run when automation has executed.
+9. **Headless only** when the user explicitly asks (e.g. “headless”, “no browser”, “CI mode”): omit `--headed`. Optional UI mode: `npx playwright test test/ --ui` only when requested.
+10. **Slow-mo:** constant `SLOW_MO_MS` in `./playwright.config.ts` (default `1000`; set to `0` to disable). Playwright CLI has no `--slow-mo`. Prefer `--debug` for true step-through.
+11. Prefer `--workers=1` for local/agent runs (predictable; avoids pile-ups when a test hangs). If a run exceeds ~2 minutes with no new list output, stop leftover `chrome-headless-shell` processes and diagnose — do not wait indefinitely.
 
 Markdown matrices (`*TestCases.md`) are not executable; only `*.spec.ts` runs.
+
+## 3.1 E2E credentials (repo-root `.env`)
+
+DTX Portal UI tests require a signed-in Strapi session.
+
+- **Source of truth for local E2E creds:** repo-root `.env` (or `.ENV`) keys:
+  - `E2E_STRAPI_USER`
+  - `E2E_STRAPI_PASSWORD`
+- Shell-exported values of those variables **win** over `.env` if both exist.
+- Playwright / Node does **not** load `.env` by itself. Specs (or a small helper under `./test/`) MUST load **only those two keys** from repo-root `.env` when unset — do not require the user to remember PowerShell `$env:...` exports for a normal local run.
+- **Never** commit passwords, print secret values in chat/logs, or paste full `.env` contents into artifacts.
+- If UI tests show as **skipped**, first check that the two keys exist in root `.env` and that the spec loads them before reading `process.env`.
+
+## 3.2 Auth and anti-hang rules (mandatory for E2E)
+
+These rules exist because the suite previously hung for minutes on per-test UI login and brittle Ant Design Select selectors.
+
+1. **Do not** UI-login (`Sign in` form) in every `beforeEach`. Prefer: one API login  
+   `POST {baseURL}/strapi/api/auth/local` → JWT → `sessionStorage.setItem('dltmgr.strapi.jwt', jwt)` via `page.addInitScript` before `goto`. App validates via `/api/users/me` through the Vite `/strapi` proxy.
+2. Keep auth waits **fail-fast** (order of ~15–20s max per navigation/assertion). Never use open-ended 60s+ waits for the rail after UI login unless the user is debugging auth specifically.
+3. Vite client Strapi base is typically `/strapi` (proxied). Ensure `npm run dev` is up or let Playwright `webServer` start it (`reuseExistingServer` when already on `:5173`).
+4. **Ant Design 6 Select:** selected value is on `.ant-select-content` (not legacy `.ant-select-selection-item`). Open options via the select root class (e.g. `.orders-date-filter-select`); choose options with `.ant-select-dropdown:visible .ant-select-item-option`. Prefer feature CSS classes over fragile `getByRole('combobox').toHaveText(...)`.
+5. Account for React `useDeferredValue` / deferred search: wait for footer or row set to settle (`expect.poll` / `toHaveText` on footer) before asserting filtered rows.
+6. Assert **shipping** behavior when BA text and mockup code diverge; document the gap in `test_context.md` (example: Prices Refresh resets search/date/sort/page, not page size).
 
 ## 4. Mandatory Living Context Loop
 
