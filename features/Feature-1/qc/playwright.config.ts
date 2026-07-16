@@ -14,7 +14,7 @@ const qcDir = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(qcDir, '../../..')
 
 /** Slow-mo delay per Playwright action (ms). Set to 0 to disable. CLI has no --slow-mo. */
-const SLOW_MO_MS = 1000
+const SLOW_MO_MS = 0
 
 const launchOptions =
   SLOW_MO_MS > 0 ? { launchOptions: { slowMo: SLOW_MO_MS } } : {}

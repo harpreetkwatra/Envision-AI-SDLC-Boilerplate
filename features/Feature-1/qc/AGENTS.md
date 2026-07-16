@@ -72,6 +72,7 @@ These rules exist because the suite previously hung for minutes on per-test UI l
 4. **Ant Design 6 Select:** selected value is on `.ant-select-content` (not legacy `.ant-select-selection-item`). Open options via the select root class (e.g. `.orders-date-filter-select`); choose options with `.ant-select-dropdown:visible .ant-select-item-option`. Prefer feature CSS classes over fragile `getByRole('combobox').toHaveText(...)`.
 5. Account for React `useDeferredValue` / deferred search: wait for footer or row set to settle (`expect.poll` / `toHaveText` on footer) before asserting filtered rows.
 6. Assert **shipping** behavior when BA text and mockup code diverge; document the gap in `test_context.md` (example: Prices Refresh resets search/date/sort/page, not page size).
+7. **JSON in Playwright specs:** Do **not** use bare ESM `import x from './file.json'` (Vite/TS allow it; Playwright/Node ESM does not and fails load with “needs an import attribute of type: json” → “No tests found”). Prefer `fs.readFileSync` + `JSON.parse` relative to `import.meta.url`, or use `import x from './file.json' with { type: 'json' }`. Same rule for `{FeatureName}TestData.json` and upstream BA mock JSON.
 
 ## 4. Mandatory Living Context Loop
 
