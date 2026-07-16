@@ -18,12 +18,10 @@ My-enterprise-app/
 │   │       └── design_system.mdc
 │   └── skills/                     # Agent skill definitions
 │       ├── write-bsr/SKILL.md
-│       ├── write-test-cases/SKILL.md
-│       └── write-context-sensitive-help/SKILL.md
+│       ├── write-tests/SKILL.md
+│       └── write-doc/SKILL.md
 │
-├── base/                           # Shared / legacy application shell
-│   └── dev/
-│       └── src/                    # Vite React app entry (main.tsx, App shell)
+├── src/                            # Shared application shell / source code
 │
 ├── features/
 │   ├── Feature-1/
@@ -33,38 +31,37 @@ My-enterprise-app/
 │   │   │   └── req/                # BSR, mockups, mock data
 │   │   ├── dev/                    # Development workspace
 │   │   │   ├── AGENTS.md
-│   │   │   ├── src_context.md      # Living log of code prompt steps
-│   │   │   └── src/                # Production source code
+│   │   │   ├── eng_context.md      # Living log of code prompt steps
+│   │   │   └── eng/                # Technical design, SQL, production code
 │   │   ├── qc/                     # Quality Control workspace
 │   │   │   ├── AGENTS.md
-│   │   │   ├── test_context.md     # Living log of test prompt steps
-│   │   │   └── test/               # Test cases, data, automation scripts
+│   │   │   ├── tst_context.md      # Living log of test prompt steps
+│   │   │   └── tst/                # Test cases, data, automation scripts
 │   │   └── idg/                    # Information Development Group workspace
 │   │       ├── AGENTS.md
-│   │       ├── docs_context.md     # Living log of documentation prompt steps
-│   │       └── docs/               # Release notes, online help, manuals
+│   │       ├── doc_context.md      # Living log of documentation prompt steps
+│   │       └── doc/                # Release notes, CSH, manuals
 │   ├── Feature-2/
 │   └── Feature-N/
 ```
 
-### Base application shell (`base/`)
+### Application shell (`src/`)
 
-- **`base/dev/src/`** is the Vite React application entry (legacy / shared shell). There is no root `src/` folder.
-- New feature work still lands in `features/Feature-N/dev/src/` and is composed into the shell as features mature.
-- Vite entry: `index.html` → `/base/dev/src/main.tsx`; path alias `@` → `base/dev/src`.
+- **`src/`** is the shared application shell / composed source at repo root.
+- Feature-specific engineering work lands in `features/Feature-N/dev/eng/` and is composed into the shell as features mature.
 
 ## Agent write boundaries (non-negotiable)
 
 Each discipline agent may write **only** inside its own folder (`ba/`, `dev/`, `qc/`, `idg/`).
-Cross-folder implementation (route wiring, Vite plugins, app shell) is **Dev** (or explicit human) work.
-BA prototypes and temporary wired pages live in `features/*/ba/req/`, not `dev/src/`.
+Cross-folder implementation (route wiring, Vite plugins, app shell under `src/`) is **Dev** (or explicit human) work.
+BA prototypes and temporary wired pages live in `features/*/ba/req/`, not `dev/eng/` or root `src/`.
 
 ## Multi-Disciplinary Protocol
 
 1. **Context boundary lock**: Each discipline writes exclusively to its own directory
 2. **Upstream read access**: Dev reads `ba/`; QC reads both `ba/` and `dev/`; IDG reads both `ba/` and `dev/`
 3. **Living Context Loop**: Every agent reads `*_context.md` before work and updates it after every change
-4. **Reproducibility goal**: `req/`, `src/`, `test/`, and `docs/` folders must be 100% recreatable from context ledgers
+4. **Reproducibility goal**: `req/`, `eng/`, `tst/`, and `doc/` folders must be 100% recreatable from context ledgers
 
 ## Naming Conventions
 
@@ -77,9 +74,10 @@ BA prototypes and temporary wired pages live in `features/*/ba/req/`, not `dev/s
 | Sub-component | `FeatureNWidget.tsx` | `Feature1Widget.tsx` |
 | Logic/API/helpers | `FeatureNUtils.ts` | `Feature1Utils.ts` |
 | Release notes | `FeatureNReleaseNotes.md` | `Feature1ReleaseNotes.md` |
-| Online help | `FeatureNOnlineHelp.md` | `Feature1OnlineHelp.md` |
 | Context-sensitive help | `FeatureN-csh.md` | `Feature1-csh.md` |
 | User manual | `FeatureNManual.md` | `Feature1Manual.md` |
+
+Do **not** create `{FeatureName}OnlineHelp.md` — CSH (`*-csh.md`) covers in-app / task-oriented help; long-form guidance belongs in the Manual.
 
 ## Parallel Sprint Rules
 

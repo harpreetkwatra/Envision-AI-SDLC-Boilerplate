@@ -4,7 +4,7 @@ import { defineConfig, devices } from '@playwright/test'
 
 /**
  * Prices QC Playwright config — run from this folder:
- *   npx playwright test test/ --workers=1 --headed
+ *   npx playwright test tst/ --workers=1 --headed
  *
  * Artifacts: ./test-results/ and ./playwright-report/
  * Vite/dev server is started from the repo root (webServer.cwd).
@@ -20,7 +20,7 @@ const launchOptions =
   SLOW_MO_MS > 0 ? { launchOptions: { slowMo: SLOW_MO_MS } } : {}
 
 export default defineConfig({
-  testDir: './test',
+  testDir: './tst',
   testMatch: ['**/*.spec.ts'],
   testIgnore: ['**/node_modules/**', '**/test-results/**', '**/playwright-report/**'],
   outputDir: path.join(qcDir, 'test-results'),

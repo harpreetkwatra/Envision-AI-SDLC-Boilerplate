@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Design System
 
-Design tokens translated from Figma to ensure uniform styling across BA mockups (`ba/req/`) and Dev components (`dev/src/`).
+Design tokens translated from Figma to ensure uniform styling across BA mockups (`ba/req/`) and Dev components (`dev/eng/`).
 
 ## Color Palette
 
@@ -68,4 +68,4 @@ Design tokens translated from Figma to ensure uniform styling across BA mockups 
 
 ## Usage in Mockups and Components
 
-BA mockups in `ba/req/*.tsx` and Dev components in `dev/src/*.tsx` MUST reference these tokens. Prefer CSS custom properties or a shared token import once the project is scaffolded.
+BA mockups in `ba/req/*.tsx` and Dev components in `dev/eng/*.tsx` MUST reference these tokens. Prefer CSS custom properties or a shared token import once the project is scaffolded.

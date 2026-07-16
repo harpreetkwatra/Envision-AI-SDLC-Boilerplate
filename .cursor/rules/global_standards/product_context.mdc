@@ -17,9 +17,9 @@ Enterprise application built using the AI-SDLC multi-disciplinary spec-driven de
 | Persona | Role | Workspace |
 |---------|------|-----------|
 | Business Analysts / Product Owners / UI/UX Designers | Requirements, mockups, BSR docs | `features/*/ba/` |
-| Software Engineers | Production source code | `features/*/dev/` |
+| Software Engineers | Technical design, SQL, production code | `features/*/dev/` |
 | QC Analysts / Automation Testers | Test cases, data, automation scripts | `features/*/qc/` |
-| Technical Writers / IDG | Release notes, online help, user manuals | `features/*/idg/` |
+| Technical Writers / IDG | Release notes, context-sensitive help, user manuals | `features/*/idg/` |
 
 ## User Experience Requirements
 - BAs produce high-fidelity mockups and BSR docs without touching production code
