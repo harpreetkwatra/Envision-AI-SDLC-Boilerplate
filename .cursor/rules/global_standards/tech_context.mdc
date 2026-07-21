@@ -46,7 +46,7 @@ npm run build
 npm run lint
 
 # E2E (Playwright) — per feature, from that feature’s qc/ folder
-cd features/Prices/qc
+cd features/Feature-N/qc
 npx playwright test tst/ --workers=1 --headed
 ```
 

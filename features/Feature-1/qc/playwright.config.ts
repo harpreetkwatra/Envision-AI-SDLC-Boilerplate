@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url'
 import { defineConfig, devices } from '@playwright/test'
 
 /**
- * Prices QC Playwright config — run from this folder:
+ * Feature-N QC Playwright config — run from this folder:
  *   npx playwright test tst/ --workers=1 --headed
  *
  * Artifacts: ./test-results/ and ./playwright-report/
@@ -14,7 +14,7 @@ const qcDir = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(qcDir, '../../..')
 
 /** Slow-mo delay per Playwright action (ms). Set to 0 to disable. CLI has no --slow-mo. */
-const SLOW_MO_MS = 0
+const SLOW_MO_MS = 100
 
 const launchOptions =
   SLOW_MO_MS > 0 ? { launchOptions: { slowMo: SLOW_MO_MS } } : {}
