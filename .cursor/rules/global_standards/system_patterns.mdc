@@ -65,12 +65,23 @@ Cross-folder implementation (route wiring, Vite plugins, composition into repo-r
 BA prototypes and temporary wired pages live in `features/*/ba/req/`, not `dev/eng/` or root `src/`.
 QC and IDG may **read** repo-root `src/` when validating or documenting behavior that already ships, but must not write there.
 
+## Workspace root lock (non-negotiable)
+
+- **Never** call `move_agent_to_root`, `move_agent_to_cloned_root`, or any equivalent that changes the Cursor agent workspace root — unless the user **explicitly** asks to change the workspace root.
+- Stay in the workspace the user opened for this session (e.g. a discipline folder under `features/*/ba|dev|qc|idg/`, or the repo root they chose).
+- Do **not** relocate the workspace to bypass write boundaries or to reach `src/` / sibling disciplines from a scoped feature chat.
+- If a request requires writes outside the current agent’s write boundary:
+  1. Complete all in-boundary work (and update the Living Context Ledger), then
+  2. Stop and tell the user what out-of-boundary steps remain, **or** ask them to open a correctly rooted session (e.g. repo root / Dev) for those edits.
+
 ## Multi-Disciplinary Protocol
 
-1. **Context boundary lock**: Each discipline writes exclusively to its own directory
-2. **Upstream read access**: Dev reads `ba/`; QC reads both `ba/` and `dev/`; IDG reads both `ba/` and `dev/`
-3. **Living Context Loop**: Every agent reads `*_context.md` before work and updates it after every change
-4. **Reproducibility goal**: `req/`, `eng/`, `tst/`, and `doc/` folders must be 100% recreatable from context ledgers
+1. **Context boundary lock**: each discipline writes only to its own directory
+2. **Workspace root lock**: never move the agent workspace root to expand scope (see above)
+3. **Upstream read access**: Dev ← BA; QC ← BA + Dev (+ `src/` as needed); IDG ← BA + Dev (+ `src/`)
+4. **Living Context Loop**: read `*_context.md` before work; rewrite Consolidated Context + append Chronological Log after every change
+5. **Reproducibility**: `req/`, `eng/`, `tst/`, `doc/` recreatable from context ledgers + skills
+
 
 ## Naming Conventions
 

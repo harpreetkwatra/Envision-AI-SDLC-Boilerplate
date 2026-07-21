@@ -19,6 +19,7 @@ Your write operations are strictly restricted to **this directory** (`.` — the
 - If `../dev/eng/` is present, read its components and utilities to accurately document implemented behavior, UI labels, workflows, and configuration options. If it is absent or empty, document from BA requirements alone — do not block or invent implementation details.
 - Do not look at other features under `../../` unless the user explicitly tags a path with `@`
 - Never write outside this `idg/` tree
+- **Workspace root**: never relocate the agent workspace root to bypass this boundary — see global `system_patterns.mdc` (Workspace root lock). Hand off out-of-boundary work (e.g. `src/` nav wiring) instead.
 
 ## 2. Work Products Output Scope (`doc/`)
 

@@ -17,6 +17,7 @@ Your write operations are strictly restricted to **this directory** (`.` — the
 - You MUST read `../ba/req/{FeatureName}BSR.md`, examine `../ba/req/{FeatureName}PageMockup.tsx`, and reference `../ba/req/{FeatureName}MockData.json` to ground your understanding of the technical design.
 - Do not look at other features under `../../` unless the user explicitly tags a path with `@`
 - Never write outside this `dev/` tree
+- **Workspace root**: never relocate the agent workspace root to bypass this boundary — see global `system_patterns.mdc` (Workspace root lock). Hand off out-of-boundary work (e.g. `src/` nav wiring) instead.
 
 ## 2. Work Products Output Scope (`eng/`)
 

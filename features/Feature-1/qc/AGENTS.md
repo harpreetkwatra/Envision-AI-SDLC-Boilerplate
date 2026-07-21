@@ -17,8 +17,7 @@ Your write operations are strictly restricted to **this directory** (`.` — the
 - If `../dev/eng/` exists, you MUST also read those code components to refine edge cases against the implementation. If it does not exist, proceed from BA requirements alone.
 - If the user `@`-tags another feature, you may READ that feature’s `ba/` and (when present) `dev/` for integration testing only.
 - Never write outside this `qc/` tree
-
-
+- **Workspace root**: never relocate the agent workspace root to bypass this boundary — see global `system_patterns.mdc` (Workspace root lock). Hand off out-of-boundary work (e.g. `src/` nav wiring) instead.
 
 ## 2. Work Products Output Scope (`tst/`)
 

@@ -15,8 +15,7 @@ Your operations are strictly restricted to **this directory** (`.` — the featu
 - Do not look at or modify sibling `../dev/`, `../qc/`, or `../idg/`
 - Do not look at other features under `../../` unless the user explicitly tags a path with `@`
 - Never write outside this `ba/` tree
-
-
+- **Workspace root**: never relocate the agent workspace root to bypass this boundary — see global `system_patterns.mdc` (Workspace root lock). Hand off out-of-boundary work (e.g. `src/` nav wiring) instead.
 
 ## 2. Work Products Output Scope (`req/` — product requirements)
 
