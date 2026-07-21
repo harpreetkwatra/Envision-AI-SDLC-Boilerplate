@@ -1,0 +1,14 @@
+{
+  "name": "envision-ai-sdlc-boilerplate",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Envision AI-SDLC boilerplate. Playwright browsers install at root; E2E runs per feature under features/*/qc/.",
+  "scripts": {
+    "postinstall": "playwright install chromium",
+    "playwright:install": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0"
+  }
+}

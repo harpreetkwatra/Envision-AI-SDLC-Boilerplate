@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Logs / env
+*.log
+.env
+.env.*
+!.env.example
+
+# Build / cache
+dist/
+build/
+.cache/
+*.tsbuildinfo
+
+# Feature-level Playwright artifacts (never at repo root)
+features/**/qc/test-results/
+features/**/qc/playwright-report/
+features/**/qc/blob-report/
+features/**/qc/playwright/.cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/*
+!.vscode/extensions.json
