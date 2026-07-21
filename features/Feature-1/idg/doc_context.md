@@ -11,15 +11,19 @@ Two-part ledger for full reproduction of `./doc/` from scratch (plus upstream `.
 
 > **Source of truth for reproduction.** Rewrite on every change. Prefer this over the Chronological Log when regenerating `./doc/`.
 
+
+
 ### Feature identity
 
 - Feature folder basename: `Feature-1`
 - Product feature name: TBD (drives `{FeatureName}ReleaseNotes.md`, `{FeatureName}Manual.md`, `{FeatureName}-csh.md`)
 - Workspace: `features/Feature-1/idg/` — write only here; documentation lands in `./doc/`
 
+
+
 ### Artifact inventory
 
-_(none — `./doc/` is empty)_
+*(none —* `./doc/` *is empty)*
 
 Expected when authored (per `AGENTS.md`):
 
@@ -29,9 +33,11 @@ Expected when authored (per `AGENTS.md`):
 - Supplementary docs as needed (prefix with `{FeatureName}`)
 - Do **not** produce `{FeatureName}OnlineHelp.md` — CSH covers in-app / task-oriented help
 
+
+
 ### Terminology
 
-_(none yet — lock terms from BA BSR / UI labels in Dev once upstream exists)_
+*(none yet — lock terms from BA BSR / UI labels in Dev once upstream exists)*
 
 ### Source references (BA + Dev)
 
@@ -40,16 +46,18 @@ Ground documentation against approved upstream (read-only):
 - BA: `../ba/req/{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx`, `{FeatureName}MockData.json`
 - Dev: `../dev/eng/` components and utilities (labels, workflows, config as implemented)
 
-_(No BA or Dev deliverables pinned yet — do not invent user-facing docs ahead of requirements and implementation.)_
+*(No BA or Dev deliverables pinned yet — do not invent user-facing docs ahead of requirements and implementation.)*
 
 ### Document structure
 
 - CSH, Manual, and Release Notes follow skill `write-doc`
 - CSH files (`*-csh.md`): Metadata → Help Map Summary → Topics (`CSH-00x`) → Open Questions → Revision History
 
+
+
 ### Open questions
 
-_(none yet)_
+*(none yet)*
 
 ### Constraints
 
@@ -59,16 +67,22 @@ _(none yet)_
 - Document implemented behavior from Dev; use BA for intent and acceptance language — call out gaps when they diverge
 - CSH stays short and anchor-mapped; long-form guidance belongs in the Manual (not a separate Online Help file)
 
+
+
 ### Ordered rebuild recipe
 
 1. Confirm product `{FeatureName}` and pinned BA + Dev upstream artifacts.
 2. Recreate `./doc/` from this Consolidated Context (inventory + terminology + source refs + document structure); use `write-doc` for CSH, Manual, and Release Notes as needed.
 3. Align labels and workflows to Dev; align scope and rules to BA BSR.
-4. _(No doc artifacts yet — recipe completes once first documentation set ships.)_
+4. *(No doc artifacts yet — recipe completes once first documentation set ships.)*
 
 ---
 
+
+
 ## Chronological Log
+
+
 
 ### 2026-07-14 — Initialization
 
@@ -76,20 +90,5 @@ _(none yet)_
 - **State**: Empty `./docs/` — awaiting BA requirements and Dev implementation
 - **Upstream dependencies**: `../ba/req/` and `../dev/src/` not yet populated
 
-### 2026-07-16 14:01 — Rename work products folder
 
-- **User intent**: Rename `docs` to `doc` (same pattern as Dev `src` → `eng`)
-- **Decisions**: Documentation directory is `./doc/` (was `./docs/`); living context ledger renamed to `doc_context.md` (was `docs_context.md`); `AGENTS.md` paths updated to match; upstream Dev path is `../dev/eng/`
-- **Changed**: `docs/` → `doc/` (empty); `docs_context.md` → `doc_context.md` with all Consolidated Context paths pointing at `./doc/`
 
-### 2026-07-16 14:08 — Rename global skill
-
-- **User intent**: Rename skill `write-context-sensitive-help` to `write-doc`
-- **Decisions**: IDG CSH/documentation skill is invoked as `write-doc`; path `.cursor/skills/write-doc/`
-- **Changed**: Consolidated Context and `AGENTS.md` skill references updated to `write-doc`
-
-### 2026-07-16 14:12 — Consistency alignment
-
-- **User intent**: Align IDG docs with today’s repo conventions (no Online Help; `write-doc` covers CSH + Manual + Release Notes)
-- **Decisions**: Drop `{FeatureName}OnlineHelp.md` from expected inventory; CSH is in-app help; Manual holds long-form guidance; skill `write-doc` is the single IDG writing skill
-- **Changed**: Consolidated Context inventory, constraints, and rebuild recipe updated
