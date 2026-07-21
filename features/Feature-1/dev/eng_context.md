@@ -52,8 +52,9 @@ _(none yet)_
 - Writes: only this `dev/` tree (`./` and `./eng/`)
 - Reads: upstream `../ba/` only (unless user `@`-tags another feature)
 - Do not write sibling `../ba/`, `../qc/`, or `../idg/`
-- Production components should connect to real state/APIs as specified; use BA mock data only as a behavioral reference, not as live BA prototypes in `./eng/`
-- Shared app shell composition lives under repo-root `src/` (outside this feature write boundary unless directed)
+- Shared app shell and shipped feature pages live under repo-root **`src/`** (shipping app); `./eng/` holds pre-release work for this feature increment
+- Production components in `./eng/` connect to real state/APIs as specified; use BA mock data only as a behavioral reference, not as live BA prototypes in `./eng/`
+- When approved, compose `./eng/` into **`src/`** (routes, shell, shared APIs) — that step is outside this folder’s write boundary unless directed
 
 ### Ordered rebuild recipe
 
@@ -83,6 +84,12 @@ _(none yet)_
 - **User intent**: Use `eng` instead of `engg`
 - **Decisions**: Production code directory is `./eng/`; living context ledger is `eng_context.md`; `AGENTS.md` paths updated to match
 - **Changed**: `engg/` → `eng/` (empty); `engg_context.md` → `eng_context.md` with Consolidated Context paths pointing at `./eng/`
+
+### 2026-07-21 — Shipping app vs new features
+
+- **User intent**: Document that repo-root `src/` is the shipping app and `features/` holds new work in development
+- **Decisions**: `src/` = live DTX portal (deployable today); `features/Feature-N/` = AI-SDLC staging for upcoming releases; composition into `src/` happens when release-ready
+- **Changed**: Global rules (`README.md`, `product_context.mdc`, `system_patterns.mdc`, `tech_context.mdc`), `AGENTS.md` shell note, Consolidated Context constraints
 
 ### 2026-07-16 14:12 — Consistency alignment
 

@@ -27,7 +27,7 @@ All engineering work products MUST be placed inside `./eng/`:
 - **Production code**: `{FeatureName}Page.tsx` / `{FeatureName}Widget.tsx` (reactive UI) and `{FeatureName}Utils.ts` (logic, converters, API handlers)
 - Any other needed files
 
-Cross-feature shell wiring under repo-root `src/` is Dev (or explicit human) work outside this feature folder’s write boundary unless the user directs otherwise.
+Cross-feature shell wiring and composition into repo-root **`src/`** (the **shipping app**) is Dev or explicit human work outside this feature folder’s write boundary unless the user directs otherwise. Work in `./eng/` is pre-ship staging; **`src/`** is what runs in production today.
 
 ## 3. Mandatory Living Context Loop
 

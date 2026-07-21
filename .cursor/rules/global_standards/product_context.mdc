@@ -8,6 +8,15 @@ alwaysApply: true
 ## Vision
 Enterprise application built using the AI-SDLC multi-disciplinary spec-driven development protocol. Business Analysts, Developers, QC engineers, and Information Development Group (IDG) writers collaborate asynchronously within isolated, self-documenting feature folders.
 
+## Repository layout
+
+| Tree | Purpose |
+|------|---------|
+| **`src/`** (repo root) | **Shipping app** — the live portal users run today; composed React/Vite application with production routes, API clients, and feature pages. |
+| **`features/Feature-N/`** | **New features in development** — staged work for upcoming releases. Each folder runs the full BA → Dev → QC → IDG loop before approved code is composed into `src/`. |
+
+Existing shipped capability lives in `src/`. New capability is specified and built under `features/` first, then integrated when release-ready.
+
 ## Why This Exists
 - Enable parallel sprints across BA, Dev, QC, and IDG without merge conflicts
 - Guarantee every feature layer is 100% reproducible from Living Context Ledgers

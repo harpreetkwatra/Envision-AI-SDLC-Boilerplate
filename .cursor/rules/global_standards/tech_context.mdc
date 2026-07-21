@@ -46,21 +46,29 @@ npm run build
 npm run lint
 
 # E2E (Playwright) — per feature, from that feature’s qc/ folder
-cd features/Feature-N/qc
+cd features/Prices/qc
 npx playwright test tst/ --workers=1 --headed
 ```
 
 Playwright Test is configured **per feature** (`features/<Feature>/qc/playwright.config.ts`). There is no repo-root `playwright.config.ts` / `npm run test:e2e`. Chromium binaries are installed automatically via the `postinstall` hook (`playwright install chromium`). Re-run manually with `npm run playwright:install` if needed (e.g. after clearing the Playwright browser cache). Artifacts always go under that feature’s `qc/test-results/` and `qc/playwright-report/` (never at repo root).
 
 ## File Conventions
-- **App shell**: `src/` — shared application shell / composed source at repo root
+
+### Shipping app (repo root)
+
+- **`src/`** — **shipping application**: deployable DTX portal (app shell under `src/app/`, API layer under `src/api/`, shipped feature pages under `src/features/`). This is what `npm run dev` and `npm run build` compile today.
+
+### New features (AI-SDLC workspaces)
+
 - **BA outputs**: `features/Feature-N/ba/req/` — static mockups, JSON data, BSR markdown
-- **Dev outputs**: `features/Feature-N/dev/eng/` — technical design, SQL scripts, production React components, utils, API handlers
+- **Dev outputs**: `features/Feature-N/dev/eng/` — technical design, SQL scripts, production React components, utils, API handlers for the *upcoming* increment (pre-composition)
 - **QC outputs**: `features/Feature-N/qc/tst/` — test cases, test data, automation scripts; `features/Feature-N/qc/playwright.config.ts` — feature Playwright config
 - **IDG outputs**: `features/Feature-N/idg/doc/` — release notes, context-sensitive help, user manuals
 
+Approved feature work from `features/Feature-N/dev/eng/` is composed into **`src/`** when released. Until then, `features/` and `src/` may diverge.
+
 ## Constraints
 - BA mock data must never connect to live APIs or database clients
-- Dev code must ground against `ba/req/FeatureNBSR.md`, mockups, and mock data before implementation
-- QC tests must read both `ba/` requirements and `dev/` source code
-- IDG documentation must read both `ba/` requirements and `dev/` source code before authoring
+- Dev code in `features/Feature-N/dev/eng/` must ground against `ba/req/FeatureNBSR.md`, mockups, and mock data before implementation
+- QC tests must read both `ba/` requirements and `dev/` source code; may also read repo-root `src/` for already-shipped behavior under test
+- IDG documentation must read both `ba/` requirements and `dev/` source code before authoring; may read `src/` for shipped UI labels and workflows

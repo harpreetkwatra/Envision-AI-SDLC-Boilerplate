@@ -21,9 +21,9 @@ My-enterprise-app/
 │       ├── write-tests/SKILL.md
 │       └── write-doc/SKILL.md
 │
-├── src/                            # Shared application shell / source code
+├── src/                            # Shipping app (live portal — deployable today)
 │
-├── features/
+├── features/                       # New features under AI-SDLC development (pre-ship)
 │   ├── Feature-1/
 │   │   ├── ba/                     # Business Analysis workspace
 │   │   │   ├── AGENTS.md
@@ -45,16 +45,25 @@ My-enterprise-app/
 │   └── Feature-N/
 ```
 
-### Application shell (`src/`)
+### Shipping app (`src/`)
 
-- **`src/`** is the shared application shell / composed source at repo root.
-- Feature-specific engineering work lands in `features/Feature-N/dev/eng/` and is composed into the shell as features mature.
+- **`src/`** at repo root is the **shipping application** — the live DTX portal (Vite/React app shell, routes, `src/api/`, and feature pages such as accounts, orders, tokens, chains).
+- Ongoing production fixes and enhancements to already-released surfaces land here directly.
+- **`src/` is not an empty compose target**; it is the authoritative codebase for what runs today.
+
+### New feature development (`features/`)
+
+- **`features/Feature-N/`** holds **upcoming** work developed through the AI-SDLC protocol (BA → Dev → QC → IDG) before release.
+- Each feature folder is an isolated workspace: requirements in `ba/req/`, implementation drafts in `dev/eng/`, tests in `qc/tst/`, docs in `idg/doc/`.
+- Scaffolds may be empty while planning starts; **`src/` may advance independently** until a feature increment is approved for composition.
+- When ready to ship, approved work from `features/Feature-N/dev/eng/` is **composed into `src/`** (routing, shell wiring, shared integrations). That integration step is Dev or explicit human work outside the per-discipline write boundaries.
 
 ## Agent write boundaries (non-negotiable)
 
 Each discipline agent may write **only** inside its own folder (`ba/`, `dev/`, `qc/`, `idg/`).
-Cross-folder implementation (route wiring, Vite plugins, app shell under `src/`) is **Dev** (or explicit human) work.
+Cross-folder implementation (route wiring, Vite plugins, composition into repo-root **`src/`**) is **Dev** (or explicit human) work.
 BA prototypes and temporary wired pages live in `features/*/ba/req/`, not `dev/eng/` or root `src/`.
+QC and IDG may **read** repo-root `src/` when validating or documenting behavior that already ships, but must not write there.
 
 ## Multi-Disciplinary Protocol
 
