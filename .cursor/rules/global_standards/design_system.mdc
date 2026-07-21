@@ -1,71 +1,17 @@
 ---
-description: Color palette, typography, spacing, and component tokens from Figma
+description: Design system — tokens live in repo-root design-system.json
 alwaysApply: true
 ---
 
 # Design System
 
-Design tokens translated from Figma to ensure uniform styling across BA mockups (`ba/req/`) and Dev components (`dev/eng/`).
+**Source of truth:** repo-root [`design-system.json`](../../../design-system.json)
 
-## Color Palette
+All color, typography, spacing, border-radius tokens, and component guidelines for this project are defined there (translated from Figma).
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--color-primary` | `#2563EB` | Primary actions, links, active states |
-| `--color-primary-hover` | `#1D4ED8` | Primary button hover |
-| `--color-secondary` | `#64748B` | Secondary text, icons |
-| `--color-background` | `#FFFFFF` | Page background |
-| `--color-surface` | `#F8FAFC` | Cards, panels, elevated surfaces |
-| `--color-border` | `#E2E8F0` | Dividers, input borders |
-| `--color-text-primary` | `#0F172A` | Headings, body text |
-| `--color-text-secondary` | `#64748B` | Captions, helper text |
-| `--color-success` | `#16A34A` | Success states, confirmations |
-| `--color-warning` | `#D97706` | Warnings, caution alerts |
-| `--color-error` | `#DC2626` | Errors, destructive actions |
+## Agent requirements
 
-## Typography
-
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--font-family` | `'Inter', system-ui, sans-serif` | All text |
-| `--font-size-xs` | `0.75rem` | Captions, badges |
-| `--font-size-sm` | `0.875rem` | Body small, labels |
-| `--font-size-base` | `1rem` | Body text |
-| `--font-size-lg` | `1.125rem` | Subheadings |
-| `--font-size-xl` | `1.25rem` | Section headings |
-| `--font-size-2xl` | `1.5rem` | Page titles |
-| `--font-weight-normal` | `400` | Body text |
-| `--font-weight-medium` | `500` | Labels, buttons |
-| `--font-weight-semibold` | `600` | Headings |
-| `--font-weight-bold` | `700` | Emphasis |
-
-## Spacing
-
-| Token | Value |
-|-------|-------|
-| `--spacing-xs` | `0.25rem` |
-| `--spacing-sm` | `0.5rem` |
-| `--spacing-md` | `1rem` |
-| `--spacing-lg` | `1.5rem` |
-| `--spacing-xl` | `2rem` |
-| `--spacing-2xl` | `3rem` |
-
-## Border Radius
-
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--radius-sm` | `0.25rem` | Badges, tags |
-| `--radius-md` | `0.375rem` | Buttons, inputs |
-| `--radius-lg` | `0.5rem` | Cards |
-| `--radius-xl` | `0.75rem` | Modals, panels |
-
-## Component Guidelines
-
-- **Buttons**: Use `--color-primary` background with `--radius-md`; minimum height 40px
-- **Inputs**: 1px `--color-border` border, `--radius-md`, `--spacing-sm` internal padding
-- **Cards**: `--color-surface` background, `--color-border` border, `--radius-lg`, `--spacing-lg` padding
-- **Tables**: Alternating row backgrounds using `--color-background` and `--color-surface`
-
-## Usage in Mockups and Components
-
-BA mockups in `ba/req/*.tsx` and Dev components in `dev/eng/*.tsx` MUST reference these tokens. Prefer CSS custom properties or a shared token import once the project is scaffolded.
+1. **Read** `design-system.json` before creating or updating BA mockups (`ba/req/*.tsx`) or Dev components (`dev/eng/*.tsx`).
+2. **Reference** CSS custom property names from that file (e.g. `--color-primary`, `--spacing-md`). Do not invent parallel token values.
+3. Prefer CSS custom properties or a shared token import once the project is scaffolded.
+4. When design tokens change, update **`design-system.json` only** — keep this rule as a pointer, not a duplicate token table.

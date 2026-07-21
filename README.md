@@ -76,7 +76,7 @@ Maintained as the composed, deployable application. Feature work from `features/
 | `product_context.mdc` | Business vision and user personas          |
 | `tech_context.mdc`    | Tech stack and environment setup           |
 | `system_patterns.mdc` | Folder architecture and naming conventions |
-| `design_system.mdc`   | Figma-derived design tokens                |
+| `design_system.mdc`   | Points to root `design-system.json` tokens |
 
 
 ## Global Skills

@@ -26,7 +26,7 @@ All generative and visual output files MUST be placed exclusively inside `./req/
 - `{FeatureName}BSR.md`: Structured functional rules for the feature. **Create or update on every requirements vibe / change.** Use the global skill `write-bsr`.
 
 ### Produce only when needed
-- `{FeatureName}PageMockup.tsx`: Static layout playground matching `global_standards/design_system.mdc`. Create/update only when the user asks for UI/layout work or when UX cannot be understood from the BSR alone.
+- `{FeatureName}PageMockup.tsx`: Static layout playground matching repo-root `design-system.json` (see `global_standards/design_system.mdc`). Create/update only when the user asks for UI/layout work or when UX cannot be understood from the BSR alone.
 - `{FeatureName}MockData.json`: Isolated static sample data. Create/update only when the user asks for sample data, or when the BSR’s data model needs concrete payloads. Never connect to a live API or database.
 - Any other needed files (same rule: only when the vibe calls for them).
 

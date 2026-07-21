@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "envision-ai-sdlc-design-system",
+  "version": "1.0.0",
+  "description": "Design tokens translated from Figma for uniform styling across BA mockups (ba/req/) and Dev components (dev/eng/).",
+  "source": "Figma",
+  "usage": {
+    "baMockups": "features/*/ba/req/*.tsx",
+    "devComponents": "features/*/dev/eng/*.tsx",
+    "preference": "Prefer CSS custom properties or a shared token import once the project is scaffolded. BA mockups and Dev components MUST reference these tokens."
+  },
+  "colors": {
+    "--color-primary": {
+      "value": "#2563EB",
+      "usage": "Primary actions, links, active states"
+    },
+    "--color-primary-hover": {
+      "value": "#1D4ED8",
+      "usage": "Primary button hover"
+    },
+    "--color-secondary": {
+      "value": "#64748B",
+      "usage": "Secondary text, icons"
+    },
+    "--color-background": {
+      "value": "#FFFFFF",
+      "usage": "Page background"
+    },
+    "--color-surface": {
+      "value": "#F8FAFC",
+      "usage": "Cards, panels, elevated surfaces"
+    },
+    "--color-border": {
+      "value": "#E2E8F0",
+      "usage": "Dividers, input borders"
+    },
+    "--color-text-primary": {
+      "value": "#0F172A",
+      "usage": "Headings, body text"
+    },
+    "--color-text-secondary": {
+      "value": "#64748B",
+      "usage": "Captions, helper text"
+    },
+    "--color-success": {
+      "value": "#16A34A",
+      "usage": "Success states, confirmations"
+    },
+    "--color-warning": {
+      "value": "#D97706",
+      "usage": "Warnings, caution alerts"
+    },
+    "--color-error": {
+      "value": "#DC2626",
+      "usage": "Errors, destructive actions"
+    }
+  },
+  "typography": {
+    "--font-family": {
+      "value": "'Inter', system-ui, sans-serif",
+      "usage": "All text"
+    },
+    "--font-size-xs": {
+      "value": "0.75rem",
+      "usage": "Captions, badges"
+    },
+    "--font-size-sm": {
+      "value": "0.875rem",
+      "usage": "Body small, labels"
+    },
+    "--font-size-base": {
+      "value": "1rem",
+      "usage": "Body text"
+    },
+    "--font-size-lg": {
+      "value": "1.125rem",
+      "usage": "Subheadings"
+    },
+    "--font-size-xl": {
+      "value": "1.25rem",
+      "usage": "Section headings"
+    },
+    "--font-size-2xl": {
+      "value": "1.5rem",
+      "usage": "Page titles"
+    },
+    "--font-weight-normal": {
+      "value": "400",
+      "usage": "Body text"
+    },
+    "--font-weight-medium": {
+      "value": "500",
+      "usage": "Labels, buttons"
+    },
+    "--font-weight-semibold": {
+      "value": "600",
+      "usage": "Headings"
+    },
+    "--font-weight-bold": {
+      "value": "700",
+      "usage": "Emphasis"
+    }
+  },
+  "spacing": {
+    "--spacing-xs": { "value": "0.25rem" },
+    "--spacing-sm": { "value": "0.5rem" },
+    "--spacing-md": { "value": "1rem" },
+    "--spacing-lg": { "value": "1.5rem" },
+    "--spacing-xl": { "value": "2rem" },
+    "--spacing-2xl": { "value": "3rem" }
+  },
+  "borderRadius": {
+    "--radius-sm": {
+      "value": "0.25rem",
+      "usage": "Badges, tags"
+    },
+    "--radius-md": {
+      "value": "0.375rem",
+      "usage": "Buttons, inputs"
+    },
+    "--radius-lg": {
+      "value": "0.5rem",
+      "usage": "Cards"
+    },
+    "--radius-xl": {
+      "value": "0.75rem",
+      "usage": "Modals, panels"
+    }
+  },
+  "components": {
+    "buttons": {
+      "background": "--color-primary",
+      "borderRadius": "--radius-md",
+      "minHeight": "40px"
+    },
+    "inputs": {
+      "borderWidth": "1px",
+      "borderColor": "--color-border",
+      "borderRadius": "--radius-md",
+      "padding": "--spacing-sm"
+    },
+    "cards": {
+      "background": "--color-surface",
+      "borderColor": "--color-border",
+      "borderRadius": "--radius-lg",
+      "padding": "--spacing-lg"
+    },
+    "tables": {
+      "rowBackgrounds": ["--color-background", "--color-surface"],
+      "note": "Alternating row backgrounds"
+    }
+  }
+}
