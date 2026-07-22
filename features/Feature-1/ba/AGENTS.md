@@ -21,15 +21,16 @@ Your operations are strictly restricted to **this directory** (`.` — the featu
 
 All generative and visual output files MUST be placed exclusively inside `./req/`.
 
-### Always produce
-- `{FeatureName}BSR.md`: Structured functional rules for the feature. **Create or update on every requirements vibe / change.** Use the global skill `write-bsr`.
+### Produce only on explicit ask
+- `{FeatureName}BSR.md`: Structured functional rules for the feature. Create or update **only** when the user clearly asks for it — e.g. `create bsr`, `update the bsr`, `write bsr.md`, `write the BSR`, or invoke the global skill `write-bsr`.
+  - On ordinary mockup, mock-data, or UX vibes: update those artifacts and `req_context.md` as usual; **do not** create, rewrite, or “sync” the BSR.
 
 ### Produce only when needed
-- `{FeatureName}PageMockup.tsx`: Static layout playground matching repo-root `design-system.json` (see `global_standards/design_system.mdc`). Create/update only when the user asks for UI/layout work or when UX cannot be understood from the BSR alone.
-- `{FeatureName}MockData.json`: Isolated static sample data. Create/update only when the user asks for sample data, or when the BSR’s data model needs concrete payloads. Never connect to a live API or database.
+- `{FeatureName}PageMockup.tsx`: Static layout playground matching `global_standards/design_system.mdc`. Create/update when the user asks for UI/layout work or when a vibe calls for visual exploration.
+- `{FeatureName}MockData.json`: Isolated static sample data. Create/update when the user asks for sample data or when a vibe calls for concrete payloads. Connect to a live API or database ONLY if asked explicitly.
 - Any other needed files (same rule: only when the vibe calls for them).
 
-Do **not** invent mockups or mock data just to fill `./req/`. A BSR-only `./req/` is valid.
+Do **not** invent mockups, mock data, or a BSR just to fill `./req/`. Mockup and/or mock data without a BSR is valid during iteration. A BSR-only `./req/` is valid when the user asked for the BSR without UI artifacts.
 
 
 
