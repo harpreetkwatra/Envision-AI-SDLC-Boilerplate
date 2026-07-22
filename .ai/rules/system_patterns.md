@@ -1,8 +1,3 @@
----
-description: System architecture, folder structure, naming conventions, and constraints
-alwaysApply: true
----
-
 # System Patterns
 
 ## Repository Architecture

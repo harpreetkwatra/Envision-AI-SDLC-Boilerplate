@@ -70,13 +70,18 @@ Maintained as the composed, deployable application. Feature work from `features/
 
 ## Global Rules
 
+**Source of truth:** [`.ai/rules/`](.ai/rules/) (`product_context.md`, `tech_context.md`, `system_patterns.md`, `design_system.md`).
 
-| Rule                  | Purpose                                    |
-| --------------------- | ------------------------------------------ |
-| `product_context.mdc` | Business vision and user personas          |
-| `tech_context.mdc`    | Tech stack and environment setup           |
-| `system_patterns.mdc` | Folder architecture and naming conventions |
-| `design_system.mdc`   | Points to root `design-system.json` tokens |
+**Sync to IDEs:** `npm run sync:rules` → writes Cursor [`.cursor/rules/global_standards/*.mdc`](.cursor/rules/global_standards/) and repo-root [`CLAUDE.md`](CLAUDE.md).
+
+| Source (`.ai/rules/`) | Cursor output | Purpose |
+| --------------------- | ------------- | ------- |
+| `product_context.md` | `product_context.mdc` | Business vision and user personas |
+| `tech_context.md` | `tech_context.mdc` | Tech stack and environment setup |
+| `system_patterns.md` | `system_patterns.mdc` | Folder architecture and naming conventions |
+| `design_system.md` | `design_system.mdc` | Points to root `design-system.json` tokens |
+
+Claude reads the combined rules in **`CLAUDE.md`** at repo root.
 
 
 ## Global Skills

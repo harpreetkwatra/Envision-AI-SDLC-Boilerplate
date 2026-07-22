@@ -1,8 +1,3 @@
----
-description: Tech stack, runtime environments, and local setup commands
-alwaysApply: true
----
-
 # Tech Context
 
 ## Tech Stack

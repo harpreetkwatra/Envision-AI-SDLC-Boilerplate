@@ -1,8 +1,3 @@
----
-description: Design system — tokens live in repo-root design-system.json
-alwaysApply: true
----
-
 # Design System
 
 **Source of truth:** repo-root [`design-system.json`](/design-system.json)

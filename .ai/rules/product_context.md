@@ -1,0 +1,38 @@
+# Product Context
+
+## Vision
+Enterprise application built using the AI-SDLC multi-disciplinary spec-driven development protocol. Business Analysts, Developers, QC engineers, and Information Development Group (IDG) writers collaborate asynchronously within isolated, self-documenting feature folders.
+
+## Repository layout
+
+| Tree | Purpose |
+|------|---------|
+| **`src/`** (repo root) | **Shipping app** — the live portal users run today; composed React/Vite application with production routes, API clients, and feature pages. |
+| **`features/Feature-N/`** | **New features in development** — staged work for upcoming releases. Each folder runs the full BA → Dev → QC → IDG loop before approved code is composed into `src/`. |
+
+Existing shipped capability lives in `src/`. New capability is specified and built under `features/` first, then integrated when release-ready.
+
+## Why This Exists
+- Enable parallel sprints across BA, Dev, QC, and IDG without merge conflicts
+- Guarantee every feature layer is 100% reproducible from Living Context Ledgers
+- Maintain a verifiable history of how every requirement, line of code, test, and document was constructed
+
+## Target Users
+| Persona | Role | Workspace |
+|---------|------|-----------|
+| Business Analysts / Product Owners / UI/UX Designers | Requirements, mockups, BSR docs | `features/*/ba/` |
+| Software Engineers | Technical design, SQL, production code | `features/*/dev/` |
+| QC Analysts / Automation Testers | Test cases, data, automation scripts | `features/*/qc/` |
+| Technical Writers / IDG | Release notes, context-sensitive help, user manuals | `features/*/idg/` |
+
+## User Experience Requirements
+- BAs produce high-fidelity mockups and BSR docs without touching production code
+- Devs code against approved BA specifications with read-only upstream access
+- QC validates against both requirements and implementation with read-only upstream access
+- IDG authors documentation grounded in BA requirements and Dev implementation with read-only upstream access
+- Cross-feature dependencies (e.g., Feature-9) are explicitly tagged via `@` references
+
+## Success Criteria
+- Each feature folder's work products can be destroyed and fully recreated by the Cursor Agent at any time
+- Zero merge conflicts across disciplines (each layer writes exclusively to its own directory)
+- Global design system tokens ensure uniform styling across BA mockups and Dev components
