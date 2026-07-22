@@ -7,7 +7,8 @@
   "scripts": {
     "postinstall": "playwright install chromium",
     "playwright:install": "playwright install chromium",
-    "sync:rules": "node .ai/rules/sync-rules.mjs"
+    "sync:rules": "node .ai/rules/.sync-rules.mjs",
+    "sync:skills": "node .ai/skills/.sync-skills.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0"

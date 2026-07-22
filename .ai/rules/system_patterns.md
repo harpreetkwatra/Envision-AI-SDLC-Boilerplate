@@ -6,7 +6,10 @@
 My-enterprise-app/
 ├── .cursor/
 │   ├── rules/global_standards/     # Cursor agent rules (*.mdc)
-│   └── skills/                     # write-bsr, write-tests, write-doc
+│   └── skills/                     # Cursor agent skills (write-bsr, write-tests, write-doc)
+│
+├── .claude/
+│   └── skills/                     # Claude agent skills (write-bsr, write-tests, write-doc)
 │
 ├── CLAUDE.md                       # Claude agent project rules
 │

@@ -86,11 +86,13 @@ Claude reads the combined rules in **`CLAUDE.md`** at repo root.
 
 ## Global Skills
 
+**Source of truth:** [`.ai/skills/`](.ai/skills/) (`write-bsr.md`, `write-tests.md`, `write-doc.md`).
 
-| Skill                           | Purpose                                                      |
-| ------------------------------- | ------------------------------------------------------------ |
-| `write-bsr`                     | Standardized Business & System Requirements documents        |
-| `write-tests`                   | Standardized test case matrices and automation               |
-| `write-doc`                     | Standardized context-sensitive help, manuals and rel notes   |
+**Sync to IDEs:** `npm run sync:skills` → writes Cursor [`.cursor/skills/<name>/SKILL.md`](.cursor/skills/) and Claude [`.claude/skills/<name>/SKILL.md`](.claude/skills/).
 
+| Source (`.ai/skills/`) | Purpose |
+| ---------------------- | ------- |
+| `write-bsr.md` | Standardized Business & System Requirements documents |
+| `write-tests.md` | Standardized test case matrices and automation |
+| `write-doc.md` | Context-sensitive help, manuals, and release notes |
 
