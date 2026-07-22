@@ -51,9 +51,13 @@ Write only inside the feature’s `idg/` tree. After every create/update, refres
 
 CSH topics stay brief (typically 1–3 short paragraphs or a tight bullet list). Link to Manual sections when deeper guidance exists.
 
-## CSH Document Structure
+## Document Structures
 
-Every CSH file MUST follow this section order:
+Every IDG deliverable MUST follow the section order for its artifact type below.
+
+### CSH Document Structure
+
+Every `{FeatureName}-csh.md` file MUST follow this section order:
 
 ```markdown
 # Feature [N]: Context-Sensitive Help
@@ -68,9 +72,9 @@ Every CSH file MUST follow this section order:
 
 ## 2. Help Map Summary
 
-| CSH-ID | UI surface | Trigger / control | Topic title | Manual ref |
-|--------|------------|-------------------|-------------|------------|
-| CSH-001 | [Page / dialog] | [Control or field] | [Short title] | [Optional section or N/A] |
+| CSH-ID | UI surface | Trigger / control | Error state | Topic title | Manual ref |
+|--------|------------|-------------------|-------------|-------------|------------|
+| CSH-001 | [Page / dialog] | [Control or field] | [Validation / failure help, or N/A] | [Short title] | [Manual §x.x or N/A] |
 
 ## 3. Topics
 
@@ -86,9 +90,13 @@ Every CSH file MUST follow this section order:
 
 [Concise user-facing copy. Use product UI labels exactly. No implementation jargon.]
 
+**Validation / errors** (optional)
+
+[User-facing validation or error message and what the user should do. Omit if N/A.]
+
 **See also**
 
-- [Optional: Manual section, related CSH-ID]
+- [Manual §5.2, CSH-00x, or N/A]
 
 ### CSH-002: [Topic title]
 
@@ -107,17 +115,196 @@ Every CSH file MUST follow this section order:
 | YYYY-MM-DD | [Author] | Initial draft |
 ```
 
+### User Manual Document Structure
+
+Every `{FeatureName}Manual.md` file MUST follow this section order:
+
+```markdown
+# Feature [N]: [Feature Title] — User Manual
+
+## 1. Metadata
+
+- **Feature ID**: Feature-[N]
+- **Feature name**: [FeatureName]
+- **Product**: DLT Manager
+- **Status**: Draft | In Review | Approved
+- **Audience**: [e.g. Operations / transfer-agent ops]
+- **Last Updated**: [YYYY-MM-DD]
+- **Upstream**: `{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx` (if any), `{FeatureName}-csh.md`, `dev/eng/`
+
+## 2. Introduction
+
+### 2.1 Purpose
+
+[One paragraph: what this feature lets the user do and why it matters.]
+
+### 2.2 Who should use this guide
+
+[Personas and roles.]
+
+### 2.3 Prerequisites
+
+- Signed in to DLT Manager (Strapi credentials)
+- [Permissions, data setup, or other prerequisites — or N/A]
+
+## 3. Accessing the feature
+
+- **Navigation**: [Left rail icon / menu label]
+- **Route**: `#[route-hash]` (e.g. `#tokens`)
+- **Breadcrumb**: [Label as shown in shell]
+- **Notes**: [Shell or theme notes if relevant — or N/A]
+
+## 4. Screen overview
+
+### 4.1 Layout
+
+[Cards vs Table toggle, default layout, Settings → Layout if applicable.]
+
+### 4.2 Toolbar and primary actions
+
+| Action | Control label | Description |
+|--------|---------------|-------------|
+| Refresh | [Label] | [What it does] |
+| [Add / Create] | [Label] | [What it does] |
+
+### 4.3 List / main content
+
+[Columns, cards, sort, filter, pagination — mirror Dev UI labels.]
+
+![Figure 4.1: [Screen name]](screenshots/[filename].png)
+
+## 5. Workflows
+
+### 5.1 [Workflow title — e.g. View the list]
+
+**Goal**: [One line.]
+
+**Related FR**: [FR-00x or N/A]
+
+1. [Numbered step using exact UI labels.]
+2. [Next step.]
+
+![Figure 5.1: [Workflow step]](screenshots/[filename].png)
+
+### 5.2 [Workflow title — e.g. Create a new record]
+
+**Goal**: [One line.]
+
+**Related FR**: [FR-00x or N/A]
+
+1. [Numbered step.]
+2. [Next step.]
+
+## 6. Fields and controls
+
+| Label | Control type | Required | Description | CSH-ID |
+|-------|--------------|----------|-------------|--------|
+| [Field label] | [Text / Select / Toggle / …] | Yes / No | [User-facing description] | [CSH-00x or N/A] |
+
+## 7. Messages and troubleshooting
+
+| Situation | Message or behavior | What to do |
+|-----------|---------------------|------------|
+| [Empty list] | [Message] | [User action] |
+| [Validation error] | [Exact message] | [Correction] |
+
+## 8. Glossary
+
+| Term | Definition |
+|------|------------|
+| [Term] | [Plain-language definition] |
+
+## 9. Related documentation
+
+- Context-sensitive help: `{FeatureName}-csh.md`
+- Requirements: `{FeatureName}BSR.md` (FR references as needed)
+
+## 10. Open Questions
+
+| # | Question | Status | Resolution |
+|---|----------|--------|------------|
+| 1 | [BA/Dev gap, missing screenshot, unclear workflow] | Open / Resolved | [Answer] |
+
+## 11. Revision History
+
+| Date | Author | Change Summary |
+|------|--------|----------------|
+| YYYY-MM-DD | [Author] | Initial draft |
+```
+
+### Release Notes Document Structure
+
+Every `{FeatureName}ReleaseNotes.md` file MUST follow this section order:
+
+```markdown
+# Feature [N]: [Feature Title] — Release Notes
+
+## 1. Release metadata
+
+- **Product**: DLT Manager
+- **Feature**: [FeatureName]
+- **Version / build**: [e.g. 1.2.0 or TBD]
+- **Release date**: [YYYY-MM-DD or TBD]
+- **Status**: Draft | Published
+- **Last Updated**: [YYYY-MM-DD]
+
+## 2. Summary
+
+[2–4 sentences: headline of what shipped and who benefits. User-facing language only.]
+
+## 3. New
+
+- [User-visible addition — link FR-00x when BSR exists]
+- [Another new capability]
+
+## 4. Changed
+
+- [Behavior or UI change users will notice]
+- [Another change]
+
+## 5. Fixed
+
+- [Symptom → resolution in plain language]
+- [Another fix]
+
+## 6. Known issues
+
+| Issue | Workaround | Target fix |
+|-------|------------|------------|
+| [Limitation or defect] | [What the user can do, or None] | [Version / TBD / N/A] |
+
+## 7. Upgrade / compatibility notes
+
+[Breaking changes, config, permissions, or dependency notes. Omit this section if N/A.]
+
+## 8. Documentation updates
+
+- Manual: [Section(s) added or updated — or N/A]
+- CSH: [CSH-ID(s) added or updated — or N/A]
+
+## 9. Revision History
+
+| Date | Author | Change Summary |
+|------|--------|----------------|
+| YYYY-MM-DD | [Author] | Initial draft |
+```
+
 ## Writing Rules
 
 1. One CSH topic per distinct UI context (page region, dialog, or field group); split fields when messages differ.
 2. Assign sequential IDs: `CSH-001`, `CSH-002`, …
 3. Every CSH topic MUST include a stable **Anchor** Dev can map to code (`name`, `id`, or agreed `data-help-id`).
-4. Help text is user-facing only — what the control does, valid input, and what happens on error — not API or storage details.
-5. Mirror exact UI labels from Dev (button text, column headers, validation wording).
-6. Cover required fields, primary actions, and BSR edge cases that surface in the UI.
-7. Do not duplicate the full User Manual in CSH; keep CSH short and link out when needed.
-8. Release notes and manuals must ground against BA BSR and Dev `eng/` behavior; call out BA/Dev gaps.
-9. After creating or updating any IDG doc, update `idg/doc_context.md` Living Context Loop.
+4. Every primary control and required field on the mockup MUST have a CSH topic or an explicit N/A row in the Help Map Summary.
+5. Help text is user-facing only — what the control does, valid input, and what happens on error — not API or storage details.
+6. Mirror exact UI labels from Dev (button text, column headers, validation wording).
+7. Cover required fields, primary actions, and BSR edge cases that surface in the UI.
+8. Do not duplicate the full User Manual in CSH; keep CSH short and link out using `Manual §x.x` and `CSH-00x` cross-refs.
+9. **Manual**: use task-oriented numbered steps; one workflow section (§5.x) per major user goal from BSR user stories; do not paste full CSH text — link by CSH-ID or Manual section.
+10. **Manual**: screenshot placeholders are optional at draft time; use `![Figure x.x: …](screenshots/…)` when figures are available.
+11. **Release notes**: user-facing language only; group items under New / Changed / Fixed; no implementation detail.
+12. **Release notes**: if nothing has shipped yet, set status **Draft** and version **TBD**.
+13. All deliverables must ground against BA BSR and Dev `eng/` behavior; call out BA/Dev gaps under **Open Questions**.
+14. After creating or updating any IDG doc, update `idg/doc_context.md` Living Context Loop.
 
 ## Workflow Checklist
 
@@ -127,7 +314,7 @@ Task Progress:
 - [ ] Read doc_context.md Consolidated Context
 - [ ] Read BA BSR (+ mockup / mock data if present)
 - [ ] Read Dev eng for labels and validation
-- [ ] Create or update doc/{FeatureName}-csh.md and/or Manual / ReleaseNotes as requested
+- [ ] Create or update -csh.md / Manual.md / ReleaseNotes.md using the matching Document Structure section
 - [ ] Rewrite doc_context.md Consolidated Context
 - [ ] Append Chronological Log entry (date and time)
 ```
