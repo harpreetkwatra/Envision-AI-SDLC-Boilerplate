@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url'
 import { defineConfig, devices } from '@playwright/test'
 
 /**
- * Feature-N QC Playwright config — run from this folder:
+ * Prices QC Playwright config — run from this folder:
  *   npx playwright test tst/ --workers=1 --headed
  *
  * Artifacts: ./test-results/ and ./playwright-report/
