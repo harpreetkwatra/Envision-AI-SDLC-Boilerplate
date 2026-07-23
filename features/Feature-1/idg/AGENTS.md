@@ -6,8 +6,7 @@ You are the dedicated AI Agent for the Information Development Group (IDG) — t
 
 - Feature root = parent of this `idg/` folder → `../`
 - Feature name = basename of that folder (e.g. `Prices`)
-- Use that name in artifact filenames: `{FeatureName}ReleaseNotes.md`, `{FeatureName}Manual.md`, `{FeatureName}-csh.md`
-- Do **not** produce `{FeatureName}OnlineHelp.md` — context-sensitive help (`*-csh.md`) covers in-app / task-oriented help for this feature
+- Use that name in artifact filenames: `{FeatureName}ReleaseNotes.md`, `{FeatureName}Manual.md`, `{FeatureName}-csh.md`, `{FeatureName}OnlineHelp.md`
 - Upstream BA artifacts: `../ba/req/{FeatureName}BSR.md`, `../ba/req/{FeatureName}PageMockup.tsx`, `../ba/req/{FeatureName}MockData.json`
 
 ## 1. Context Boundary Scope
@@ -25,8 +24,20 @@ Your write operations are strictly restricted to **this directory** (`.` — the
 
 All documentation files MUST be placed exclusively inside `./doc/`.
 
+When the user says **write doc**, **write the docs**, **author IDG**, **create/update documentation**, or invokes the global skill `write-doc`, produce or refresh **all four** standard deliverables in one pass:
+
+1. `{FeatureName}-csh.md`
+2. `{FeatureName}OnlineHelp.md`
+3. `{FeatureName}Manual.md`
+4. `{FeatureName}ReleaseNotes.md`
+
+Partial doc requests (e.g. "update CSH only") still require syncing `{FeatureName}OnlineHelp.md` when any CSH topic referenced in the Online Help body changes.
+
+**BA/Dev adoption:** consuming Online Help is **optional** — IDG always publishes the file; downstream teams may wire a page help drawer from it, continue hand-mirroring CSH, or skip page-level help.
+
 - **Release Notes**: `{FeatureName}ReleaseNotes.md` — what's new, changed, fixed, and known issues per release
-- **Context-Sensitive Help**: `{FeatureName}-csh.md` — atomic, anchor-mapped short help for every UI element (see §2.1); also the in-app / task-oriented help surface for this feature (do not create a separate Online Help file). Use the global skill `write-doc`
+- **Context-Sensitive Help**: `{FeatureName}-csh.md` — atomic, anchor-mapped short help for every UI element (see §2.1); per-control tooltips, F1, and inline help. Use the global skill `write-doc`
+- **Online Help**: `{FeatureName}OnlineHelp.md` — pre-composed page help drawer / slider body (see §2.2); always authored with the other standard deliverables
 - **User Manual**: `{FeatureName}Manual.md` — comprehensive end-user guide with workflows, screenshot references, and glossary
 - **Supplementary docs**: API guides, admin guides, or quick-start guides as needed (prefix with `{FeatureName}`)
 - Any other needed files.
@@ -79,6 +90,61 @@ The **Help Map Summary** table in `{FeatureName}-csh.md` is the inventory BA and
 - Anchors that change meaning without a documented rename in Revision History / `doc_context.md`
 - Duplicating the full Manual inside CSH
 
+### 2.2 Online Help — page slider / drawer body (mandatory)
+
+`{FeatureName}OnlineHelp.md` is the **pre-assembled** scrollable body for the page-level help drawer (and open-in-new-tab). It composes CSH topics and short layout copy from Manual §4 into one file BA/Dev can render with minimal wiring.
+
+#### When required
+
+- **Always** create/update `{FeatureName}OnlineHelp.md` as part of the standard `write-doc` deliverable set — not only when BA/Dev have wired a drawer.
+- Update it in the **same IDG change** as any CSH topic that appears in the Online Help body.
+- If the feature has no page-level help drawer in BA/Dev yet, still author Online Help from BSR + mockup so it is ready when they choose to adopt it.
+
+#### Consumption contract
+
+BA/Dev may adopt this file optionally. When used:
+
+- **Drawer title** → metadata `Drawer title`
+- **Page anchor** → metadata `Page anchor` (e.g. `prices.page` on drawer root)
+- **Body** → ordered `##` sections below — render directly or map 1:1 to `<section>` elements
+
+#### Required section order (`##` headings — use exact titles)
+
+1. **Overview** — CSH page topic (e.g. CSH-001)
+2. **Page layout** — bullet list of major regions (from Manual §4.1; no screenshots)
+3. One `##` section per **primary toolbar/filter control** in top-to-bottom UI order (e.g. **Refresh**, **Search**, **Date filter**, **Rows per page**)
+4. **Table columns** — one `###` subheading per column; body = that column's CSH help text
+5. **Pagination** — CSH pagination topic
+6. **Messages** — bullet list of user-visible status/validation messages (from CSH empty/error topics + Manual §7)
+
+Omit sections not on the page (do not pad).
+
+#### Per-section metadata (HTML comments — not shown to users)
+
+Immediately under each `##` or `###` heading:
+
+```markdown
+## Refresh
+<!-- anchor: prices.refresh -->
+<!-- csh: CSH-002 -->
+```
+
+- `anchor` — stable `data-help-id` when one exists; omit for composite sections (e.g. **Date filter** may cite `<!-- csh: CSH-004, CSH-005 -->`)
+- `csh` — one or more CSH-IDs sourced for that block
+
+#### Sync rules
+
+1. Online Help prose for a control MUST match the corresponding CSH **Help text** verbatim.
+2. Online Help is assembled from CSH + short layout copy from Manual §4 — it does not invent alternate wording.
+3. Long-form workflows stay in the Manual only.
+
+#### Anti-patterns (forbidden)
+
+- Duplicating full Manual workflows inside Online Help
+- Wording that diverges from CSH for the same control
+- Bundling all columns into one paragraph (use `###` per column under **Table columns**)
+- Screenshots or release-note content in Online Help
+
 ## 3. Mandatory Living Context Loop
 
 **The Goal:** The folder `./doc/` must be 100% reproducible from scratch at any moment using only `./doc_context.md` (plus required upstream `../ba/req/` artifacts — especially `{FeatureName}BSR.md` — optional `../dev/eng/` when present, the `write-doc` skill, and global standards it names).
@@ -87,9 +153,10 @@ The **Help Map Summary** table in `{FeatureName}-csh.md` is the inventory BA and
 
 1. `## Consolidated Context` (required, always current)
   - Rewrite this section on **every** change — do not append to it.
-  - It must contain **everything** needed to recreate `./doc/` from an empty folder: feature identity, artifact inventory, terminology, source references from BA and Dev, document structure, open questions, constraints, and an ordered rebuild recipe.
+  - It must contain **everything** needed to recreate `./doc/` from an empty folder: feature identity, artifact inventory (all four standard deliverables), terminology, source references from BA and Dev, document structure, open questions, constraints, and an ordered rebuild recipe.
   - Prefer this section over the chronological log when regenerating artifacts.
   - Include the CSH atomic-element inventory (CSH-ID ↔ Anchor ↔ UI element) so `./doc/{FeatureName}-csh.md` can be rebuilt and so BA/Dev can re-wire help from the ledger.
+  - Include `{FeatureName}OnlineHelp.md` in the artifact inventory and rebuild recipe (always produced with CSH, Manual, Release Notes).
 2. `## Chronological Log` (append-only history)
   - After each change, append a dated (date and time both) entry with user intent, decisions, and what changed.
   - Never edit or delete prior log entries (except trivial typo fixes).

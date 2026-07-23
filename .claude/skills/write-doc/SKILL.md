@@ -2,22 +2,25 @@
 name: write-doc
 description: >-
   Produce and update IDG documentation in features/*/idg/doc/: context-sensitive
-  help (FeatureN-csh.md), user manuals (FeatureNManual.md), and release notes
-  (FeatureNReleaseNotes.md). Use when creating or updating IDG docs, CSH,
-  manuals, release notes, field-level help, or in-app help mapping.
+  help (FeatureN-csh.md), online help (FeatureNOnlineHelp.md), user manuals
+  (FeatureNManual.md), and release notes (FeatureNReleaseNotes.md). Use when
+  creating or updating IDG docs, CSH, online help, manuals, release notes,
+  field-level help, or in-app help mapping.
 ---
 
 # Write Doc
 
-Generate IDG deliverables for a feature: context-sensitive help (CSH), user manuals, and release notes. All artifacts land under `features/Feature-N/idg/doc/`.
+Generate IDG deliverables for a feature: context-sensitive help (CSH), online help, user manuals, and release notes. All artifacts land under `features/Feature-N/idg/doc/`.
+
+On every `write-doc` invocation, produce or refresh **all four** standard deliverables in one pass. BA/Dev adoption of Online Help is optional.
 
 ## When to Use
 
-- Creating or updating `{FeatureName}-csh.md`, `{FeatureName}Manual.md`, or `{FeatureName}ReleaseNotes.md`
-- User explicitly invokes the write-doc skill
-- Working in a feature’s `idg/` folder on release notes, manuals, or in-app / field-level help
+- Creating or updating IDG documentation for a feature (`write doc`, `write the docs`, `author IDG`, or explicit `write-doc` skill invocation)
+- Creating or updating any of: `{FeatureName}-csh.md`, `{FeatureName}OnlineHelp.md`, `{FeatureName}Manual.md`, `{FeatureName}ReleaseNotes.md`
+- Working in a feature's `idg/` folder on release notes, manuals, online help, or in-app / field-level help
 
-Do **not** create `{FeatureName}OnlineHelp.md` — CSH covers in-app / task-oriented help; long-form guidance belongs in the Manual.
+**Standard deliverable set:** always output CSH + OnlineHelp + Manual + Release Notes together. Partial requests (e.g. CSH-only) still require syncing `{FeatureName}OnlineHelp.md` when any CSH topic in the Online Help body changes.
 
 ## Prerequisites
 
@@ -36,6 +39,7 @@ Do not invent UI strings that contradict Dev implementation. Prefer Dev labels; 
 | Artifact | Path |
 |----------|------|
 | Context-sensitive help | `features/Feature-N/idg/doc/{FeatureName}-csh.md` |
+| Online help (page drawer) | `features/Feature-N/idg/doc/{FeatureName}OnlineHelp.md` |
 | User manual | `features/Feature-N/idg/doc/{FeatureName}Manual.md` |
 | Release notes | `features/Feature-N/idg/doc/{FeatureName}ReleaseNotes.md` |
 
@@ -46,10 +50,11 @@ Write only inside the feature’s `idg/` tree. After every create/update, refres
 | Artifact | Purpose |
 |----------|---------|
 | `{FeatureName}-csh.md` | Short, keyed topics for a specific page, dialog, control, or field (tooltips, help icons, F1 panes) |
+| `{FeatureName}OnlineHelp.md` | Pre-composed page help drawer / slider body and open-in-new-tab content; assembled from CSH + Manual §4 |
 | `{FeatureName}Manual.md` | Comprehensive end-user guide: workflows, screenshot references, glossary |
 | `{FeatureName}ReleaseNotes.md` | What's new, changed, fixed, and known issues per release |
 
-CSH topics stay brief (typically 1–3 short paragraphs or a tight bullet list). Link to Manual sections when deeper guidance exists.
+CSH topics stay brief (typically 1–3 short paragraphs or a tight bullet list). Link to Manual sections when deeper guidance exists. Online Help prose for a control MUST match CSH **Help text** verbatim. BA/Dev may adopt Online Help optionally.
 
 ## Document Structures
 
@@ -109,6 +114,75 @@ Every `{FeatureName}-csh.md` file MUST follow this section order:
 | 1 | [Gap between BA and Dev, missing anchor, unclear copy] | Open / Resolved | [Answer] |
 
 ## 5. Revision History
+
+| Date | Author | Change Summary |
+|------|--------|----------------|
+| YYYY-MM-DD | [Author] | Initial draft |
+```
+
+### Online Help Document Structure
+
+Every `{FeatureName}OnlineHelp.md` file MUST follow this section order. See `idg/AGENTS.md` §2.2 for sync rules and anti-patterns.
+
+```markdown
+# Feature [FeatureName]: Online Help
+
+## 1. Metadata
+
+- **Feature name**: [FeatureName]
+- **Drawer title**: [e.g. Prices Help]
+- **Page anchor**: [e.g. prices.page]
+- **Status**: Draft | In Review | Approved
+- **Last Updated**: [YYYY-MM-DD]
+- **Upstream**: `{FeatureName}-csh.md`, `{FeatureName}Manual.md`, `{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx`
+
+## 2. Drawer body
+
+## Overview
+<!-- anchor: [page anchor] -->
+<!-- csh: CSH-001 -->
+
+[CSH-001 help text verbatim]
+
+## Page layout
+<!-- manual: §4.1 -->
+
+- **Toolbar** — …
+- …
+
+## [Control section — e.g. Refresh]
+<!-- anchor: … -->
+<!-- csh: CSH-00x -->
+
+[CSH help text verbatim]
+
+## Table columns
+
+### [Column label]
+<!-- anchor: … -->
+<!-- csh: CSH-00x -->
+
+[CSH help text verbatim]
+
+## Pagination
+<!-- anchor: … -->
+<!-- csh: CSH-00x -->
+
+[CSH help text verbatim]
+
+## Messages
+<!-- csh: CSH-00x -->
+
+- **[Message]** — [What to do]
+- …
+
+## 3. Open Questions
+
+| # | Question | Status | Resolution |
+|---|----------|--------|------------|
+| 1 | [Gap or adoption question] | Open / Resolved | [Answer] |
+
+## 4. Revision History
 
 | Date | Author | Change Summary |
 |------|--------|----------------|
@@ -305,6 +379,9 @@ Every `{FeatureName}ReleaseNotes.md` file MUST follow this section order:
 12. **Release notes**: if nothing has shipped yet, set status **Draft** and version **TBD**.
 13. All deliverables must ground against BA BSR and Dev `eng/` behavior; call out BA/Dev gaps under **Open Questions**.
 14. After creating or updating any IDG doc, update `idg/doc_context.md` Living Context Loop.
+15. **Online Help**: section order and headings follow `idg/AGENTS.md` §2.2; omit sections not on the page.
+16. **Online Help**: use CSH **Help text** verbatim for controls; Manual §4.1 for layout bullets and Manual §7 for messages only.
+17. **Online Help**: update whenever any CSH topic referenced in the drawer body changes. Always author Online Help with the other three standard deliverables on `write-doc`.
 
 ## Workflow Checklist
 
@@ -314,7 +391,8 @@ Task Progress:
 - [ ] Read doc_context.md Consolidated Context
 - [ ] Read BA BSR (+ mockup / mock data if present)
 - [ ] Read Dev eng for labels and validation
-- [ ] Create or update -csh.md / Manual.md / ReleaseNotes.md using the matching Document Structure section
-- [ ] Rewrite doc_context.md Consolidated Context
+- [ ] Create or update all four deliverables: -csh.md, OnlineHelp.md, Manual.md, ReleaseNotes.md (matching Document Structure sections)
+- [ ] Sync OnlineHelp.md when CSH topics in the drawer body change
+- [ ] Rewrite doc_context.md Consolidated Context (include OnlineHelp in inventory)
 - [ ] Append Chronological Log entry (date and time)
 ```

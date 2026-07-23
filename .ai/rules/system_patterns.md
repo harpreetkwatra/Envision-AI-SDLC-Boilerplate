@@ -3,7 +3,7 @@
 ## Repository Architecture
 
 ```
-My-enterprise-app/
+dtx2/
 ├── .cursor/
 │   ├── rules/global_standards/     # Cursor agent rules (*.mdc)
 │   └── skills/                     # Cursor agent skills (write-bsr, write-tests, write-doc)
@@ -13,28 +13,40 @@ My-enterprise-app/
 │
 ├── CLAUDE.md                       # Claude agent project rules
 │
-├── src/                            # Shipping app (live portal — deployable today)
+├── src/                            # SHIPPING APP — DLT Manager (deployable today)
+│   ├── api/                        # Strapi, envdlt, MCP helpers
+│   ├── app/                        # Shell, auth, theme, nav, layout prefs
+│   ├── components/                 # Shared components
+│   ├── features/                   # Shipped route modules
+│   │   ├── accounts/
+│   │   ├── ai-assistant/
+│   │   ├── assetManagers/
+│   │   ├── auth/
+│   │   ├── chains/
+│   │   ├── dashboard/
+│   │   ├── dividends/
+│   │   ├── intermediaries/
+│   │   ├── orders/
+│   │   ├── placeholder/
+│   │   ├── settings/
+│   │   ├── stablecoins/
+│   │   ├── tokens/
+│   │   └── transferAgents/
+│   ├── index.css                   # Design tokens + theme overrides
+│   └── main.tsx
 │
-├── features/                       # New features under AI-SDLC development (pre-ship)
-│   ├── Feature-1/
-│   │   ├── ba/                     # Business Analysis workspace
-│   │   │   ├── AGENTS.md
-│   │   │   ├── req_context.md      # Living log of requirements prompt steps
-│   │   │   └── req/                # BSR, mockups, mock data
-│   │   ├── dev/                    # Development workspace
-│   │   │   ├── AGENTS.md
-│   │   │   ├── eng_context.md      # Living log of code prompt steps
-│   │   │   └── eng/                # Technical design, SQL, production code
-│   │   ├── qc/                     # Quality Control workspace
-│   │   │   ├── AGENTS.md
-│   │   │   ├── tst_context.md      # Living log of test prompt steps
-│   │   │   └── tst/                # Test cases, data, automation scripts
-│   │   └── idg/                    # Information Development Group workspace
-│   │       ├── AGENTS.md
-│   │       ├── doc_context.md      # Living log of documentation prompt steps
-│   │       └── doc/                # Release notes, CSH, manuals
+├── archived/
+│   └── requirements/               # Historical specs (blueprint, features, patterns)
+│
+├── features/                       # NEW FEATURES — AI-SDLC staging (pre-ship)
+│   ├── Feature-1/                  # Template scaffold (ba/dev/qc/idg)
 │   ├── Feature-2/
 │   └── Feature-N/
+│
+├── public/                         # Static assets (logo, favicons, chain SVGs)
+├── vite.config.ts
+├── vite-plugin-ai-assistant.ts
+└── package.json                    # name: dltmgr
 ```
 
 ### Agent rules (by IDE)
@@ -46,23 +58,48 @@ My-enterprise-app/
 
 ### Shipping app (`src/`)
 
-- **`src/`** at repo root is the **shipping application** — the live portal (Vite/React app shell, routes, APIs, and feature pages when scaffolded).
-- Ongoing production fixes and enhancements to already-released surfaces land here directly.
-- **`src/` is not an empty compose target**; it is the authoritative codebase for what runs today.
+- Authoritative codebase for production behavior and UI labels.
+- **Shell**: hash routing; ENFS Classic shell in `App.tsx` (also used for Dark theme); alternate shells `AppShellAntd` / `Material` / `Glass` / `LiquidGlass`.
+- **API**: all Strapi traffic via `src/api/strapi.ts` (+ auth helper); ledger/analytics via `envdlt*`.
+- **Feature modules**: page + CSS + `use*.ts` (+ mock data where API not wired).
+- Ongoing fixes to shipped surfaces land **directly in `src/`**.
+
+### Archived requirements (`archived/requirements/`)
+
+- Former `requirements/` rebuild pack: `blueprint.md`, `overview.md`, `strapi-pattern.md`, `pattern-*.md`, `feature-*.md`.
+- Read for architecture intent and acceptance language; **do not treat as live BA workspace**.
+- When shipping code and archived text disagree, **shipping `src/` wins** for agents implementing or testing current behavior.
 
 ### New feature development (`features/`)
 
-- **`features/Feature-N/`** holds **upcoming** work developed through the AI-SDLC protocol (BA → Dev → QC → IDG) before release.
-- Each feature folder is an isolated workspace: requirements in `ba/req/`, implementation drafts in `dev/eng/`, tests in `qc/tst/`, docs in `idg/doc/`.
-- Scaffolds may be empty while planning starts; **`src/` may advance independently** until a feature increment is approved for composition.
-- When ready to ship, approved work from `features/Feature-N/dev/eng/` is **composed into `src/`** (routing, shell wiring, shared integrations). That integration step is Dev or explicit human work outside the per-discipline write boundaries.
+- Each `Feature-N` isolates BA / Dev / QC / IDG with Living Context Ledgers.
+- Scaffolds may be empty; `src/` may advance independently until composition.
+- Approved `dev/eng/` work is composed into `src/` (routes, shell, APIs) by Dev or explicit human work.
+
+## App architecture patterns (shipping)
+
+| Concern | Pattern |
+|---------|---------|
+| Routing | Hash (`#chains`, …); `parseAppRoute` / `BREADCRUMB_LABEL` |
+| Auth | Strapi JWT in `sessionStorage` (`dltmgr.strapi.jwt`); `AuthProvider` gates shell |
+| Theme | `localStorage` key `dltmgr-ui-theme`; `data-ui-theme` on `documentElement` |
+| List layout | Defaults in `localStorage` (`dltmgr-layout-views-v1`); session overrides in `sessionStorage` |
+| Strapi lists | Normalize v4/v5 → `{ id, label, attributes }`; Active-band sort + dynamic columns |
+| Forms | Required asterisk + inline errors (`app-form-*`, `--form-error`) |
+| Active Yes/No | Shared classes `app-active-boolean--yes` / `--no` |
+| Primary toolbar actions | Yellow primary (`app-btn-primary` / `--btn-primary-bg`); Refresh pattern shared across lists |
+| AI Assistant | Chat UI + Vite plugin; session key `dltmgr.aiAssistant.session` |
 
 ## Agent write boundaries (non-negotiable)
 
-Each discipline agent may write **only** inside its own folder (`ba/`, `dev/`, `qc/`, `idg/`).
-Cross-folder implementation (route wiring, Vite plugins, composition into repo-root **`src/`**) is **Dev** (or explicit human) work.
-BA prototypes and temporary wired pages live in `features/*/ba/req/`, not `dev/eng/` or root `src/`.
-QC and IDG may **read** repo-root `src/` when validating or documenting behavior that already ships, but must not write there.
+| Agent | Write | Read |
+|-------|-------|------|
+| BA | `features/*/ba/` only | Not sibling disciplines; `@`-tagged peers only |
+| Dev | `features/*/dev/` only (composition into `src/` when directed) | Upstream `ba/`; shipping `src/` when composing |
+| QC | `features/*/qc/` only | `ba/`, `dev/`, shipping `src/` for behavior under test |
+| IDG | `features/*/idg/` only | `ba/`, `dev/`, shipping `src/` for labels/workflows |
+
+BA prototypes live in `features/*/ba/req/`, not `dev/eng/` or root `src/`.
 
 ## Workspace root lock (non-negotiable)
 
@@ -81,33 +118,35 @@ QC and IDG may **read** repo-root `src/` when validating or documenting behavior
 4. **Living Context Loop**: read `*_context.md` before work; rewrite Consolidated Context + append Chronological Log after every change
 5. **Reproducibility**: `req/`, `eng/`, `tst/`, `doc/` recreatable from context ledgers + skills
 
-## Naming Conventions
+## Naming Conventions (AI-SDLC artifacts)
 
 | Artifact | Pattern | Example |
 |----------|---------|---------|
-| BSR document | `FeatureNBSR.md` | `Feature1BSR.md` |
-| Page mockup | `FeatureNPageMockup.tsx` | `Feature1PageMockup.tsx` |
-| Mock data | `FeatureNMockData.json` | `Feature1MockData.json` |
-| Page component | `FeatureNPage.tsx` | `Feature1Page.tsx` |
-| Sub-component | `FeatureNWidget.tsx` | `Feature1Widget.tsx` |
-| Logic/API/helpers | `FeatureNUtils.ts` | `Feature1Utils.ts` |
-| Release notes | `FeatureNReleaseNotes.md` | `Feature1ReleaseNotes.md` |
-| Context-sensitive help | `FeatureN-csh.md` | `Feature1-csh.md` |
-| User manual | `FeatureNManual.md` | `Feature1Manual.md` |
+| BSR document | `{FeatureName}BSR.md` | `PricesBSR.md` |
+| Page mockup | `{FeatureName}PageMockup.tsx` | `PricesPageMockup.tsx` |
+| Mock data | `{FeatureName}MockData.json` | `PricesMockData.json` |
+| Page component | `{FeatureName}Page.tsx` | `PricesPage.tsx` |
+| Sub-component | `{FeatureName}Widget.tsx` | `PricesWidget.tsx` |
+| Logic/API/helpers | `{FeatureName}Utils.ts` | `PricesUtils.ts` |
+| Release notes | `{FeatureName}ReleaseNotes.md` | |
+| Context-sensitive help | `{FeatureName}-csh.md` | |
+| Online help (page drawer) | `{FeatureName}OnlineHelp.md` | `PricesOnlineHelp.md` |
+| User manual | `{FeatureName}Manual.md` | |
 
-Do **not** create `{FeatureName}OnlineHelp.md` — CSH (`*-csh.md`) covers in-app / task-oriented help; long-form guidance belongs in the Manual.
+Feature **folder basename** is the product feature name (e.g. `Prices`). IDG always produces `{FeatureName}OnlineHelp.md` with CSH, Manual, and Release Notes; `{FeatureName}-csh.md` remains atomic per-control help. BA/Dev may adopt Online Help optionally.
+
+### Shipping module naming (`src/features/`)
+
+CamalCase folder for multi-word domains (`assetManagers`, `transferAgents`); kebab route hashes (`asset-managers`). Page files typically `*Page.tsx` + `*Page.css` + `use*.ts`.
 
 ## Parallel Sprint Rules
 
-1. BA commits to `features/Feature-N/ba/*`
-2. Dev pulls BA changes, commits to `features/Feature-N/dev/*`
-3. QC pulls both, commits to `features/Feature-N/qc/*`
-4. IDG pulls BA and Dev changes, commits to `features/Feature-N/idg/*`
+1. BA → `features/Feature-N/ba/*`
+2. Dev → `features/Feature-N/dev/*` (then compose to `src/` when releasing)
+3. QC → `features/Feature-N/qc/*`
+4. IDG → `features/Feature-N/idg/*`
 5. Cross-feature dependencies require explicit `@` path tagging
 
 ## Agent Configuration Files
 
-Each discipline folder contains an uppercase `AGENTS.md` that defines:
-- Context boundary (read/write scope)
-- Work product output locations
-- Mandatory Living Context Loop requirements
+Each discipline folder contains `AGENTS.md` defining write scope, output locations, and the Living Context Loop.
