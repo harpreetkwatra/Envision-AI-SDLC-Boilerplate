@@ -4,6 +4,10 @@
  * - Cursor: `.cursor/skills/<name>/SKILL.md`
  * - Claude: `.claude/skills/<name>/SKILL.md`
  *
+ * Every `*.md` file in this directory is synced automatically.
+ * Add a skill: create `{name}.md` with frontmatter `name: {name}`.
+ * Remove a skill: delete the source `.md` file (orphan dirs are pruned on sync).
+ *
  * Usage: node .ai/skills/.sync-skills.mjs
  *        npm run sync:skills
  */
@@ -17,8 +21,16 @@ const REPO_ROOT = path.resolve(SKILLS_DIR, '../..')
 const CURSOR_SKILLS_DIR = path.join(REPO_ROOT, '.cursor', 'skills')
 const CLAUDE_SKILLS_DIR = path.join(REPO_ROOT, '.claude', 'skills')
 
-/** @type {ReadonlyArray<string>} */
-const SKILL_IDS = ['write-bsr', 'write-tests', 'write-doc']
+/**
+ * @returns {string[]}
+ */
+function discoverSkillIds() {
+  return fs
+    .readdirSync(SKILLS_DIR)
+    .filter((f) => f.endsWith('.md') && !f.startsWith('.'))
+    .map((f) => f.slice(0, -3))
+    .sort()
+}
 
 /**
  * @param {string} content
@@ -45,8 +57,32 @@ function writeSkill(targetDir, skillId, content, label) {
   console.log(`wrote ${path.relative(REPO_ROOT, outPath)} (${label})`)
 }
 
+/**
+ * @param {string} targetDir
+ * @param {ReadonlySet<string>} syncedIds
+ * @param {string} label
+ */
+function pruneOrphans(targetDir, syncedIds, label) {
+  if (!fs.existsSync(targetDir)) return
+
+  for (const entry of fs.readdirSync(targetDir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue
+    if (syncedIds.has(entry.name)) continue
+
+    const orphanDir = path.join(targetDir, entry.name)
+    fs.rmSync(orphanDir, { recursive: true, force: true })
+    console.log(`pruned ${path.relative(REPO_ROOT, orphanDir)} (${label})`)
+  }
+}
+
 function main() {
-  for (const skillId of SKILL_IDS) {
+  const skillIds = discoverSkillIds()
+  if (skillIds.length === 0) {
+    console.error('sync-skills: no skill files found in .ai/skills/')
+    process.exit(1)
+  }
+
+  for (const skillId of skillIds) {
     const sourcePath = path.join(SKILLS_DIR, `${skillId}.md`)
     if (!fs.existsSync(sourcePath)) {
       console.error(`sync-skills: missing source file: ${sourcePath}`)
@@ -65,6 +101,10 @@ function main() {
     writeSkill(CURSOR_SKILLS_DIR, skillId, content, 'cursor')
     writeSkill(CLAUDE_SKILLS_DIR, skillId, content, 'claude')
   }
+
+  const syncedIds = new Set(skillIds)
+  pruneOrphans(CURSOR_SKILLS_DIR, syncedIds, 'cursor')
+  pruneOrphans(CLAUDE_SKILLS_DIR, syncedIds, 'claude')
 }
 
 main()

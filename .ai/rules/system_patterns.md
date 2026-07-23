@@ -6,10 +6,10 @@
 dtx2/
 ├── .cursor/
 │   ├── rules/global_standards/     # Cursor agent rules (*.mdc)
-│   └── skills/                     # Cursor agent skills (write-bsr, write-tests, write-doc)
+│   └── skills/                     # Cursor agent skills (write-bsr, write-tests, write-doc, build-mockup)
 │
 ├── .claude/
-│   └── skills/                     # Claude agent skills (write-bsr, write-tests, write-doc)
+│   └── skills/                     # Claude agent skills (write-bsr, write-tests, write-doc, build-mockup)
 │
 ├── CLAUDE.md                       # Claude agent project rules
 │
@@ -125,6 +125,7 @@ BA prototypes live in `features/*/ba/req/`, not `dev/eng/` or root `src/`.
 | BSR document | `{FeatureName}BSR.md` | `PricesBSR.md` |
 | Page mockup | `{FeatureName}PageMockup.tsx` | `PricesPageMockup.tsx` |
 | Mock data | `{FeatureName}MockData.json` | `PricesMockData.json` |
+| Mockup help module | `{FeatureName}PageHelpContent.tsx` | `PricesPageHelpContent.tsx` |
 | Page component | `{FeatureName}Page.tsx` | `PricesPage.tsx` |
 | Sub-component | `{FeatureName}Widget.tsx` | `PricesWidget.tsx` |
 | Logic/API/helpers | `{FeatureName}Utils.ts` | `PricesUtils.ts` |
@@ -134,6 +135,19 @@ BA prototypes live in `features/*/ba/req/`, not `dev/eng/` or root `src/`.
 | User manual | `{FeatureName}Manual.md` | |
 
 Feature **folder basename** is the product feature name (e.g. `Prices`). IDG always produces `{FeatureName}OnlineHelp.md` with CSH, Manual, and Release Notes; `{FeatureName}-csh.md` remains atomic per-control help. BA/Dev may adopt Online Help optionally.
+
+### BA mockup help conventions
+
+BA page mockups (`features/*/ba/req/*PageMockup.tsx`) **always** include info icons per `ba/AGENTS.md` §2.1 and skill `build-mockup`:
+
+| Surface | Placement | Pre-IDG content | Post-wire IDG source |
+|---------|-----------|-----------------|----------------------|
+| Page title | Icon right of heading | Tooltip: `Click to open online help`; drawer body **`TBD`** | `{FeatureName}OnlineHelp.md` |
+| Column / field / read-only labels | Icon right of label (grid: right of sort caret) | Tooltip **`TBD`** | `{FeatureName}-csh.md` by `data-help-id` |
+
+- BA publishes `data-help-id` anchors (e.g. `prices.page`, `prices.col.date`); IDG maps CSH and Online Help to those anchors; Dev wires shipping UI the same way.
+- BA does not read or edit `idg/`; IDG does not edit BA mockups — anchors are the shared contract.
+- Do not author real help prose in BA mockups before IDG wiring; use **`TBD`** for tooltips and drawer body until content is wired in.
 
 ### Shipping module naming (`src/features/`)
 
