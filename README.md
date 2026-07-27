@@ -1,4 +1,4 @@
-# Envision AI-SDLC Boilerplate
+# Envision Agentic AI-SDLC Boilerplate
 
 Multi-disciplinary, multi-team, spec-driven AI software development lifecycle (SDLC) framework for enterprise applications.
 
