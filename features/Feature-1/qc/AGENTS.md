@@ -64,7 +64,7 @@ Run the suite **only** when the user asks to **run the tests**, **play the tests
 10. **Headless only** when the user explicitly asks (e.g. “headless”, “no browser”, “CI mode”): omit `--headed`. Optional UI mode: `npx playwright test tst/ --ui` only when requested.
 11. **Slow-mo:** constant `SLOW_MO_MS` in `./playwright.config.ts` (default `100`; set to `0` to disable). Playwright CLI has no `--slow-mo`. Prefer `--debug` for true step-through.
 12. Prefer `--workers=1` for local/agent runs (predictable; avoids pile-ups when a test hangs). If a run exceeds ~2 minutes with no new list output, stop leftover `chrome-headless-shell` processes and diagnose — do not wait indefinitely.
-13. If possible log in only once per run/worker and reuse session state to make it faster.
+13. If possible login **once** in `globalSetup` and write the JWT to a small file (e.g. `tst/.auth-token).`
 
 Markdown matrices (`*TestCases.md`) are not executable; only `*.spec.ts` runs.
 
