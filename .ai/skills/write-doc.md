@@ -74,7 +74,7 @@ Every `{FeatureName}-csh.md` file MUST follow this section order:
 - **Feature name**: [FeatureName]
 - **Status**: Draft | In Review | Approved
 - **Last Updated**: [YYYY-MM-DD]
-- **Upstream**: `{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx` (if any), repo-root `src/`
+- **Upstream**: `{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx` (if any), `dev/eng/`
 
 ## 2. Help Map Summary
 
@@ -201,11 +201,11 @@ Every `{FeatureName}Manual.md` file MUST follow this section order:
 
 - **Feature ID**: Feature-[N]
 - **Feature name**: [FeatureName]
-- **Product**: DLT Manager
+- **Product**: [Product name]
 - **Status**: Draft | In Review | Approved
 - **Audience**: [e.g. Operations / transfer-agent ops]
 - **Last Updated**: [YYYY-MM-DD]
-- **Upstream**: `{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx` (if any), `{FeatureName}-csh.md`, repo-root `src/`
+- **Upstream**: `{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx` (if any), `{FeatureName}-csh.md`, `dev/eng/`
 
 ## 2. Introduction
 
@@ -219,7 +219,7 @@ Every `{FeatureName}Manual.md` file MUST follow this section order:
 
 ### 2.3 Prerequisites
 
-- Signed in to DLT Manager (Strapi credentials)
+- Signed in to the application ([authentication prerequisites])
 - [Permissions, data setup, or other prerequisites — or N/A]
 
 ## 3. Accessing the feature
@@ -316,7 +316,7 @@ Every `{FeatureName}ReleaseNotes.md` file MUST follow this section order:
 
 ## 1. Release metadata
 
-- **Product**: DLT Manager
+- **Product**: [Product name]
 - **Feature**: [FeatureName]
 - **Version / build**: [e.g. 1.2.0 or TBD]
 - **Release date**: [YYYY-MM-DD or TBD]
