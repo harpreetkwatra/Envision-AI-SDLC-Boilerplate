@@ -55,7 +55,7 @@ Write only inside the feature’s `idg/` tree. After every create/update, refres
 | `{FeatureName}Manual.md` | Comprehensive end-user guide: workflows, screenshot references, glossary |
 | `{FeatureName}ReleaseNotes.md` | What's new, changed, fixed, and known issues per release |
 
-CSH topics stay brief (typically 1–3 short paragraphs or a tight bullet list). Link to Manual sections when deeper guidance exists. Online Help prose for a control MUST match CSH **Help text** verbatim. BA/Dev may adopt Online Help optionally.
+CSH **Help text** per topic targets **15 words** and MUST NOT exceed **25 words**. Link to Manual sections when deeper guidance exists. Online Help prose for a control MUST match CSH **Help text** verbatim. BA/Dev may adopt Online Help optionally.
 
 ## Document Structures
 
