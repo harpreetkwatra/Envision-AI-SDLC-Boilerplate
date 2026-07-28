@@ -57,7 +57,7 @@ Create **one topic per UI element** — do **not** bundle multiple controls into
 | **Button / action** | Refresh, Submit, Cancel, First page, Last page, icon actions | **One topic per button or primary action** |
 | **Other component** | Pagination pager, rows-per-page control, layout toggles, status/alert banners, tabs | **One topic per interactive or help-bearing component** |
 
-Long-form workflows belong in `{FeatureName}Manual.md`. CSH help text stays short (typically 1–3 short paragraphs or a tight bullet list).
+Long-form workflows belong in `{FeatureName}Manual.md`. For CSH **Help text** length and structure, follow the global skill `write-doc`.
 
 #### Element contract (BA + Dev reusable)
 
@@ -76,8 +76,8 @@ The **Help Map Summary** table in `{FeatureName}-csh.md` is the inventory BA and
 
 #### Authoring and sync rules
 
-1. Inventory UI elements from `{FeatureName}PageMockup.tsx` and repo-root **`src/`** (when present) before writing or updating CSH.
-2. Prefer Dev labels from **`src/`** when shipped implementation exists; otherwise use BA mockup labels exactly.
+1. Inventory UI elements from `{FeatureName}PageMockup.tsx` (and Dev `eng/` when present) before writing or updating CSH.
+2. Prefer Dev labels when `eng/` exists; otherwise use BA mockup labels exactly.
 3. When BA or Dev adds/renames a control, add or update the matching CSH topic and Help Map row in the same IDG change; do not leave orphan anchors or silent gaps.
 4. Do **not** invent live API behavior; document validation copy only when present in BA/Dev.
 5. IDG does not edit BA mockups or Dev pages — publish anchors and copy in `./doc/{FeatureName}-csh.md` so BA/Dev can wire help themselves. If wiring work is needed outside `idg/`, hand off (do not break the write boundary).
