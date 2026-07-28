@@ -17,7 +17,8 @@ Generate comprehensive test cases that validate requirements against implementat
 Before writing tests, READ:
 1. `features/Feature-N/ba/req/FeatureNBSR.md` — what it should do
 2. `features/Feature-N/ba/req/FeatureNPageMockup.tsx` — UI layout expectations
-3. `features/Feature-N/dev/eng/` — what was actually built
+3. Repo-root **`src/`** — shipped implementation (what was actually built)
+4. `features/Feature-N/dev/eng/` — optional (`tech-design.md`, SQL/upgrade scripts)
 
 ## Test Case Document Structure
 

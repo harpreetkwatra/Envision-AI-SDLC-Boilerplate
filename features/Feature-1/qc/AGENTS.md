@@ -14,7 +14,7 @@ Your write operations are strictly restricted to **this directory** (`.` — the
 
 - You have READ-ONLY permission to inspect the entire feature root `../`
 - You MUST read the requirements in `../ba/` — especially the BSR under `../ba/req/` — to drive coverage and edge cases.
-- If `../dev/eng/` exists, you MUST also read those code components to refine edge cases against the implementation. If it does not exist, proceed from BA requirements alone.
+- If `../dev/eng/` exists, read `tech-design.md` and SQL/upgrade scripts when present. **Always** read repo-root **`src/`** (read-only) for shipped implementation to refine edge cases. If neither exists, proceed from BA requirements alone.
 - If the user `@`-tags another feature, you may READ that feature’s `ba/` and (when present) `dev/` for integration testing only.
 - **Never write** to `../ba/` or `../dev/` — including mockups, mock data, BSR, or implementation code under `eng/`. Those folders are **read-only** for QC.
 - Never write outside this `qc/` tree
@@ -88,13 +88,13 @@ These rules exist because the suite previously hung for minutes on per-test UI l
 
 ## 4. Mandatory Living Context Loop
 
-**The Goal:** The folder `./tst/` must be 100% reproducible from scratch at any moment using only `./tst_context.md` (plus required upstream `../ba/req/` artifacts, optional `../dev/eng/` when present, the `write-tests` skill, and global standards it names).
+**The Goal:** The folder `./tst/` must be 100% reproducible from scratch at any moment using only `./tst_context.md` (plus required upstream `../ba/req/` artifacts, repo-root **`src/`** implementation, optional `../dev/eng/` when present, the `write-tests` skill, and global standards it names).
 
 `./tst_context.md` has two parts, in this order:
 
 1. `## Consolidated Context` (required, always current)
   - Rewrite this section on **every** change — do not append to it.
-  - It must contain **everything** needed to recreate `./tst/` from an empty folder: feature identity, artifact inventory, coverage grounded in BA requirements (and Dev implementation when `../dev/eng/` is present), test data strategy, automation approach, open questions, constraints, and an ordered rebuild recipe.
+  - It must contain **everything** needed to recreate `./tst/` from an empty folder: feature identity, artifact inventory, coverage grounded in BA requirements and Dev implementation in **`src/`** (and `../dev/eng/` when present for tech-design/SQL), test data strategy, automation approach, open questions, constraints, and an ordered rebuild recipe.
   - Prefer this section over the chronological log when regenerating artifacts.
 2. `## Chronological Log` (append-only history)
   - After each change, append a dated (date and time both) entry with user intent, decisions, and what changed.

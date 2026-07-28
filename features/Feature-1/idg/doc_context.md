@@ -1,6 +1,6 @@
 # IDG Living Context Ledger
 
-Two-part ledger for full reproduction of `./doc/` from scratch (plus upstream `../ba/req/` and `../dev/eng/`, the `write-doc` skill, and global standards named here or in `AGENTS.md`).
+Two-part ledger for full reproduction of `./doc/` from scratch (plus upstream `../ba/req/`, repo-root **`src/`**, optional `../dev/eng/`, the `write-doc` skill, and global standards named here or in `AGENTS.md`).
 
 1. **Consolidated Context** — self-contained, always-current snapshot of everything needed to recreate `./doc/`. Rewrite on every change; do not append. Prefer this section when regenerating documentation.
 2. **Chronological Log** — append-only history of intents, decisions, and what changed. Use for audit/debug; do not treat it as the rebuild source.
@@ -44,7 +44,7 @@ Expected when authored (per `AGENTS.md`):
 Ground documentation against approved upstream (read-only):
 
 - BA: `../ba/req/{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx`, `{FeatureName}MockData.json`
-- Dev: `../dev/eng/` components and utilities (labels, workflows, config as implemented)
+- Dev: shipped implementation in repo-root **`src/`** (labels, workflows, config); optional `../dev/eng/` (`tech-design.md`, SQL/upgrade scripts)
 
 *(No BA or Dev deliverables pinned yet — do not invent user-facing docs ahead of requirements and implementation.)*
 

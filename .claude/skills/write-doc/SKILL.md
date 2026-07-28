@@ -29,10 +29,11 @@ Resolve feature identity from the `idg/` folder (see `idg/AGENTS.md`), then READ
 1. `../ba/req/{FeatureName}BSR.md` — required behavior and acceptance criteria
 2. `../ba/req/{FeatureName}PageMockup.tsx` — UI layout and control labels (when present)
 3. `../ba/req/{FeatureName}MockData.json` — sample payloads / field names (when present)
-4. `../dev/eng/` — implemented labels, validation messages, and workflows
-5. `./doc_context.md` — start with **Consolidated Context** before writing
+4. Repo-root **`src/`** — shipped implementation (labels, validation messages, workflows)
+5. `../dev/eng/` — optional (`tech-design.md`, SQL/upgrade scripts)
+6. `./doc_context.md` — start with **Consolidated Context** before writing
 
-Do not invent UI strings that contradict Dev implementation. Prefer Dev labels; note BA/Dev mismatches under **Open questions**.
+Do not invent UI strings that contradict Dev implementation in **`src/`**. Prefer Dev labels; note BA/Dev mismatches under **Open questions**.
 
 ## Output Location and Naming
 
@@ -73,7 +74,7 @@ Every `{FeatureName}-csh.md` file MUST follow this section order:
 - **Feature name**: [FeatureName]
 - **Status**: Draft | In Review | Approved
 - **Last Updated**: [YYYY-MM-DD]
-- **Upstream**: `{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx` (if any), `dev/eng/`
+- **Upstream**: `{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx` (if any), repo-root `src/`
 
 ## 2. Help Map Summary
 
@@ -204,7 +205,7 @@ Every `{FeatureName}Manual.md` file MUST follow this section order:
 - **Status**: Draft | In Review | Approved
 - **Audience**: [e.g. Operations / transfer-agent ops]
 - **Last Updated**: [YYYY-MM-DD]
-- **Upstream**: `{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx` (if any), `{FeatureName}-csh.md`, `dev/eng/`
+- **Upstream**: `{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx` (if any), `{FeatureName}-csh.md`, repo-root `src/`
 
 ## 2. Introduction
 

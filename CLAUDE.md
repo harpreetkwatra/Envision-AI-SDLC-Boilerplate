@@ -12,9 +12,9 @@ Enterprise application built using the AI-SDLC multi-disciplinary spec-driven de
 | Tree | Purpose |
 |------|---------|
 | **`src/`** (repo root) | **Shipping app** — the live portal users run today; composed React/Vite application with production routes, API clients, and feature pages. |
-| **`features/Feature-N/`** | **New features in development** — staged work for upcoming releases. Each folder runs the full BA → Dev → QC → IDG loop before approved code is composed into `src/`. |
+| **`features/Feature-N/`** | **New features in development** — AI-SDLC BA → Dev → QC → IDG workspaces. Dev implements in repo-root **`src/`**; `dev/eng/` holds DDL, upgrades, and `tech-design.md`. |
 
-Existing shipped capability lives in `src/`. New capability is specified and built under `features/` first, then integrated when release-ready.
+Existing shipped capability lives in `src/` once scaffolded. New capability is specified under `features/` first; Dev writes implementation in `src/`.
 
 ## Why This Exists
 - Enable parallel sprints across BA, Dev, QC, and IDG without merge conflicts
@@ -25,7 +25,7 @@ Existing shipped capability lives in `src/`. New capability is specified and bui
 | Persona | Role | Workspace |
 |---------|------|-----------|
 | Business Analysts / Product Owners / UI/UX Designers | Requirements, mockups, BSR docs | `features/*/ba/` |
-| Software Engineers | Technical design, SQL, production code | `features/*/dev/` |
+| Software Engineers | Production code in `src/`; DDL, upgrades, tech design in `dev/eng/` | `features/*/dev/` + repo-root `src/` |
 | QC Analysts / Automation Testers | Test cases, data, automation scripts | `features/*/qc/` |
 | Technical Writers / IDG | Release notes, context-sensitive help, user manuals | `features/*/idg/` |
 
@@ -48,7 +48,7 @@ Existing shipped capability lives in `src/`. New capability is specified and bui
 | Layer | Choice | Notes |
 |-------|--------|-------|
 | Language | TypeScript (~6) | All source, mockup, and test files |
-| UI Framework | React 19 + React DOM | BA mockups (`*.tsx` in `ba/req/`) and Dev components (`dev/eng/`) |
+| UI Framework | React 19 + React DOM | BA mockups (`*.tsx` in `ba/req/`); Dev components in repo-root `src/` when scaffolded |
 | Build Tool | Vite 8 (`@vitejs/plugin-react`) | Dev server, production builds, env/proxy wiring |
 | Component Library | Ant Design 6 (`antd`) + `@ant-design/icons` | Shared UI primitives across mockups and app surfaces |
 | Lint | Oxlint (Vite React-TS template) | Project-wide lint (`npm run lint`) |
@@ -99,67 +99,40 @@ Playwright Test is configured **per feature** (`features/<Feature>/qc/playwright
 ### New features (AI-SDLC workspaces)
 
 - **BA outputs**: `features/Feature-N/ba/req/` — static mockups, JSON data, BSR markdown
-- **Dev outputs**: `features/Feature-N/dev/eng/` — technical design, SQL scripts, production React components, utils, API handlers for the *upcoming* increment (pre-composition)
+- **Dev outputs**: repo-root **`src/`** — shipping application code; `features/Feature-N/dev/eng/` — DDL, upgrade scripts, optional `tech-design.md` (explicit ask via `write-tech-design`)
 - **QC outputs**: `features/Feature-N/qc/tst/` — test cases, test data, automation scripts; `features/Feature-N/qc/playwright.config.ts` — feature Playwright config
-- **IDG outputs**: `features/Feature-N/idg/doc/` — release notes, context-sensitive help, user manuals
+- **IDG outputs**: `features/Feature-N/idg/doc/` — release notes, context-sensitive help, online help, user manuals
 
-Approved feature work from `features/Feature-N/dev/eng/` is composed into **`src/`** when released. Until then, `features/` and `src/` may diverge.
+Dev implements features in **`src/`** while working from `features/Feature-N/dev/`; `dev/eng/` holds non-application artifacts. Until `src/` is scaffolded, `features/` scaffolds may be empty.
 
 ## Constraints
 - BA mock data must never connect to live APIs or database clients
-- Dev code in `features/Feature-N/dev/eng/` must ground against `ba/req/FeatureNBSR.md`, mockups, and mock data before implementation
-- QC tests must read both `ba/` requirements and `dev/` source code; may also read repo-root `src/` for already-shipped behavior under test
-- IDG documentation must read both `ba/` requirements and `dev/` source code before authoring; may read `src/` for shipped UI labels and workflows
+- Dev code in repo-root **`src/`** must ground against `ba/req/{FeatureName}BSR.md`, mockups, and mock data before implementation
+- QC tests must read both `ba/` requirements and repo-root **`src/`**; may read `dev/eng/` for `tech-design.md` and SQL scripts
+- IDG documentation must read both `ba/` requirements and repo-root **`src/`** before authoring; may read `dev/eng/` for `tech-design.md`
 
 ## System Patterns
 
 ## Repository Architecture
 
 ```
-dtx2/
+envision-ai-sdlc-boilerplate/
+├── .ai/
+│   ├── rules/                      # Source of truth for product/tech/patterns/design
+│   └── skills/                     # Source of truth for agent skills (*.md)
 ├── .cursor/
 │   ├── rules/global_standards/     # Cursor agent rules (*.mdc)
-│   └── skills/                     # Cursor agent skills (write-bsr, write-tests, write-doc)
-│
+│   └── skills/                     # Cursor agent skills (write-bsr, build-mockup, write-tests, write-doc, write-tech-design)
 ├── .claude/
-│   └── skills/                     # Claude agent skills (write-bsr, write-tests, write-doc)
-│
-├── CLAUDE.md                       # Claude agent project rules
-│
-├── src/                            # SHIPPING APP — DLT Manager (deployable today)
-│   ├── api/                        # Strapi, envdlt, MCP helpers
-│   ├── app/                        # Shell, auth, theme, nav, layout prefs
-│   ├── components/                 # Shared components
-│   ├── features/                   # Shipped route modules
-│   │   ├── accounts/
-│   │   ├── ai-assistant/
-│   │   ├── assetManagers/
-│   │   ├── auth/
-│   │   ├── chains/
-│   │   ├── dashboard/
-│   │   ├── dividends/
-│   │   ├── intermediaries/
-│   │   ├── orders/
-│   │   ├── placeholder/
-│   │   ├── settings/
-│   │   ├── stablecoins/
-│   │   ├── tokens/
-│   │   └── transferAgents/
-│   ├── index.css                   # Design tokens + theme overrides
-│   └── main.tsx
-│
-├── archived/
-│   └── requirements/               # Historical specs (blueprint, features, patterns)
-│
+│   └── skills/                     # Claude agent skills (synced from .ai/skills)
+├── CLAUDE.md                       # Combined Claude project rules (synced from .ai/rules)
+├── design-system.json              # Shared design tokens
 ├── features/                       # NEW FEATURES — AI-SDLC staging (pre-ship)
 │   ├── Feature-1/                  # Template scaffold (ba/dev/qc/idg)
 │   ├── Feature-2/
 │   └── Feature-N/
-│
-├── public/                         # Static assets (logo, favicons, chain SVGs)
-├── vite.config.ts
-├── vite-plugin-ai-assistant.ts
-└── package.json                    # name: dltmgr
+├── src/                            # SHIPPING APP (may start empty until scaffolded)
+└── package.json
 ```
 
 ### Agent rules (by IDE)
@@ -171,44 +144,22 @@ dtx2/
 
 ### Shipping app (`src/`)
 
-- Authoritative codebase for production behavior and UI labels.
-- **Shell**: hash routing; ENFS Classic shell in `App.tsx` (also used for Dark theme); alternate shells `AppShellAntd` / `Material` / `Glass` / `LiquidGlass`.
-- **API**: all Strapi traffic via `src/api/strapi.ts` (+ auth helper); ledger/analytics via `envdlt*`.
-- **Feature modules**: page + CSS + `use*.ts` (+ mock data where API not wired).
-- Ongoing fixes to shipped surfaces land **directly in `src/`**.
-
-### Archived requirements (`archived/requirements/`)
-
-- Former `requirements/` rebuild pack: `blueprint.md`, `overview.md`, `strapi-pattern.md`, `pattern-*.md`, `feature-*.md`.
-- Read for architecture intent and acceptance language; **do not treat as live BA workspace**.
-- When shipping code and archived text disagree, **shipping `src/` wins** for agents implementing or testing current behavior.
+- Authoritative codebase for production behavior and UI labels once the app is scaffolded.
+- In this boilerplate, `src/` may start as an empty placeholder (`.gitkeep` only).
+- Ongoing fixes and new feature implementation land **directly in `src/`** (Dev is the only discipline that may persist `src/` changes).
 
 ### New feature development (`features/`)
 
 - Each `Feature-N` isolates BA / Dev / QC / IDG with Living Context Ledgers.
-- Scaffolds may be empty; `src/` may advance independently until composition.
-- Approved `dev/eng/` work is composed into `src/` (routes, shell, APIs) by Dev or explicit human work.
-
-## App architecture patterns (shipping)
-
-| Concern | Pattern |
-|---------|---------|
-| Routing | Hash (`#chains`, …); `parseAppRoute` / `BREADCRUMB_LABEL` |
-| Auth | Strapi JWT in `sessionStorage` (`dltmgr.strapi.jwt`); `AuthProvider` gates shell |
-| Theme | `localStorage` key `dltmgr-ui-theme`; `data-ui-theme` on `documentElement` |
-| List layout | Defaults in `localStorage` (`dltmgr-layout-views-v1`); session overrides in `sessionStorage` |
-| Strapi lists | Normalize v4/v5 → `{ id, label, attributes }`; Active-band sort + dynamic columns |
-| Forms | Required asterisk + inline errors (`app-form-*`, `--form-error`) |
-| Active Yes/No | Shared classes `app-active-boolean--yes` / `--no` |
-| Primary toolbar actions | Yellow primary (`app-btn-primary` / `--btn-primary-bg`); Refresh pattern shared across lists |
-| AI Assistant | Chat UI + Vite plugin; session key `dltmgr.aiAssistant.session` |
+- Scaffolds may be empty; `src/` may advance independently.
+- Dev writes shipping code in **`src/`** while working from `features/Feature-N/dev/`; `./eng/` holds non-application artifacts (DDL, upgrades, `tech-design.md`).
 
 ## Agent write boundaries (non-negotiable)
 
 | Agent | Write | Read |
 |-------|-------|------|
 | BA | `features/*/ba/` only | Not sibling disciplines; `@`-tagged peers only |
-| Dev | `features/*/dev/` only (composition into `src/` when directed) | Upstream `ba/`; shipping `src/` when composing |
+| Dev | `features/*/dev/` and repo-root `src/` | Upstream `ba/`; shipping `src/` for patterns |
 | QC | `features/*/qc/` only | `ba/`, `dev/`, shipping `src/` for behavior under test |
 | IDG | `features/*/idg/` only | `ba/`, `dev/`, shipping `src/` for labels/workflows |
 
@@ -225,7 +176,7 @@ BA prototypes live in `features/*/ba/req/`, not `dev/eng/` or root `src/`.
 
 ## Multi-Disciplinary Protocol
 
-1. **Context boundary lock**: each discipline writes only to its own directory
+1. **Context boundary lock**: each discipline writes only to its own directory (Dev also writes `src/`)
 2. **Workspace root lock**: never move the agent workspace root to expand scope (see above)
 3. **Upstream read access**: Dev ← BA; QC ← BA + Dev (+ `src/` as needed); IDG ← BA + Dev (+ `src/`)
 4. **Living Context Loop**: read `*_context.md` before work; rewrite Consolidated Context + append Chronological Log after every change
@@ -238,6 +189,7 @@ BA prototypes live in `features/*/ba/req/`, not `dev/eng/` or root `src/`.
 | BSR document | `{FeatureName}BSR.md` | `PricesBSR.md` |
 | Page mockup | `{FeatureName}PageMockup.tsx` | `PricesPageMockup.tsx` |
 | Mock data | `{FeatureName}MockData.json` | `PricesMockData.json` |
+| Mockup help module | `{FeatureName}PageHelpContent.tsx` | `PricesPageHelpContent.tsx` |
 | Page component | `{FeatureName}Page.tsx` | `PricesPage.tsx` |
 | Sub-component | `{FeatureName}Widget.tsx` | `PricesWidget.tsx` |
 | Logic/API/helpers | `{FeatureName}Utils.ts` | `PricesUtils.ts` |
@@ -245,17 +197,27 @@ BA prototypes live in `features/*/ba/req/`, not `dev/eng/` or root `src/`.
 | Context-sensitive help | `{FeatureName}-csh.md` | |
 | Online help (page drawer) | `{FeatureName}OnlineHelp.md` | `PricesOnlineHelp.md` |
 | User manual | `{FeatureName}Manual.md` | |
+| Technical design | `tech-design.md` | `features/Feature-N/dev/eng/tech-design.md` |
 
 Feature **folder basename** is the product feature name (e.g. `Prices`). IDG always produces `{FeatureName}OnlineHelp.md` with CSH, Manual, and Release Notes; `{FeatureName}-csh.md` remains atomic per-control help. BA/Dev may adopt Online Help optionally.
 
-### Shipping module naming (`src/features/`)
+### BA mockup help conventions
 
-CamalCase folder for multi-word domains (`assetManagers`, `transferAgents`); kebab route hashes (`asset-managers`). Page files typically `*Page.tsx` + `*Page.css` + `use*.ts`.
+BA page mockups (`features/*/ba/req/*PageMockup.tsx`) **always** include info icons per `ba/AGENTS.md` §2.1 and skill `build-mockup`:
+
+| Surface | Placement | Pre-IDG content | Post-wire IDG source |
+|---------|-----------|-----------------|----------------------|
+| Page title | Icon right of heading | Tooltip: `Click to open online help`; drawer body **`TBD`** | `{FeatureName}OnlineHelp.md` |
+| Column / field / read-only labels | Icon right of label (grid: right of sort caret) | Tooltip **`TBD`** | `{FeatureName}-csh.md` by `data-help-id` |
+
+- BA publishes `data-help-id` anchors (e.g. `prices.page`, `prices.col.date`); IDG maps CSH and Online Help to those anchors; Dev wires shipping UI in `src/` the same way.
+- BA does not read or edit `idg/`; IDG does not edit BA mockups — anchors are the shared contract.
+- Do not author real help prose in BA mockups before IDG wiring; use **`TBD`** for tooltips and drawer body until content is wired in.
 
 ## Parallel Sprint Rules
 
 1. BA → `features/Feature-N/ba/*`
-2. Dev → `features/Feature-N/dev/*` (then compose to `src/` when releasing)
+2. Dev → `features/Feature-N/dev/*` and repo-root `src/`
 3. QC → `features/Feature-N/qc/*`
 4. IDG → `features/Feature-N/idg/*`
 5. Cross-feature dependencies require explicit `@` path tagging
@@ -272,7 +234,7 @@ All color, typography, spacing, border-radius tokens, and component guidelines f
 
 ## Agent requirements
 
-1. **Read** `design-system.json` before creating or updating BA mockups (`ba/req/*.tsx`) or Dev components (`dev/eng/*.tsx`).
+1. **Read** `design-system.json` before creating or updating BA mockups (`ba/req/*.tsx`) or Dev components in repo-root `src/` (when scaffolded).
 2. **Reference** CSS custom property names from that file (e.g. `--color-primary`, `--spacing-md`). Do not invent parallel token values.
 3. Prefer CSS custom properties or a shared token import once the project is scaffolded.
 4. When design tokens change, update **`design-system.json` only** — keep this rule as a pointer, not a duplicate token table.

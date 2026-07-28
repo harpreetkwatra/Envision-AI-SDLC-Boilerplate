@@ -5,7 +5,7 @@
 | Layer | Choice | Notes |
 |-------|--------|-------|
 | Language | TypeScript (~6) | All source, mockup, and test files |
-| UI Framework | React 19 + React DOM | BA mockups (`*.tsx` in `ba/req/`) and Dev components (`dev/eng/`) |
+| UI Framework | React 19 + React DOM | BA mockups (`*.tsx` in `ba/req/`); Dev components in repo-root `src/` when scaffolded |
 | Build Tool | Vite 8 (`@vitejs/plugin-react`) | Dev server, production builds, env/proxy wiring |
 | Component Library | Ant Design 6 (`antd`) + `@ant-design/icons` | Shared UI primitives across mockups and app surfaces |
 | Lint | Oxlint (Vite React-TS template) | Project-wide lint (`npm run lint`) |
@@ -56,14 +56,14 @@ Playwright Test is configured **per feature** (`features/<Feature>/qc/playwright
 ### New features (AI-SDLC workspaces)
 
 - **BA outputs**: `features/Feature-N/ba/req/` — static mockups, JSON data, BSR markdown
-- **Dev outputs**: `features/Feature-N/dev/eng/` — technical design, SQL scripts, production React components, utils, API handlers for the *upcoming* increment (pre-composition)
+- **Dev outputs**: repo-root **`src/`** — shipping application code; `features/Feature-N/dev/eng/` — DDL, upgrade scripts, optional `tech-design.md` (explicit ask via `write-tech-design`)
 - **QC outputs**: `features/Feature-N/qc/tst/` — test cases, test data, automation scripts; `features/Feature-N/qc/playwright.config.ts` — feature Playwright config
-- **IDG outputs**: `features/Feature-N/idg/doc/` — release notes, context-sensitive help, user manuals
+- **IDG outputs**: `features/Feature-N/idg/doc/` — release notes, context-sensitive help, online help, user manuals
 
-Approved feature work from `features/Feature-N/dev/eng/` is composed into **`src/`** when released. Until then, `features/` and `src/` may diverge.
+Dev implements features in **`src/`** while working from `features/Feature-N/dev/`; `dev/eng/` holds non-application artifacts. Until `src/` is scaffolded, `features/` scaffolds may be empty.
 
 ## Constraints
 - BA mock data must never connect to live APIs or database clients
-- Dev code in `features/Feature-N/dev/eng/` must ground against `ba/req/FeatureNBSR.md`, mockups, and mock data before implementation
-- QC tests must read both `ba/` requirements and `dev/` source code; may also read repo-root `src/` for already-shipped behavior under test
-- IDG documentation must read both `ba/` requirements and `dev/` source code before authoring; may read `src/` for shipped UI labels and workflows
+- Dev code in repo-root **`src/`** must ground against `ba/req/{FeatureName}BSR.md`, mockups, and mock data before implementation
+- QC tests must read both `ba/` requirements and repo-root **`src/`**; may read `dev/eng/` for `tech-design.md` and SQL scripts
+- IDG documentation must read both `ba/` requirements and repo-root **`src/`** before authoring; may read `dev/eng/` for `tech-design.md`

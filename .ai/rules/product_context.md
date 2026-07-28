@@ -8,9 +8,9 @@ Enterprise application built using the AI-SDLC multi-disciplinary spec-driven de
 | Tree | Purpose |
 |------|---------|
 | **`src/`** (repo root) | **Shipping app** — the live portal users run today; composed React/Vite application with production routes, API clients, and feature pages. |
-| **`features/Feature-N/`** | **New features in development** — staged work for upcoming releases. Each folder runs the full BA → Dev → QC → IDG loop before approved code is composed into `src/`. |
+| **`features/Feature-N/`** | **New features in development** — AI-SDLC BA → Dev → QC → IDG workspaces. Dev implements in repo-root **`src/`**; `dev/eng/` holds DDL, upgrades, and `tech-design.md`. |
 
-Existing shipped capability lives in `src/`. New capability is specified and built under `features/` first, then integrated when release-ready.
+Existing shipped capability lives in `src/` once scaffolded. New capability is specified under `features/` first; Dev writes implementation in `src/`.
 
 ## Why This Exists
 - Enable parallel sprints across BA, Dev, QC, and IDG without merge conflicts
@@ -21,7 +21,7 @@ Existing shipped capability lives in `src/`. New capability is specified and bui
 | Persona | Role | Workspace |
 |---------|------|-----------|
 | Business Analysts / Product Owners / UI/UX Designers | Requirements, mockups, BSR docs | `features/*/ba/` |
-| Software Engineers | Technical design, SQL, production code | `features/*/dev/` |
+| Software Engineers | Production code in `src/`; DDL, upgrades, tech design in `dev/eng/` | `features/*/dev/` + repo-root `src/` |
 | QC Analysts / Automation Testers | Test cases, data, automation scripts | `features/*/qc/` |
 | Technical Writers / IDG | Release notes, context-sensitive help, user manuals | `features/*/idg/` |
 

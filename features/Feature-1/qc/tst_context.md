@@ -1,6 +1,6 @@
 # QC Living Context Ledger
 
-Two-part ledger for full reproduction of `./tst/` from scratch (plus upstream `../ba/req/` and `../dev/eng/`, the `write-tests` skill, and global standards named here or in `AGENTS.md`).
+Two-part ledger for full reproduction of `./tst/` from scratch (plus upstream `../ba/req/`, repo-root **`src/`**, optional `../dev/eng/`, the `write-tests` skill, and global standards named here or in `AGENTS.md`).
 
 1. **Consolidated Context** — self-contained, always-current snapshot of everything needed to recreate `./tst/`. Rewrite on every change; do not append. Prefer this section when regenerating the test suite.
 2. **Chronological Log** — append-only history of intents, decisions, and what changed. Use for audit/debug; do not treat it as the rebuild source.
@@ -38,7 +38,7 @@ Expected when authored (per `AGENTS.md`):
 Ground tests against approved upstream (read-only):
 
 - BA: requirements under `../ba/` (`req/` BSR, mockups, mock data)
-- Dev: components and utilities under `../dev/eng/`
+- Dev: shipped implementation in repo-root **`src/`**; optional `../dev/eng/` (`tech-design.md`, SQL/upgrade scripts)
 
 *(No BA or Dev deliverables pinned yet — do not invent coverage ahead of requirements and implementation.)*
 

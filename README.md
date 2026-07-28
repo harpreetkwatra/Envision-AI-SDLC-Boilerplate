@@ -8,12 +8,12 @@ This repo holds **two related trees** with different roles:
 
 | Location | Role |
 | -------- | ---- |
-| **`src/`** (repo root) | **Shipping application** — the live portal (Vite/React) once scaffolded: app shell, routes, API clients, and feature pages in production. In this boilerplate the folder may start empty (`.gitkeep` only) until the app is composed. |
-| **`features/Feature-N/`** | **New feature development** — AI-SDLC workspaces where BA, Dev, QC, and IDG collaborate on *upcoming* work before it is composed into `src/`. Each feature folder is an isolated spec → build → test → doc pipeline. |
+| **`src/`** (repo root) | **Shipping application** — the live portal (Vite/React) once scaffolded: app shell, routes, API clients, and feature pages in production. In this boilerplate the folder may start empty (`.gitkeep` only) until Dev scaffolds the app. |
+| **`features/Feature-N/`** | **New feature development** — AI-SDLC workspaces where BA, Dev, QC, and IDG collaborate on upcoming work. Dev implements in repo-root **`src/`**; `dev/eng/` holds DDL, upgrades, and optional `tech-design.md`. |
 
-**Workflow:** New capability is specified and built under `features/Feature-N/` (BSR, mockups, `dev/eng/`, tests, docs). When approved, Dev (or explicit human) work **composes** that implementation into repo-root `src/` (routing, shell wiring, shared APIs). Until then, `features/` scaffolds may be empty while `src/` continues to evolve independently.
+**Workflow:** New capability is specified under `features/Feature-N/` (BSR, mockups, tests, docs). Dev implements in repo-root **`src/`**; `dev/eng/` holds SQL scripts and optional `tech-design.md` (on explicit ask). Until `src/` is scaffolded, feature folders may be empty placeholders.
 
-Agents working in `features/*/ba|dev|qc|idg/` must not assume code lives only in `dev/eng/` — the shipping codebase is **`src/`**; feature folders are the staging ground for the next increment.
+Agents working in `features/*/ba|dev|qc|idg/` must not assume code lives only in `dev/eng/` — the shipping codebase is **`src/`**; `dev/eng/` is for non-application engineering artifacts.
 
 ## Repository/Directory Structure
 
@@ -56,15 +56,15 @@ Agents working in `features/*/ba|dev|qc|idg/` must not assume code lives only in
 ### New features (`features/Feature-N/`)
 
 1. **BA Team** works in `features/Feature-N/ba/` — produces BSR docs, React mockups, and mock JSON data
-2. **Dev Team** works in `features/Feature-N/dev/eng/` — reads BA outputs, writes technical design docs, SQL scripts, and production code for that feature increment
-3. **QC Team** works in `features/Feature-N/qc/tst/` — reads BA + Dev, writes test suites
-4. **IDG Team** works in `features/Feature-N/idg/doc/` — reads BA + Dev, writes release notes, context-sensitive help, and manuals
+2. **Dev Team** works from `features/Feature-N/dev/` — reads BA outputs, implements in repo-root **`src/`**; uses `dev/eng/` for SQL scripts and optional `tech-design.md`
+3. **QC Team** works in `features/Feature-N/qc/tst/` — reads BA + Dev + `src/`, writes test suites
+4. **IDG Team** works in `features/Feature-N/idg/doc/` — reads BA + Dev + `src/`, writes release notes, context-sensitive help, online help, and manuals
 
 Each discipline writes exclusively to its own folder. Upstream folders are read-only. Living Context Ledgers (`*_context.md`) ensure every output folder is 100% reproducible.
 
 ### Shipping app (`src/`)
 
-Maintained as the composed, deployable application. Feature work from `features/` is integrated here (routes, shell, shared APIs, etc.) when ready to release. Ongoing fixes and enhancements to already-shipped surfaces also land in `src/` directly.
+Maintained as the deployable application. Dev writes feature implementation directly in `src/` while working from `features/Feature-N/dev/`. Ongoing fixes and enhancements to already-shipped surfaces also land in `src/` directly.
 
 ## Getting Started
 
@@ -95,7 +95,7 @@ Claude reads the combined rules in **`CLAUDE.md`** at repo root.
 
 ## Global Skills
 
-**Source of truth:** [`.ai/skills/`](.ai/skills/) (`write-bsr.md`, `build-mockup.md`, `write-tests.md`, `write-doc.md`).
+**Source of truth:** [`.ai/skills/`](.ai/skills/) (`write-bsr.md`, `build-mockup.md`, `write-tests.md`, `write-doc.md`, `write-tech-design.md`).
 
 **Sync to IDEs:** `npm run sync:skills` → writes Cursor [`.cursor/skills/<name>/SKILL.md`](.cursor/skills/) and Claude [`.claude/skills/<name>/SKILL.md`](.claude/skills/).
 
@@ -104,4 +104,5 @@ Claude reads the combined rules in **`CLAUDE.md`** at repo root.
 | `write-bsr.md` | Standardized Business & System Requirements documents |
 | `build-mockup.md` | BA page mockups with help icons, `data-help-id` anchors, and design-system styling |
 | `write-tests.md` | Standardized test case matrices and automation |
-| `write-doc.md` | Context-sensitive help, manuals, and release notes |
+| `write-doc.md` | Context-sensitive help, online help, manuals, and release notes |
+| `write-tech-design.md` | Technical design documents (`dev/eng/tech-design.md`, explicit ask) |

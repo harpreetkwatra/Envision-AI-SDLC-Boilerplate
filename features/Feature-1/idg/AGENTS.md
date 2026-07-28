@@ -15,7 +15,7 @@ Your write operations are strictly restricted to **this directory** (`.` — the
 
 - You have READ-ONLY permission to inspect the upstream `../ba/` and `../dev/` folders.
 - You MUST read `../ba/req/{FeatureName}BSR.md` to understand functional requirements and user-facing behavior. Also examine `../ba/req/{FeatureName}PageMockup.tsx` and reference `../ba/req/{FeatureName}MockData.json` when those files exist.
-- If `../dev/eng/` is present, read its components and utilities to accurately document implemented behavior, UI labels, workflows, and configuration options. If it is absent or empty, document from BA requirements alone — do not block or invent implementation details.
+- Read repo-root **`src/`** (read-only) for shipped implementation — UI labels, workflows, and configuration. Optionally read `../dev/eng/` for `tech-design.md` and SQL/upgrade scripts when present. If neither exists, document from BA requirements alone — do not block or invent implementation details.
 - Do not look at other features under `../../` unless the user explicitly tags a path with `@`
 - Never write outside this `idg/` tree
 - **Workspace root**: never relocate the agent workspace root to bypass this boundary — see global `system_patterns.mdc` (Workspace root lock). Hand off out-of-boundary work (e.g. `src/` nav wiring) instead.
@@ -76,8 +76,8 @@ The **Help Map Summary** table in `{FeatureName}-csh.md` is the inventory BA and
 
 #### Authoring and sync rules
 
-1. Inventory UI elements from `{FeatureName}PageMockup.tsx` (and Dev `eng/` when present) before writing or updating CSH.
-2. Prefer Dev labels when `eng/` exists; otherwise use BA mockup labels exactly.
+1. Inventory UI elements from `{FeatureName}PageMockup.tsx` and repo-root **`src/`** (when present) before writing or updating CSH.
+2. Prefer Dev labels from **`src/`** when shipped implementation exists; otherwise use BA mockup labels exactly.
 3. When BA or Dev adds/renames a control, add or update the matching CSH topic and Help Map row in the same IDG change; do not leave orphan anchors or silent gaps.
 4. Do **not** invent live API behavior; document validation copy only when present in BA/Dev.
 5. IDG does not edit BA mockups or Dev pages — publish anchors and copy in `./doc/{FeatureName}-csh.md` so BA/Dev can wire help themselves. If wiring work is needed outside `idg/`, hand off (do not break the write boundary).
@@ -147,7 +147,7 @@ Immediately under each `##` or `###` heading:
 
 ## 3. Mandatory Living Context Loop
 
-**The Goal:** The folder `./doc/` must be 100% reproducible from scratch at any moment using only `./doc_context.md` (plus required upstream `../ba/req/` artifacts — especially `{FeatureName}BSR.md` — optional `../dev/eng/` when present, the `write-doc` skill, and global standards it names).
+**The Goal:** The folder `./doc/` must be 100% reproducible from scratch at any moment using only `./doc_context.md` (plus required upstream `../ba/req/` artifacts — especially `{FeatureName}BSR.md` — repo-root **`src/`** implementation, optional `../dev/eng/` when present, the `write-doc` skill, and global standards it names).
 
 `./doc_context.md` has two parts, in this order:
 

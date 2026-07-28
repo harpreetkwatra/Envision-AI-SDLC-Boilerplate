@@ -16,22 +16,20 @@ Two-part ledger for full reproduction of `./eng/` from scratch (plus upstream `.
 ### Feature identity
 
 - Feature folder basename: `Feature-1`
-- Product feature name: TBD (drives `{FeatureName}Page.tsx`, `{FeatureName}Widget.tsx`, `{FeatureName}Utils.ts`)
-- Workspace: `features/Feature-1/dev/` — write only here; technical design, SQL scripts, and production code land in `./eng/`
+- Product feature name: TBD
+- Workspace: `features/Feature-1/dev/` — shipping code in repo-root `src/`; `./eng/` for non-application artifacts
 
 
 
 ### Artifact inventory
 
-*(none —* `./eng/` *is empty)*
+*(none — `./eng/` is empty)*
 
 Expected when implemented (per `AGENTS.md`):
 
-- Technical design docs / notes (as needed)
-- SQL scripts (schema, migrations) as needed
-- `./eng/{FeatureName}Page.tsx` — page / route UI
-- `./eng/{FeatureName}Widget.tsx` — sub-components (as needed)
-- `./eng/{FeatureName}Utils.ts` — logic, converters, API handlers
+- `./eng/tech-design.md` — technical design (explicit ask via `write-tech-design`)
+- SQL / DDL scripts (schema)
+- Data upgrade scripts
 
 
 
@@ -55,19 +53,17 @@ Ground implementation against approved upstream (read-only):
 
 ### Constraints
 
-- Writes: only this `dev/` tree (`./` and `./eng/`)
+- Writes: repo-root `src/` and this `dev/` tree (`./eng/`) — only Dev may persist `src/` changes
 - Reads: upstream `../ba/` only (unless user `@`-tags another feature)
 - Do not write sibling `../ba/`, `../qc/`, or `../idg/`
-- Shared app shell and shipped feature pages live under repo-root `src/` (shipping app); `./eng/` holds pre-release work for this feature increment
-- Production components in `./eng/` connect to real state/APIs as specified; use BA mock data only as a behavioral reference, not as live BA prototypes in `./eng/`
-- When approved, compose `./eng/` into `src/` (routes, shell, shared APIs) — that step is outside this folder’s write boundary unless directed
+- Production application code lives in `src/`; `./eng/` holds DDL, upgrade scripts, and optional `tech-design.md`
 
 
 
 ### Ordered rebuild recipe
 
 1. Confirm product `{FeatureName}` and approved BA artifacts under `../ba/req/`.
-2. Recreate `./eng/` files from this Consolidated Context (inventory + technical design + component/API surface).
+2. Recreate `./eng/` artifacts from this Consolidated Context; implementation lives in `src/` (paths in `tech-design.md` when authored).
 3. Match naming, UX, and data rules from the pinned BSR / mockup / mock data.
 4. *(No source artifacts yet — recipe completes once first implementation ships.)*
 
