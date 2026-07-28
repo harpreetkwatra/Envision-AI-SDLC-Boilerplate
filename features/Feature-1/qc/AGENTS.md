@@ -77,6 +77,7 @@ DTX Portal UI tests require a signed-in Strapi session.
   - `E2E_STRAPI_PASSWORD`
 - Shell-exported values of those variables **win** over `.env` if both exist.
 - Playwright / Node does **not** load `.env` by itself. Specs (or a small helper under `./tst/`) MUST load **only those two keys** from repo-root `.env` when unset — do not require the user to remember PowerShell `$env:...` exports for a normal local run.
+- **Repo root from `./tst/`:** `path.resolve(tstDir, '../../../..')` — not `../../..` (that is only correct from `qc/`). Wrong path → all tests skip with no obvious error.
 - **Never** commit passwords, print secret values in chat/logs, or paste full `.env` contents into artifacts.
 - If UI tests show as **skipped**, first check that the two keys exist in root `.env` and that the spec loads them before reading `process.env`.
 
