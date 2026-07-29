@@ -55,7 +55,7 @@ Write only inside the feature’s `idg/` tree. After every create/update, refres
 | `{FeatureName}Manual.md` | Comprehensive end-user guide: workflows, screenshot references, glossary |
 | `{FeatureName}ReleaseNotes.md` | What's new, changed, fixed, and known issues per release |
 
-CSH **Help text** per topic targets **15 words** and MUST NOT exceed **25 words**. Link to Manual sections when deeper guidance exists. Online Help prose for a control MUST match CSH **Help text** verbatim. BA/Dev may adopt Online Help optionally.
+CSH **Help text** per topic targets **15 words** and MUST NOT exceed **25 words**. Link to Manual sections when deeper guidance exists. Online Help prose for a control may be longer and more elaborate than the matching CSH **Help text**. BA/Dev may adopt Online Help optionally.
 
 ## Document Structures
 
@@ -143,7 +143,7 @@ Every `{FeatureName}OnlineHelp.md` file MUST follow this section order. See `idg
 <!-- anchor: [page anchor] -->
 <!-- csh: CSH-001 -->
 
-[CSH-001 help text verbatim]
+[Help text — may expand CSH-001]
 
 ## Page layout
 <!-- manual: §4.1 -->
@@ -155,7 +155,7 @@ Every `{FeatureName}OnlineHelp.md` file MUST follow this section order. See `idg
 <!-- anchor: … -->
 <!-- csh: CSH-00x -->
 
-[CSH help text verbatim]
+[Help text — may expand matching CSH topic]
 
 ## Table columns
 
@@ -163,13 +163,13 @@ Every `{FeatureName}OnlineHelp.md` file MUST follow this section order. See `idg
 <!-- anchor: … -->
 <!-- csh: CSH-00x -->
 
-[CSH help text verbatim]
+[Help text — may expand matching CSH topic]
 
 ## Pagination
 <!-- anchor: … -->
 <!-- csh: CSH-00x -->
 
-[CSH help text verbatim]
+[Help text — may expand matching CSH topic]
 
 ## Messages
 <!-- csh: CSH-00x -->
@@ -381,7 +381,7 @@ Every `{FeatureName}ReleaseNotes.md` file MUST follow this section order:
 13. All deliverables must ground against BA BSR and Dev `eng/` behavior; call out BA/Dev gaps under **Open Questions**.
 14. After creating or updating any IDG doc, update `idg/doc_context.md` Living Context Loop.
 15. **Online Help**: section order and headings follow `idg/AGENTS.md` §2.2; omit sections not on the page.
-16. **Online Help**: use CSH **Help text** verbatim for controls; Manual §4.1 for layout bullets and Manual §7 for messages only.
+16. **Online Help**: expand CSH **Help text** into longer, more elaborate prose for controls; Manual §4.1 for layout bullets and Manual §7 for messages only.
 17. **Online Help**: update whenever any CSH topic referenced in the drawer body changes. Always author Online Help with the other three standard deliverables on `write-doc`.
 
 ## Workflow Checklist
