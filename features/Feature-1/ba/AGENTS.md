@@ -17,16 +17,22 @@ Your operations are strictly restricted to **this directory** (`.` — the featu
 - Never write outside this `ba/` tree
 - **Workspace root**: never relocate the agent workspace root to bypass this boundary — see global `system_patterns.mdc` (Workspace root lock). Hand off out-of-boundary work (e.g. `src/` nav wiring) instead.
 
+
+
 ## 2. Work Products Output Scope (`req/` — product requirements)
 
 All generative and visual output files MUST be placed exclusively inside `./req/`.
 
 ### Produce only on explicit ask
+
 - `{FeatureName}BSR.md`: Structured functional rules for the feature. Create or update **only** when the user clearly asks for it — e.g. `create bsr`, `update the bsr`, `write bsr.md`, `write the BSR`, or invoke the global skill `write-bsr`.
   - On ordinary mockup, mock-data, or UX vibes: update those artifacts and `req_context.md` as usual; **do not** create, rewrite, or “sync” the BSR.
 
+
+
 ### Produce only when needed
-- `{FeatureName}PageMockup.tsx`: Static layout playground matching `global_standards/design_system.mdc`. Create/update when the user asks for UI/layout work or when a vibe calls for visual exploration. Invoke the global skill **`build-mockup`** when creating or substantially updating mockups.
+
+- `{FeatureName}PageMockup.tsx`: Static layout playground matching `global_standards/design_system.mdc`. Create/update when the user asks for UI/layout work or when a vibe calls for visual exploration. Invoke the global skill `build-mockup` when creating or substantially updating mockups.
 - `{FeatureName}MockData.json`: Isolated static sample data. Create/update when the user asks for sample data or when a vibe calls for concrete payloads. Connect to a live API or database ONLY if asked explicitly.
 - Any other needed files (same rule: only when the vibe calls for them).
 
@@ -36,14 +42,16 @@ Do **not** invent mockups, mock data, or a BSR just to fill `./req/`. Mockup and
 
 Whenever `{FeatureName}PageMockup.tsx` is created or updated, include **information icons** at every help-bearing label and beside the page title. Publish stable `data-help-id` anchors for IDG CSH and Online Help wiring later. Do **not** read or edit `../idg/` — do not mirror or invent CSH/Online Help prose in the mockup phase.
 
-**Until IDG content is wired in**, help copy uses the literal placeholder **`TBD`** for field/column tooltips and the page help drawer body. The page-title action tooltip is **not** `TBD` (see below).
+**Until IDG content is wired in**, help copy uses the literal placeholder `TBD` for field/column tooltips and the page help drawer body. The page-title action tooltip is **not** `TBD` (see below).
 
 #### Page title (always)
 
 - Place `InfoCircleOutlined` immediately to the **right** of the page heading (separate from primary actions like Refresh).
-- Tooltip (exact): **`Click to open online help`**
+- Tooltip (exact): `Click to open online help`
 - `data-help-id`: `{featureCamel}.page` (e.g. `prices.page`)
-- Opens a right-side help drawer whose body will be sourced from IDG `{FeatureName}OnlineHelp.md` when wired; **until then drawer body content is `TBD`** (e.g. `{FeatureName}PageHelpContent.tsx` rendering `TBD` or per-section stubs each showing `TBD`).
+- Opens a right-side help drawer whose body will be sourced from IDG `{FeatureName}OnlineHelp.md` when wired; **until then drawer body content is** `TBD` (e.g. `{FeatureName}PageHelpContent.tsx` rendering `TBD` or per-section stubs each showing `TBD`). Also show an icon on the right side of the slider title for opening the help in a separate tab; it should open without requiring login
+
+
 
 #### Field / column labels (always)
 
@@ -51,12 +59,16 @@ Whenever `{FeatureName}PageMockup.tsx` is created or updated, include **informat
 - **Table/grid headers:** icon sits immediately to the **right of the sort caret** (help control is separate from sort — clicking help must not sort).
 - **Forms / read-only blocks:** icon sits immediately to the right of the label.
 - Each icon exposes `data-help-id` using `{feature}.{element}` (e.g. `prices.col.date`, `prices.refresh`, `prices.search`).
-- **Tooltip text until IDG CSH is wired:** literal **`TBD`**. After wiring, tooltip shows IDG help text for that anchor.
+- **Tooltip text until IDG CSH is wired:** literal `TBD`. After wiring, tooltip shows IDG help text for that anchor.
+
+
 
 #### Cross-discipline contract
 
 - BA publishes anchors + icon placement in the mockup; IDG maps CSH topics and Online Help to those anchors; Dev wires production UI the same way.
 - BA does not edit IDG docs; IDG does not edit BA mockups.
+
+
 
 ## 3. Mandatory Living Context Loop
 
