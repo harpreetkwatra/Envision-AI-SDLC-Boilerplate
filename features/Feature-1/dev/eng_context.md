@@ -28,6 +28,7 @@ Two-part ledger for full reproduction of `./eng/` from scratch (plus upstream `.
 Expected when implemented (per `AGENTS.md`):
 
 - `./eng/tech-design.md` — technical design (explicit ask via `write-tech-design`)
+- `./eng/**/*.test.ts(x)` — Vitest unit tests targeting repo-root `src/` (explicit ask via `write-unit-tests`)
 - SQL / DDL scripts (schema)
 - Data upgrade scripts
 
@@ -56,7 +57,7 @@ Ground implementation against approved upstream (read-only):
 - Writes: repo-root `src/` and this `dev/` tree (`./eng/`) — only Dev may persist `src/` changes
 - Reads: upstream `../ba/` only (unless user `@`-tags another feature)
 - Do not write sibling `../ba/`, `../qc/`, or `../idg/`
-- Production application code lives in `src/`; `./eng/` holds DDL, upgrade scripts, and optional `tech-design.md`
+- Production application code lives in `src/`; `./eng/` holds DDL, upgrade scripts, optional `tech-design.md`, and Vitest unit tests `*.test.ts(x)` (explicit ask)
 
 
 
@@ -69,17 +70,17 @@ Ground implementation against approved upstream (read-only):
 
 ---
 
-
-
 ## Chronological Log
 
+### 2026-07-30 — Dev unit-test workflow documented
 
+- **Intent**: Align living context with repo-wide Vitest setup and `dev/AGENTS.md` §2.2 / §4
+- **State**: No `./eng/**/*.test.ts` yet; repo-root Vitest tooling configured (`npm run test:unit`, `tsconfig.vitest.json`)
+- **Artifact inventory**: unit tests listed as expected under `./eng/` on explicit ask via `write-unit-tests`
 
 ### 2026-07-14 — Initialization
 
 - **Action**: Dev workspace scaffolded per AI-SDLC protocol
 - **State**: Empty `./src/` — awaiting approved BA requirements
 - **Upstream dependency**: `../ba/req/{FeatureName}BSR.md` not yet created
-
-
 

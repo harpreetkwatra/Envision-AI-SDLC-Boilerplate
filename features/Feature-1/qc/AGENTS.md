@@ -14,7 +14,8 @@ Your write operations are strictly restricted to **this directory** (`.` — the
 
 - You have READ-ONLY permission to inspect the entire feature root `../`
 - You MUST read the requirements in `../ba/` — especially the BSR under `../ba/req/` — to drive coverage and edge cases.
-- If `../dev/eng/` exists, read `tech-design.md` and SQL/upgrade scripts when present. **Always** read repo-root `src/` (read-only) for shipped implementation to refine edge cases. If neither exists, proceed from BA requirements alone.
+- If `../dev/eng/` exists, read `tech-design.md`, SQL/upgrade scripts, and Vitest unit tests (`*.test.ts(x)`) when present. **Always** read repo-root `src/` (read-only) for shipped implementation to refine edge cases. If neither exists, proceed from BA requirements alone.
+- `../dev/eng/**/*.test.ts(x)` are **Dev-owned** (read-only for QC) — do not author or edit unit tests here; use `write-qc-tests` for E2E under `./tst/` only
 - If the user `@`-tags another feature, you may READ that feature’s `ba/` and (when present) `dev/` for integration testing only.
 - **Never write** to `../ba/` or `../dev/` — including mockups, mock data, BSR, or implementation code under `eng/`. Those folders are **read-only** for QC.
 - Never write outside this `qc/` tree
@@ -26,16 +27,16 @@ Your write operations are strictly restricted to **this directory** (`.` — the
 
 All testing infrastructure files MUST be placed exclusively inside `./tst/`.
 
-- **Test Cases**: Matrices checking happy paths and explicit boundary failures. Use the global skill `write-tests`.
+- **Test Cases**: Matrices checking happy paths and explicit boundary failures. Use the global skill `write-qc-tests`.
 - **Test Data**: Dynamic payload files (e.g. `{FeatureName}TestData.json`) injected by automation or used as fixtures.
 - **Automation Scripts**: Playwright E2E specs named `*.spec.ts` (e.g. `{FeatureName}.spec.ts`) under `./tst/`.
 - Any other needed files.
 
 
 
-### 2.1 Writing tests (explicit ask — do not run)
+### 2.1 Writing QC tests (explicit ask — do not run)
 
-When the user asks to **write tests**, **create tests**, **author automation**, **write the test suite**, invoke `write-tests`, or similar:
+When the user asks to **write qc tests**, **create qc tests**, **write e2e tests**, **author automation**, **write the test suite**, invoke `write-qc-tests`, or similar:
 
 1. Create or update artifacts under `./tst/` only (matrices, test data, `*.spec.ts`).
 2. Update `./tst_context.md` per the Living Context Loop.
@@ -100,7 +101,7 @@ These rules exist because the suite previously hung for minutes on per-test UI l
 
 ## 4. Mandatory Living Context Loop
 
-**The Goal:** The folder `./tst/` must be 100% reproducible from scratch at any moment using only `./tst_context.md` (plus required upstream `../ba/req/` artifacts, repo-root `src/` implementation, optional `../dev/eng/` when present, the `write-tests` skill, and global standards it names).
+**The Goal:** The folder `./tst/` must be 100% reproducible from scratch at any moment using only `./tst_context.md` (plus required upstream `../ba/req/` artifacts, repo-root `src/` implementation, optional `../dev/eng/` when present, the `write-qc-tests` skill, and global standards it names).
 
 `./tst_context.md` has two parts, in this order:
 

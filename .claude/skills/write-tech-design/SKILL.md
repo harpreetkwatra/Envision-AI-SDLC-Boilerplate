@@ -121,7 +121,8 @@ Shell / theme / layout: [Settings, Cards/Table toggle, etc.]
 
 ## 10. Testing and deployment notes
 
-- **QC**: [Pointers to `../qc/tst/` coverage or gaps]
+- **Dev unit tests**: [Pointers to `./eng/**/*.test.ts(x)` and `src/` modules covered; gaps]
+- **QC E2E**: [Pointers to `../qc/tst/` coverage or gaps]
 - **Manual smoke**: [Key steps]
 - **Deployment / rollout**: [Migration order, feature flags, or N/A]
 

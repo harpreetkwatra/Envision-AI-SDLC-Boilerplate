@@ -4,15 +4,13 @@
 
 ## Product Context
 
-## Vision
-Enterprise application built using the AI-SDLC multi-disciplinary spec-driven development protocol. Business Analysts, Developers, QC engineers, and Information Development Group (IDG) writers collaborate asynchronously within isolated, self-documenting feature folders.
+## Product identity
 
 ## Repository layout
 
 | Tree | Purpose |
 |------|---------|
-| **`src/`** (repo root) | **Shipping app** — the live portal users run today; composed React/Vite application with production routes, API clients, and feature pages. |
-| **`features/Feature-N/`** | **New features in development** — AI-SDLC BA → Dev → QC → IDG workspaces. Dev implements in repo-root **`src/`**; `dev/eng/` holds DDL, upgrades, and `tech-design.md`. |
+| **`features/Feature-N/`** | **New features in development** — AI-SDLC BA → Dev → QC → IDG workspaces. Dev implements in repo-root **`src/`**; `dev/eng/` holds DDL, upgrades, `tech-design.md`, and Vitest unit tests (`*.test.ts`). |
 
 Existing shipped capability lives in `src/` once scaffolded. New capability is specified under `features/` first; Dev writes implementation in `src/`.
 

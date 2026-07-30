@@ -1,6 +1,6 @@
 # QC Living Context Ledger
 
-Two-part ledger for full reproduction of `./tst/` from scratch (plus upstream `../ba/req/`, repo-root **`src/`**, optional `../dev/eng/`, the `write-tests` skill, and global standards named here or in `AGENTS.md`).
+Two-part ledger for full reproduction of `./tst/` from scratch (plus upstream `../ba/req/`, repo-root **`src/`**, optional `../dev/eng/`, the `write-qc-tests` skill, and global standards named here or in `AGENTS.md`).
 
 1. **Consolidated Context** — self-contained, always-current snapshot of everything needed to recreate `./tst/`. Rewrite on every change; do not append. Prefer this section when regenerating the test suite.
 2. **Chronological Log** — append-only history of intents, decisions, and what changed. Use for audit/debug; do not treat it as the rebuild source.
@@ -27,7 +27,7 @@ Two-part ledger for full reproduction of `./tst/` from scratch (plus upstream `.
 
 Expected when authored (per `AGENTS.md`):
 
-- Test case matrices (happy paths + explicit boundary failures) via skill `write-tests`
+- Test case matrices (happy paths + explicit boundary failures) via skill `write-qc-tests`
 - Test data / payloads for pipeline execution
 - Automation scripts (e.g. Playwright or Cypress E2E)
 
@@ -66,7 +66,7 @@ Ground tests against approved upstream (read-only):
 ### Ordered rebuild recipe
 
 1. Confirm product `{FeatureName}` and pinned BA + Dev upstream artifacts.
-2. Recreate `./tst/` from this Consolidated Context (inventory + coverage + test data + automation) using `write-tests` where matrices apply.
+2. Recreate `./tst/` from this Consolidated Context (inventory + coverage + test data + automation) using `write-qc-tests` where matrices apply.
 3. Cover happy paths and explicit boundary failures from BSR; exercise Dev UI/APIs as implemented.
 4. *(No test artifacts yet — recipe completes once first suite ships.)*
 
