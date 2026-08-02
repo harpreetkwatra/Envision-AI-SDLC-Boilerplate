@@ -7,7 +7,9 @@ description: >-
 
 # Write Technical Design
 
-Generate structured technical design documents that describe how a feature was implemented in the shipping app and supporting engineering artifacts.
+Generate structured **Design IID** documents that describe how a feature was implemented in the shipping app and supporting engineering artifacts.
+
+Aligned with ENFS enterprise Design IID layout (e.g. `td-template.pdf`, Design IID 112407): Objects Inventory, Permissions, MIPCO Settings, Brief Technical Description, per-endpoint REST API tables, Impacted Modules.
 
 ## When to Use
 
@@ -21,13 +23,15 @@ Do **not** create or rewrite `tech-design.md` on ordinary coding vibes — imple
 
 Resolve feature identity from the `dev/` folder (see `dev/AGENTS.md`), then READ:
 
-1. `../ba/req/{FeatureName}BSR.md` — functional requirements and FR traceability (when present)
+1. `../ba/req/{FeatureName}BSR.md` — functional requirements, FR/REQ IDs, and IID/ZID reference (when present)
 2. `../ba/req/{FeatureName}PageMockup.tsx` and `{FeatureName}MockData.json` — UI and data expectations (when present)
 3. Repo-root `src/` — actual implementation (pages, hooks, API clients, routes, shell wiring)
 4. `./eng/` — DDL scripts, data upgrade scripts, and other non-application artifacts
 5. `./eng_context.md` — start with **Consolidated Context** before writing
 
 Ground every section in real paths and artifacts. Prefer implemented behavior over BSR when they diverge; note gaps under **Open questions**.
+
+Before writing, decide which tier sections apply — see **Stack-aware section rule** below.
 
 ## Output Location
 
@@ -39,115 +43,205 @@ Write only the technical design file under the feature’s `dev/eng/` tree. Afte
 
 ## Technical Design Document Structure
 
-Every `tech-design.md` MUST follow this exact section order:
+Every `tech-design.md` MUST follow this ENFS Design IID section order. Omit tier-specific sections per **Stack-aware section rule** — do not emit empty enterprise headings.
 
 ```markdown
-# Feature [N]: Technical Design — [Feature Title]
+# Design IID [IID] — [Feature Title]
 
-## 1. Metadata
+Reference: BSR IID [IID] — [BSR title] (`../ba/req/{FeatureName}BSR.md`)
 
-- **Feature ID**: Feature-[N]
-- **Feature name**: [FeatureName]
-- **Status**: Draft | In Review | Approved
-- **Author**: [Engineer name]
-- **Last Updated**: [YYYY-MM-DD]
-- **Upstream**: `{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx` (if any), `{FeatureName}MockData.json` (if any)
-- **Implementation baseline**: [List of repo-root `src/` paths touched]
+## IID Name and Description
 
-## 2. Summary
+| Field | Value |
+|-------|-------|
+| Feature ID | Feature-[N] |
+| Feature name | [FeatureName] |
+| IID / ZID | [From BSR Project Metadata; else N/A] |
+| Status | Draft \| In Review \| Approved |
+| Author | [Engineer name] |
+| Last Updated | YYYY-MM-DD |
+| Upstream | `{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx` (if any), `{FeatureName}MockData.json` (if any) |
+| Implementation baseline | [List of repo-root `src/` and `./eng/` paths touched] |
 
-[2–4 paragraphs: architecture overview, key technical decisions, and how the feature fits the DTX portal shell.]
+[1–2 paragraphs: what the change delivers, where it lives in the app, and key technical decisions.]
 
-## 3. Requirements traceability
+## Change Summary
 
-| FR-ID | BSR requirement | Implementation (`src/` path / module) | Notes |
-|-------|-----------------|--------------------------------------|-------|
-| FR-001 | [Short title] | [Actual `src/` path or module as implemented] | [N/A or gap] |
+### New APIs
 
-## 4. Architecture overview
+- [Endpoint-VERB — one per line; omit subsection when none]
 
-[Component and service relationships; route hash; nav/shell integration; data flow between UI, API tier, and persistence. Optional mermaid or ASCII diagram.]
+### Modified APIs
 
-## 5. Back-end / database (SQL)
+- [Endpoint-VERB — one per line; omit subsection when none]
 
-- **DDL scripts** (in `./eng/`): [filenames and purpose]
-- **Data upgrade scripts** (in `./eng/`): [filenames and purpose]
-- **Schema changes**: tables, columns, indexes, constraints
-- **Rollback / migration order**: [steps or N/A]
+### New Views/Files
 
-## 6. API tier
+- [path/to/new/file — one per line; omit subsection when none]
 
-### Strapi
+### Modified Views/Files
 
-- Content-types / REST endpoints (new or changed)
-- Auth / permissions notes
+- [path/to/modified/file — one per line; omit subsection when none]
 
-### Analytics / envdlt (if applicable)
+## Objects Inventory
 
-- Endpoints, request/response shapes, client modules (paths as implemented)
+### Front End (Web Tier)
 
-### Error handling
+[List every front-end object as an indented folder tree using real paths, e.g. `src` → `pages` → `FeaturePage.tsx`. Include hooks, CSS, and shell wiring under `src/`.]
 
-| Scenario | HTTP / behavior | User-facing message |
-|----------|-----------------|---------------------|
-| [Scenario] | [Code or behavior] | [Message or N/A] |
+### Services and Middle Tier
 
-## 7. Services and shared logic
+[Emit only when `src/api/**` exists for this feature. List objects from controller/API client through service/repository layers using real paths.]
 
-| Module | Path | Responsibility |
-|--------|------|----------------|
-| [Hook / util / provider] | [Actual path under `src/`] | [What it does] |
+### SQL
 
-Cross-feature dependencies: [list or N/A]
+[Emit only when `./eng/` contains DDL/upgrade scripts. List DDL scripts, stored procedures, triggers, ID counters, and data scripts by filename and purpose.]
 
-## 8. UI / page components
+## Permissions
 
-- **Route / entry** (if applicable): [e.g. hash route, URL, or N/A]
-- **Implementation paths**: [List actual `src/` paths — layout is engineer's choice]
+[Emit only when the product has screen/API permission subsystems. Omit entirely for theApp shell features.]
 
-| Component | Path | Role |
-|-----------|------|------|
-| [Page / widget / modal] | [path] | [Purpose] |
+### Screen Permissions
 
-State and data flow: [brief description]
+- [Permission name — feature category — when assigned / behavior]
 
-Shell / theme / layout: [Settings, Cards/Table toggle, etc.]
+### API Permissions
 
-## 9. Configuration and environment
+- [Functional entitlement — endpoint — when required]
 
-| Variable / setting | Purpose | Notes |
-|--------------------|---------|-------|
-| [e.g. `API_STRAPI_URL`] | [Why needed] | [Dev proxy / production] |
+## MIPCO Settings
 
-## 10. Testing and deployment notes
+[Emit only when the product has MIPCO / page-customization subsystems. Omit entirely for theApp shell features.]
 
-- **Dev unit tests**: [Pointers to `./eng/**/*.test.ts(x)` and `src/` modules covered; gaps]
-- **QC E2E**: [Pointers to `../qc/tst/` coverage or gaps]
-- **Manual smoke**: [Key steps]
-- **Deployment / rollout**: [Migration order, feature flags, or N/A]
+### Page Customization Settings
 
-## 11. Open questions
+- [Tab path → setting name → purpose]
+
+### Display Settings
+
+- [Tab path → setting name → purpose]
+
+### Activity and Email Settings
+
+- [Tab path → setting name → purpose]
+
+### Acknowledgement Settings
+
+- [Tab path → setting name → purpose]
+
+## Fund Group Settings
+
+[Emit only when fund-group or tenant settings gate access to the screen/API. Omit when not applicable.]
+
+- [Setting path → flag or value → effect on feature]
+
+## Error codes
+
+[Emit when the feature surfaces coded errors (API tier, SQL, or client validation). Omit when no coded errors exist.]
+
+| Code | Message | Raised by | Notes |
+|------|---------|-----------|-------|
+| [Code or HTTP status] | [User-facing or API message] | [Endpoint, proc, or module] | [When triggered] |
+
+## Brief Technical Description
+
+### FE
+
+[Numbered, imperative implementation steps for the front end. Reference BSR FR/REQ IDs inline. Short payload or state-shape snippets allowed when essential.]
+
+1. [Step — e.g. Add route `#feature` in `navRoutes.ts` and wire sidebar entry (REQ-003).]
+2. [Step — e.g. Load mock data from `{FeatureName}MockData.json` via hook in `src/pages/...`.]
+
+### Service
+
+[Emit only when `src/api/**` exists. Numbered steps for API client modules, DTOs, and middle-tier changes.]
+
+1. [Step — e.g. Add `getFeature()` in `src/api/feature/feature.ts` calling `GET /Feature`.]
+
+### SQL
+
+[Emit only when `./eng/` contains scripts. Numbered steps per script — validation rules, proc behavior, migration order.]
+
+1. [Step — e.g. Update `usp_api_GetFeature` to return new column `EnableFeature`.]
+
+## REST API
+
+[Emit only when `src/api/**` exists for this feature.]
+
+[Flat list of endpoints, one per line:]
+
+- GET /Resource({Key})
+- PUT /Resource
+- POST /Resource
+
+### Exceptions
+
+| Permissions / URL Access | Exception message |
+|--------------------------|-------------------|
+| /Resource({Key})-GET | Unauthorized access. |
+| /Resource-PUT | Unauthorized access. |
+
+### /Resource (GET)
+
+| Field | Value |
+|-------|-------|
+| URI | /Resource({Key}) |
+| Description | [What the API does] |
+| HTTP Methods | GET |
+| Restricted | Yes \| No |
+| Functional Entitlements | [Entitlement name or N/A] |
+| Data Entitlements | [e.g. IsAuthorizedAccount — validation rule] |
+| Stored Procedure(s) | [usp_name or N/A] |
+| Exceptions (Code-Message) | [Unauthorized access. / other messages] |
+
+[Repeat `### /Endpoint (METHOD)` block for every endpoint — one detail table per endpoint; never merge endpoints into a shared table.]
+
+## Impacted Modules
+
+[List modules or products affected beyond this feature — e.g. TA, SA, MEFA, PAWeb, or in-repo areas like `src/app/navRoutes.ts`. Write N/A when the feature is self-contained.]
+
+## Desktop View
+
+Screenshots shall be added after development.
+
+## Open questions
 
 | # | Question | Status | Resolution |
 |---|----------|--------|------------|
 | 1 | [BA/Dev gap, unresolved API behavior] | Open / Resolved | [Answer] |
 
-## 12. Revision history
+## Revision history
 
 | Date | Author | Change Summary |
 |------|--------|----------------|
 | YYYY-MM-DD | [Author] | Initial draft |
 ```
 
+## Stack-aware section rule
+
+Emit only sections that match the implemented stack. Never invent entitlements, stored procedures, or MIPCO paths to fill a section.
+
+| Section | Emit when |
+|---------|-----------|
+| **IID Name and Description**, **Change Summary**, **Objects Inventory → Front End**, **Brief Technical Description → FE**, **Impacted Modules**, **Desktop View**, **Open questions**, **Revision history** | Always |
+| **Objects Inventory → Services and Middle Tier**, **Brief Technical Description → Service**, **REST API** (all subsections), **API Permissions**, **Error codes** (API-sourced) | `src/api/**` exists for this feature |
+| **Objects Inventory → SQL**, **Brief Technical Description → SQL**, **Error codes** (SQL-sourced) | `./eng/` contains DDL or upgrade scripts |
+| **Permissions** (Screen and API), **MIPCO Settings**, **Fund Group Settings** | Product has those subsystems (ENFS host-integrated work) |
+
+**theApp (this repo) defaults:** auth is client-side only (`sessionStorage` key `theapp.session`; any credentials succeed). There is no MIPCO, fund-group settings, or entitlement subsystem — omit **Permissions**, **MIPCO Settings**, and **Fund Group Settings** for typical theApp features. When no API tier exists, omit **REST API** and **Services and Middle Tier**; note "no API tier" in **Change Summary** if relevant.
+
 ## Writing Rules
 
 1. Describe *how* the feature is implemented — ground every section in actual `src/` and `./eng/` artifacts
 2. Reference exact file paths as implemented; **do not prescribe** how `src/` should be organized — document what Dev chose
-3. Link FR-IDs to BSR rows when a BSR exists; mark N/A when requirements were driven by mockup-only iteration
-4. Call out BA vs implemented behavior gaps under **Open questions**
-5. Do not duplicate full source listings — summarize structure and responsibilities
-6. SQL and upgrade scripts belong in `./eng/`; document them in §5 with filenames, not inline dumps unless a short excerpt is essential
-7. After creating or updating `tech-design.md`, update `dev/eng_context.md` Living Context Loop
+3. **Objects Inventory** uses folder-tree form with real paths (e.g. `src` → `pages` → `FeaturePage.tsx`), matching ENFS Design IID Web Tier listings
+4. **Brief Technical Description** is numbered, imperative, and step-wise per tier; reference BSR FR/REQ IDs inline (replaces a separate traceability table)
+5. Call out BA vs implemented behavior gaps under **Open questions**
+6. Do not duplicate full source listings — summarize structure and responsibilities; keep snippets to essential payload shapes only
+7. SQL and upgrade scripts belong in `./eng/`; document them in **Objects Inventory → SQL** and **Brief Technical Description → SQL** with filenames, not inline dumps unless a short excerpt is essential
+8. **REST API**: one detail table per endpoint — never merge endpoints into a shared table
+9. **Desktop View**: use placeholder text until screenshots exist ("Screenshots shall be added after development")
+10. After creating or updating `tech-design.md`, update `dev/eng_context.md` Living Context Loop
 
 ## Workflow Checklist
 
@@ -155,9 +249,12 @@ Shell / theme / layout: [Settings, Cards/Table toggle, etc.]
 Task Progress:
 - [ ] Resolve FeatureName from dev/ parent folder
 - [ ] Read eng_context.md Consolidated Context
-- [ ] Read BA BSR (+ mockup / mock data if present)
+- [ ] Read BA BSR (+ mockup / mock data if present); note IID/ZID and BSR title for Reference line
 - [ ] Inspect repo-root src/ for implemented pages, APIs, routes
 - [ ] Inspect ./eng/ for DDL and upgrade scripts
+- [ ] Decide which tier sections apply (stack-aware section rule)
+- [ ] Build Change Summary (new vs modified APIs and files)
+- [ ] Enumerate REST endpoints for per-endpoint detail tables (when API tier exists)
 - [ ] Create or update eng/tech-design.md using the Technical Design Document Structure above
 - [ ] Rewrite eng_context.md Consolidated Context
 - [ ] Append Chronological Log entry (date and time)
