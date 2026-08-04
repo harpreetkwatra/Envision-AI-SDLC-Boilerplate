@@ -51,8 +51,8 @@ Write only inside the feature’s `idg/` tree. After every create/update, refres
 | Artifact | Purpose |
 |----------|---------|
 | `{FeatureName}-csh.md` | Short, keyed topics for a specific page, dialog, control, or field (tooltips, help icons, F1 panes) |
-| `{FeatureName}OnlineHelp.md` | Pre-composed page help drawer / slider body and open-in-new-tab content; assembled from CSH + Manual §4 |
-| `{FeatureName}Manual.md` | Comprehensive end-user guide: workflows, screenshot references, glossary |
+| `{FeatureName}OnlineHelp.md` | Pre-composed page help drawer / slider body and open-in-new-tab content; assembled from CSH + Manual **Screen elements** (layout summary) |
+| `{FeatureName}Manual.md` | Comprehensive end-user guide: ENFS-style screen documentation, screenshot references, glossary |
 | `{FeatureName}ReleaseNotes.md` | What's new, changed, fixed, and known issues per release |
 
 CSH **Help text** per topic targets **15 words** and MUST NOT exceed **25 words**. Link to Manual sections when deeper guidance exists. Online Help prose for a control may be longer and more elaborate than the matching CSH **Help text**. BA/Dev may adopt Online Help optionally.
@@ -80,7 +80,7 @@ Every `{FeatureName}-csh.md` file MUST follow this section order:
 
 | CSH-ID | UI surface | Trigger / control | Error state | Topic title | Manual ref |
 |--------|------------|-------------------|-------------|-------------|------------|
-| CSH-001 | [Page / dialog] | [Control or field] | [Validation / failure help, or N/A] | [Short title] | [Manual §x.x or N/A] |
+| CSH-001 | [Page / dialog] | [Control or field] | [Validation / failure help, or N/A] | [Short title] | [[Screen name] screen / Messages and validation / N/A] |
 
 ## 3. Topics
 
@@ -102,7 +102,7 @@ Every `{FeatureName}-csh.md` file MUST follow this section order:
 
 **See also**
 
-- [Manual §5.2, CSH-00x, or N/A]
+- [[Screen name] screen, Messages and validation, CSH-00x, or N/A]
 
 ### CSH-002: [Topic title]
 
@@ -146,7 +146,7 @@ Every `{FeatureName}OnlineHelp.md` file MUST follow this section order. See `idg
 [Help text — may expand CSH-001]
 
 ## Page layout
-<!-- manual: §4.1 -->
+<!-- manual: Screen elements (layout summary) -->
 
 - **Toolbar** — …
 - …
@@ -192,115 +192,164 @@ Every `{FeatureName}OnlineHelp.md` file MUST follow this section order. See `idg
 
 ### User Manual Document Structure
 
-Every `{FeatureName}Manual.md` file MUST follow this section order:
+Every `{FeatureName}Manual.md` file MUST follow this section order. Structure and prose style follow the ENFS product manual pattern (e.g. Internet Portal Product Manual): screen-centric sections with Navigation, Security permissions, Pre-requisites, and prose-first control descriptions.
 
 ```markdown
-# Feature [N]: [Feature Title] — User Manual
+# [Product Name] — [Feature Title] User Manual
 
-## 1. Metadata
+## Document information
 
 - **Feature ID**: Feature-[N]
 - **Feature name**: [FeatureName]
-- **Product**: [Product name]
+- **Product**: [Product name — e.g. PowerAgent IRIS Transmitter]
+- **Version / build**: [e.g. 1.0.0 or TBD]
 - **Status**: Draft | In Review | Approved
-- **Audience**: [e.g. Operations / transfer-agent ops]
 - **Last Updated**: [YYYY-MM-DD]
 - **Upstream**: `{FeatureName}BSR.md`, `{FeatureName}PageMockup.tsx` (if any), `{FeatureName}-csh.md`, `dev/eng/`
 
-## 2. Introduction
+## About This Document
 
-### 2.1 Purpose
+[One paragraph: what this document covers — screens, workflows, and setup prerequisites for this feature.]
 
-[One paragraph: what this feature lets the user do and why it matters.]
+## Who Should Read This Document
 
-### 2.2 Who should use this guide
+This document is intended for the following audience:
 
-[Personas and roles.]
+- [Persona / role — e.g. Operations staff]
+- [Another persona — or omit if single audience]
 
-### 2.3 Prerequisites
+## Other Documents of Interest
 
-- Signed in to the application ([authentication prerequisites])
-- [Permissions, data setup, or other prerequisites — or N/A]
+Refer to the following document(s) for related information:
 
-## 3. Accessing the feature
+- `{FeatureName}BSR.md` — requirements and acceptance criteria
+- `{FeatureName}-csh.md` — context-sensitive help topics
+- `{FeatureName}OnlineHelp.md` — page help drawer content
+- [Other product manuals, PowerAgent Online Help topics, or N/A]
 
-- **Navigation**: [Left rail icon / menu label]
-- **Route**: `#[route-hash]` (e.g. `#tokens`)
-- **Breadcrumb**: [Label as shown in shell]
-- **Notes**: [Shell or theme notes if relevant — or N/A]
+## After Reading This Document
 
-## 4. Screen overview
+Envision welcomes your comments and suggestions on the quality and usefulness of this document. Please feel free to share your input with the documentation team by sending an email to documentation@enfs.com.
 
-### 4.1 Layout
+## Introduction
 
-[Cards vs Table toggle, default layout, Settings → Layout if applicable.]
+### What is [Feature Name]?
 
-### 4.2 Toolbar and primary actions
+[One paragraph: what the feature is and what it lets the user do.]
 
-| Action | Control label | Description |
-|--------|---------------|-------------|
-| Refresh | [Label] | [What it does] |
-| [Add / Create] | [Label] | [What it does] |
+The feature includes:
 
-### 4.3 List / main content
+- [Capability bullet — mirror BSR user-visible outcomes]
+- [Another capability]
+- …
 
-[Columns, cards, sort, filter, pagination — mirror Dev UI labels.]
+### User interface notes
 
-![Figure 4.1: [Screen name]](screenshots/[filename].png)
+[Optional — responsive design, click/tap convention, theme notes. Omit this subsection if N/A.]
 
-## 5. Workflows
+Note: Throughout this manual, only the click action is mentioned for simplicity.
 
-### 5.1 [Workflow title — e.g. View the list]
+## Application setup
 
-**Goal**: [One line.]
+[Optional — include only when the BSR documents admin or PowerAgent configuration prerequisites. Omit this entire section if N/A.]
 
-**Related FR**: [FR-00x or N/A]
+### Introduction
 
-1. [Numbered step using exact UI labels.]
+[One paragraph: who performs setup and what modules are involved.]
+
+### [Setup topic — e.g. PowerAgent permissions]
+
+[Prose or table describing modules, permissions, and configuration steps. Reference PowerAgent Online Help for detail.]
+
+Note: Refer to the PowerAgent Online Help for more details on these setup tasks.
+
+## User steps and screens
+
+### Introduction
+
+[One paragraph: this section explains the screens and user tasks for [Feature Name].]
+
+### [Screen name — exact UI label]
+
+[Overview paragraph: purpose, who can access, and landing behavior if applicable.]
+
+#### Navigation
+
+[Product Name] -> [Menu path — e.g. IRIS A2A Transmit]
+
+#### Security permissions
+
+- [Permission name — or N/A]
+- …
+
+#### Pre-requisites
+
+- [Prerequisite — e.g. signed in, fund group selected]
+- …
+
+Or: None.
+
+#### Customization
+
+[Optional — admin customization options. Omit if N/A.]
+
+- Menu Option Customization: …
+- Page Customization for Header/Footer: …
+
+Note: Refer to the PowerAgent Online Help topic [topic name] for more details on these customizations.
+
+#### Screen elements
+
+[Prose-first descriptions of fields, controls, columns, and regions. Use exact UI labels.]
+
+- **[Control or field label]** — [What it does, valid input, and behavior]. For more details, refer to the [Related section] section. (CSH-00x)
+- **[Column or region name]** — [Description].
+- …
+
+[Embed numbered workflow steps here when the screen involves a multi-step task:]
+
+1. [Step using exact UI labels.]
 2. [Next step.]
 
-![Figure 5.1: [Workflow step]](screenshots/[filename].png)
+#### Notes
 
-### 5.2 [Workflow title — e.g. Create a new record]
+- [Behavioral caveat, permission interaction, or validation note.]
+- …
 
-**Goal**: [One line.]
+![Figure: [Screen name]](screenshots/[filename].png)
 
-**Related FR**: [FR-00x or N/A]
+### [Next screen or sub-task — e.g. Retrieve User Name]
 
-1. [Numbered step.]
-2. [Next step.]
+[Repeat per-screen subsections: Overview prose, Navigation, Security permissions, Pre-requisites, Customization (optional), Screen elements, Notes, Figure.]
 
-## 6. Fields and controls
-
-| Label | Control type | Required | Description | CSH-ID |
-|-------|--------------|----------|-------------|--------|
-| [Field label] | [Text / Select / Toggle / …] | Yes / No | [User-facing description] | [CSH-00x or N/A] |
-
-## 7. Messages and troubleshooting
+## Messages and validation
 
 | Situation | Message or behavior | What to do |
 |-----------|---------------------|------------|
 | [Empty list] | [Message] | [User action] |
 | [Validation error] | [Exact message] | [Correction] |
 
-## 8. Glossary
+## Glossary
 
 | Term | Definition |
 |------|------------|
 | [Term] | [Plain-language definition] |
 
-## 9. Related documentation
+[Omit this section if no domain terms need definition.]
+
+## Related documentation
 
 - Context-sensitive help: `{FeatureName}-csh.md`
+- Online help: `{FeatureName}OnlineHelp.md`
 - Requirements: `{FeatureName}BSR.md` (FR references as needed)
 
-## 10. Open Questions
+## Open Questions
 
 | # | Question | Status | Resolution |
 |---|----------|--------|------------|
 | 1 | [BA/Dev gap, missing screenshot, unclear workflow] | Open / Resolved | [Answer] |
 
-## 11. Revision History
+## Revision History
 
 | Date | Author | Change Summary |
 |------|--------|----------------|
@@ -373,16 +422,18 @@ Every `{FeatureName}ReleaseNotes.md` file MUST follow this section order:
 5. Help text is user-facing only — what the control does, valid input, and what happens on error — not API or storage details.
 6. Mirror exact UI labels from Dev (button text, column headers, validation wording).
 7. Cover required fields, primary actions, and BSR edge cases that surface in the UI.
-8. Do not duplicate the full User Manual in CSH; keep CSH short and link out using `Manual §x.x` and `CSH-00x` cross-refs.
-9. **Manual**: use task-oriented numbered steps; one workflow section (§5.x) per major user goal from BSR user stories; do not paste full CSH text — link by CSH-ID or Manual section.
-10. **Manual**: screenshot placeholders are optional at draft time; use `![Figure x.x: …](screenshots/…)` when figures are available.
-11. **Release notes**: user-facing language only; group items under New / Changed / Fixed; no implementation detail.
-12. **Release notes**: if nothing has shipped yet, set status **Draft** and version **TBD**.
-13. All deliverables must ground against BA BSR and Dev `eng/` behavior; call out BA/Dev gaps under **Open Questions**.
-14. After creating or updating any IDG doc, update `idg/doc_context.md` Living Context Loop.
-15. **Online Help**: section order and headings follow `idg/AGENTS.md` §2.2; omit sections not on the page.
-16. **Online Help**: expand CSH **Help text** into longer, more elaborate prose for controls; Manual §4.1 for layout bullets and Manual §7 for messages only.
-17. **Online Help**: update whenever any CSH topic referenced in the drawer body changes. Always author Online Help with the other three standard deliverables on `write-doc`.
+8. Do not duplicate the full User Manual in CSH; keep CSH short and link out using screen section names (e.g. `[Screen name] screen`), **Messages and validation**, and `CSH-00x` cross-refs.
+9. **Manual**: organize by screen under **User steps and screens**; embed numbered workflow steps inside the relevant screen subsection; do not paste full CSH text — link by CSH-ID or screen section name.
+10. **Manual**: screenshot placeholders are optional at draft time; use `![Figure: …](screenshots/…)` when figures are available.
+11. **Manual authoring style**: mirror ENFS product manual prose — screen labels match Dev UI exactly; prefer prose/bullet **Screen elements** over field tables (reserve tables for Messages, Glossary, and Application setup); use **Navigation / Security permissions / Pre-requisites / Customization** labels consistently; cross-reference by section name (“refer to the [Section] section”); use `Note:` for admin/customization pointers; omit optional sections rather than padding with N/A placeholders.
+12. **Release notes**: user-facing language only; group items under New / Changed / Fixed; no implementation detail.
+13. **Release notes**: if nothing has shipped yet, set status **Draft** and version **TBD**.
+14. All deliverables must ground against BA BSR and Dev `eng/` behavior; call out BA/Dev gaps under **Open Questions**.
+15. After creating or updating any IDG doc, update `idg/doc_context.md` Living Context Loop.
+16. **Online Help**: section order and headings follow `idg/AGENTS.md` §2.2; omit sections not on the page.
+17. **Online Help**: expand CSH **Help text** into longer, more elaborate prose for controls; layout bullets from Manual **Screen elements** (opening region summary for the page); message bullets from Manual **Messages and validation** and CSH error topics.
+18. **Online Help — AGENTS.md compatibility**: `idg/AGENTS.md` §2.2 still references “Manual §4.1” and “Manual §7”. Map those to Manual **Screen elements** (layout summary) and **Messages and validation** respectively when authoring Online Help — do not edit AGENTS.md.
+19. **Online Help**: update whenever any CSH topic referenced in the drawer body changes. Always author Online Help with the other three standard deliverables on `write-doc`.
 
 ## Workflow Checklist
 

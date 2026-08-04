@@ -26,20 +26,6 @@ Every BSR MUST follow this ENFS section order. Omit optional sections per **Stac
 
 ## Business and System Requirements
 
-## Statement of Intellectual Property
-
-> All Envision Financial Systems materials are the intellectual property of Envision Financial Systems, Inc. and are provided as a service to its customers and may be used for informational and educational purposes only. You may not copy, reproduce, distribute, publish, display, modify, create derivative works, transmit, or in any way exploit any part of this service, without the prior written consent from Envision Financial Systems, Inc.
->
-> Whereas this document is designed to be as complete as possible, screens and descriptions may be changed where necessary for completion of the project.
-
-## Disclaimers
-
-> This document is expected to capture all requirements agreed upon with Client till date. Therefore, Client sign-off on this document is required. The traceability of requirements is from the Initial Analysis and Estimation (IAE) authorized by Client and not from the Change Request (CR) or Client Requirement Document (CRD). Signing-off on this document shall override the requirements specified in CR or CRD.
->
-> By signing this document, Client acknowledges their responsibility to complete user acceptance testing and report any issues or defects, in writing, to Envision within 30 days of delivery. After this period, the project will be designated as accepted by the client. Any reported issues or defects will be construed as a Change Request to be managed outside of the initial scope and pricing.
->
-> The system modifications we are making (or have made) are based on the requirements, capacities, and parameters you have provided. Any requirements or other factors not expressed or known at the time of development have not been considered. Envision does not warrant that the system modifications will perform the same should your requirements, capacities or parameters change.
-
 ## Revision History
 
 | Ver# | Date | Change Description | Author(s) | Sign-Off |
