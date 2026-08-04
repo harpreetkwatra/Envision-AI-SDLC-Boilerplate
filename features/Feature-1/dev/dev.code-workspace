@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {
+      "name": "Dev",
+      "path": "."
+    },
+    {
+      "name": "Shipping (src)",
+      "path": "../../../src"
+    },
+    {
+      "name": "BA Requirements",
+      "path": "../ba"
+    }
+  ]
+}

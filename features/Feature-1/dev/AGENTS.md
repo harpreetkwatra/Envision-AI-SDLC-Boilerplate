@@ -95,7 +95,7 @@ Create or update `./eng/**/*.test.ts(x)` **only** when the user clearly asks —
 **Persistence:** After every change to `src/`, `./eng/`, `tech-design.md`, or unit tests:
 
 1. Update **Consolidated Context** so it fully describes the current `./eng/` (including `./eng/**/*.test.ts(x)` and the `src/` modules they cover) and summarizes relevant `src/` paths for this feature.
-2. Append one entry under **Chronological Log**.
+2. Append one entry under **Chronological Log**. Skipping the Chronological Log because a `src/` change is unrelated to this feature is **never** permitted.
 
 ## 4. Running unit tests (explicit ask only)
 
